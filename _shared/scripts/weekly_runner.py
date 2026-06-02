@@ -28,6 +28,8 @@ REGISTRY_PATH = Path("/workspace/knowledge-base/_shared/registry.json")
 
 # 9 个项目 repo 映射
 REPO_MAP = {
+    "nanoclaw":        "nanocoai/nanoclaw",
+    "zeroclaw":        "zeroclaw-labs/zeroclaw",
     "swarm":        "openai/swarm",
     "pilotdeck":     "OpenBMB/PilotDeck",
     "openclaw":      "openclaw/openclaw",
