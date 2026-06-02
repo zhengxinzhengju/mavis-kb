@@ -1,0 +1,106 @@
+{
+  "$schema": "Mavis project schema v1.0",
+  "project": {
+    "id": "deer-flow",
+    "name": "DeerFlow",
+    "tagline": "Deep Exploration and Efficient Research Flow - 字节跳动开源的长时程 SuperAgent 框架",
+    "category": "Super Agent Framework",
+    "vendor": "ByteDance (字节跳动)",
+    "co_developers": [
+      "字节跳动技术团队",
+      "LangChain/LangGraph 生态"
+    ],
+    "license": "Apache-2.0",
+    "official_site": "https://deerflow.tech",
+    "github_repo": "https://github.com/bytedance/deer-flow",
+    "tracked_since": "2026-06-02"
+  },
+  "tracking": {
+    "weekly_report": {
+      "cadence": "every Monday 08:00 (Asia/Shanghai)",
+      "cron_expr": "0 8 * * 1",
+      "deliver_to": "feishu-webhook",
+      "enabled": true,
+      "feishu_configured": true,
+      "cron_task_id": "404740690899267"
+    },
+    "monthly_report": {
+      "cadence": "last day of each month 08:00 (Asia/Shanghai)",
+      "cron_expr": "0 8 28-31 * *",
+      "focus": "Super Agent Framework 项目动态",
+      "deliver_to": "feishu-webhook",
+      "enabled": true,
+      "feishu_configured": true,
+      "cron_task_id": "404738977693766"
+    },
+    "feishu": {
+      "webhook_url": "https://open.feishu.cn/open-apis/bot/v2/hook/aa69fc60-7444-4815-8d96-a47a73771491",
+      "secret": "isedQudmIN5YqGyeasvoud",
+      "signed": true
+    }
+  },
+  "competitors": {
+    "tier1_ids": [
+      "openclaw",
+      "pilotdeck",
+      "hermes-agent",
+      "openhuman",
+      "qwenpaw"
+    ],
+    "tier2_ids": [
+      "langgraph",
+      "crewai",
+      "claude-agent-sdk",
+      "openai-agents-sdk"
+    ]
+  },
+  "monitoring_priorities": {
+    "high": [
+      "社区热度 (月增 31K stars)",
+      "v2.x 重大版本演进",
+      "字节跳动内部资源投入"
+    ],
+    "medium": [
+      "Skills 生态扩张",
+      "Sub-Agent 稳定性",
+      "MCP 集成"
+    ],
+    "low": [
+      "Issues 关闭率"
+    ]
+  },
+  "key_features": [
+    "LangGraph 1.0 + LangChain 重构 v2.0",
+    "Lead Agent + Sub-Agent 动态生成与并行执行",
+    "Docker 沙箱隔离 (AioSandboxProvider/Local/K8s)",
+    "Markdown Skills 系统 (npx skills add)",
+    "11 层中间件链",
+    "分层记忆: Thread Memory + Context Summarization + External Storage",
+    "断点续跑 (Checkpoint & Resume)",
+    "多 IM 接入: Telegram/Slack/飞书/钉钉"
+  ],
+  "framework_v1_compliance": {
+    "version": "1.0",
+    "created_at": "2026-06-02T02:17:17+08:00",
+    "bulk_init": true
+  },
+  "last_data_refresh": "2026-06-02T02:17:17+08:00",
+  "last_github_data": {
+    "stargazers_count": 70229,
+    "forks_count": 9482,
+    "open_issues_count": 922,
+    "watchers_count": 70229,
+    "language": "Python",
+    "size": 36984,
+    "pushed_at": "2026-06-02T02:03:29Z",
+    "updated_at": "2026-06-02T06:10:08Z",
+    "license": "MIT"
+  },
+  "last_snapshot_at": "2026-06-02",
+  "last_weekly_report": "2026-W23",
+  "deployment": {
+    "kb_website": "https://zhengxinzhengju.github.io/mavis-kb/",
+    "kb_website_alt": "https://9islasxosjex.space.minimaxi.com",
+    "project_page": "https://zhengxinzhengju.github.io/mavis-kb/project-deer-flow.html"
+  }
+}
