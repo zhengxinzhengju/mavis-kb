@@ -1,0 +1,102 @@
+{
+  "$schema": "Mavis project schema v1.0",
+  "project": {
+    "id": "openclaw",
+    "name": "OpenClaw",
+    "tagline": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞",
+    "category": "Local-First AI Agent",
+    "vendor": "NousResearch (Peter Steinberger)",
+    "co_developers": [
+      "Peter Steinberger (@steipete)",
+      "@vincentkoc",
+      "@shakkernerd",
+      "社区贡献者"
+    ],
+    "license": "Other (NOASSERTION, custom)",
+    "official_site": "https://openclaw.ai",
+    "github_repo": "https://github.com/openclaw/openclaw",
+    "created_at": "2025-11-24",
+    "tracked_since": "2026-06-02"
+  },
+  "tracking": {
+    "weekly_report": {
+      "cadence": "every Monday 08:00 (Asia/Shanghai)",
+      "cron_expr": "0 8 * * 1",
+      "cron_task_id": "404572285354876",
+      "deliver_to": "feishu-webhook",
+      "enabled": true,
+      "feishu_configured": true
+    },
+    "monthly_report": {
+      "cadence": "last day of each month 08:00 (Asia/Shanghai)",
+      "cron_expr": "0 8 28-31 * *",
+      "cron_task_id": "404574797529385",
+      "focus": "社区健康度 + 安全事件 + 工程化进展",
+      "deliver_to": "feishu-webhook",
+      "enabled": true,
+      "feishu_configured": true
+    },
+    "feishu": {
+      "webhook_url": "https://open.feishu.cn/open-apis/bot/v2/hook/aa69fc60-7444-4815-8d96-a47a73771491",
+      "secret": "isedQudmIN5YqGyeasvoud",
+      "signed": true
+    }
+  },
+  "competitors": {
+    "tier1_ids": [
+      "claude-cowork",
+      "skywork",
+      "bitfun-cowork",
+      "pilotdeck"
+    ],
+    "tier2_ids": [
+      "langgraph",
+      "crewai",
+      "claude-agent-sdk",
+      "openai-agents-sdk"
+    ],
+    "tier3_ids": [
+      "qclaw",
+      "minimax-agent-desktop"
+    ]
+  },
+  "monitoring_priorities": {
+    "high": [
+      "安全漏洞 (CVE/ClawJacked 系列)",
+      "release 节奏 (日均 4+)",
+      "核心 maintainer 动态 (steipete)"
+    ],
+    "medium": [
+      "Skils 生态扩张",
+      "新模型集成 (默认模型切换)",
+      "国内衍生版本 (QClaw)"
+    ],
+    "low": [
+      "Issues 关闭率",
+      "新 contributors 增长"
+    ]
+  },
+  "framework_v1_compliance": {
+    "version": "1.0",
+    "created_at": "2026-06-02T09:50:00+08:00"
+  },
+  "last_github_data": {
+    "stargazers_count": 376111,
+    "forks_count": 78557,
+    "open_issues_count": 7067,
+    "watchers_count": 376111,
+    "language": "TypeScript",
+    "size": 1495493,
+    "pushed_at": "2026-06-02T06:10:27Z",
+    "updated_at": "2026-06-02T06:09:37Z",
+    "license": "NOASSERTION"
+  },
+  "last_data_refresh": "2026-06-02T10:05:00+08:00",
+  "last_snapshot_at": "2026-06-02",
+  "last_weekly_report": "2026-W23",
+  "deployment": {
+    "kb_website": "https://zhengxinzhengju.github.io/mavis-kb/",
+    "kb_website_alt": "https://9islasxosjex.space.minimaxi.com",
+    "project_page": "https://zhengxinzhengju.github.io/mavis-kb/project-openclaw.html"
+  }
+}
