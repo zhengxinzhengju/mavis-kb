@@ -57,7 +57,7 @@ python3 /workspace/knowledge-base/_index/scripts/git_api_push.py
 - 本地: `/workspace/knowledge-base/projects/deer-flow/`
 - Drive: 通过 weekly_runner 上传 deliver-assets
 - 飞书: 每周一推送（项目配置 feishu.webhook_url 后）
-- 网站: https://zhengxinzhengju.github.io/mavis-kb/（需密码 chinaunicom10010）
+- 网站: （已脱敏，请私下联系获取）
 
 ## 最近一次更新
 
