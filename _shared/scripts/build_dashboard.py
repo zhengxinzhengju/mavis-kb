@@ -233,10 +233,60 @@ def build_dashboard_html(dash: dict) -> str:
 
 
 def main():
-    if not DASH.exists():
-        print("❌ dashboard.json 不存在，先跑 weekly_runner")
-        return 1
-    dash = json.loads(DASH.read_text(encoding="utf-8"))
+    # 扫描所有项目顶层目录 (自动发现新加的项目)
+    KB = Path("/workspace/knowledge-base")
+    projects_data = []
+    for proj_dir in sorted(KB.iterdir()):
+        if not proj_dir.is_dir() or proj_dir.name.startswith("_"):
+            continue
+        idx = proj_dir / "index.json"
+        if not idx.exists():
+            continue
+        try:
+            data = json.loads(idx.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        gh = data.get("last_github_data") or {}
+        if not gh:
+            continue
+        projects_data.append({
+            "id": proj_dir.name,
+            "name": data.get("project", {}).get("name", proj_dir.name),
+            "tagline": data.get("project", {}).get("tagline", "")[:60],
+            "stars": gh.get("stargazers_count") or 0,
+            "forks": gh.get("forks_count") or 0,
+            "issues": gh.get("open_issues_count") or 0,
+            "language": gh.get("language") or "—",
+            "license": gh.get("license") or "—",
+            "pushed": (gh.get("pushed_at") or "")[:10],
+            "size_mb": (gh.get("size") or 0) / 1024,
+        })
+    # 按 stars 降序
+    projects_data.sort(key=lambda p: -p["stars"])
+
+    # 统计
+    total_stars = sum(p["stars"] for p in projects_data)
+    total_forks = sum(p["forks"] for p in projects_data)
+    total_issues = sum(p["issues"] for p in projects_data)
+    total_size = sum(p["size_mb"] for p in projects_data)
+
+    dash = {
+        "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M CST"),
+        "totals": {
+            "stars": total_stars,
+            "forks": total_forks,
+            "issues": total_issues,
+            "size_mb": round(total_size, 1),
+            "projects": len(projects_data),
+        },
+        "projects": projects_data,
+    }
+
+    # 保存 dashboard.json
+    DASH.write_text(json.dumps(dash, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"📊 扫描到 {len(projects_data)} 个项目, 总 Stars {total_stars:,}")
+
+    # 生成 HTML
     html = build_dashboard_html(dash)
     SITE.mkdir(parents=True, exist_ok=True)
     (SITE / "dashboard.html").write_text(html, encoding="utf-8")
