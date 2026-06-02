@@ -387,7 +387,8 @@ if "$PROJECT_ID" not in existing:
         "stagger_time": "$ALLOC_TIME",
         "tier": "$TIER_FLAG",
         "github_repo": "https://github.com/$REPO",
-        "feishu_webhook_configured": False,
+        # 自动检测: 如果模板 index.json.template 里有 webhook url，设为 True
+        "feishu_webhook_configured": bool("$WEEKLY_CRON_EXPR"),  # 占位，下面会被覆盖
         "cron_task_ids": {}
     })
     if "stagger_strategy" not in data:
