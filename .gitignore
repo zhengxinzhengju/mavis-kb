@@ -1,0 +1,9 @@
+# 不要把缓存、生成产物、历史推送文件推到 GitHub
+_cache/
+_shared/_site/
+_shared/dashboard.json.tmp
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+*.swp
