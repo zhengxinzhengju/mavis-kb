@@ -1,0 +1,96 @@
+{
+  "$schema": "Mavis project schema v1.0",
+  "project": {
+    "id": "harness",
+    "name": "Harness",
+    "tagline": "Open Source DevOps Platform (原 Gitness) - Drone 团队打造的 All-in-One 平台",
+    "category": "DevOps Platform",
+    "vendor": "Harness Inc. (Jyoti Bansal)",
+    "co_developers": [
+      "Drone 团队 (原 Gitness)"
+    ],
+    "license": "Apache-2.0",
+    "official_site": "https://harness.io (商业) / https://github.com/harness/harness (开源)",
+    "github_repo": "https://github.com/harness/harness",
+    "tracked_since": "2026-06-02"
+  },
+  "tracking": {
+    "weekly_report": {
+      "cadence": "every Monday 08:00 (Asia/Shanghai)",
+      "cron_expr": "0 8 * * 1",
+      "deliver_to": "feishu-webhook",
+      "enabled": true,
+      "feishu_configured": true,
+      "cron_task_id": "404738977693769"
+    },
+    "monthly_report": {
+      "cadence": "last day of each month 08:00 (Asia/Shanghai)",
+      "cron_expr": "0 8 28-31 * *",
+      "focus": "DevOps Platform 项目动态",
+      "deliver_to": "feishu-webhook",
+      "enabled": true,
+      "feishu_configured": true,
+      "cron_task_id": "404740690899270"
+    },
+    "feishu": {
+      "webhook_url": "https://open.feishu.cn/open-apis/bot/v2/hook/aa69fc60-7444-4815-8d96-a47a73771491",
+      "secret": "isedQudmIN5YqGyeasvoud",
+      "signed": true
+    }
+  },
+  "competitors": {
+    "tier1_ids": [],
+    "tier2_ids": [
+      "gitea",
+      "woodpecker-ci"
+    ]
+  },
+  "monitoring_priorities": {
+    "high": [
+      "社区采纳度",
+      "Harness 商业版与开源版功能差异"
+    ],
+    "medium": [
+      "CI/CD 性能",
+      "Gitspaces 体验",
+      "Artifact Registry 兼容性"
+    ],
+    "low": [
+      "Git 性能",
+      "Web UI 体验"
+    ]
+  },
+  "key_features": [
+    "源码托管 (Git SCM)",
+    "CI/CD 流水线",
+    "Gitspaces (托管开发环境, 类 Vercel 预览)",
+    "Artifact Registry (制品注册表)",
+    "API + CLI 驱动",
+    "Docker 一键启动",
+    "Drone 的超级进化版"
+  ],
+  "framework_v1_compliance": {
+    "version": "1.0",
+    "created_at": "2026-06-02T02:17:20+08:00",
+    "bulk_init": true
+  },
+  "last_data_refresh": "2026-06-02T02:17:20+08:00",
+  "last_github_data": {
+    "stargazers_count": 36308,
+    "forks_count": 3180,
+    "open_issues_count": 95,
+    "watchers_count": 36308,
+    "language": "Go",
+    "size": 59209,
+    "pushed_at": "2026-06-01T10:05:58Z",
+    "updated_at": "2026-06-02T06:01:58Z",
+    "license": "Apache-2.0"
+  },
+  "last_snapshot_at": "2026-06-02",
+  "last_weekly_report": "2026-W23",
+  "deployment": {
+    "kb_website": "https://zhengxinzhengju.github.io/mavis-kb/",
+    "kb_website_alt": "https://9islasxosjex.space.minimaxi.com",
+    "project_page": "https://zhengxinzhengju.github.io/mavis-kb/project-harness.html"
+  }
+}
