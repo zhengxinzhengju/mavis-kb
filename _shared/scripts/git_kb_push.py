@@ -51,19 +51,25 @@ def get_file_sha(path: str) -> str | None:
 
 
 def upload_file(rel_path: str, content: bytes, msg: str) -> tuple[bool, str]:
-    """上传单文件，返回 (ok, info)"""
-    sha = get_file_sha(rel_path)
-    payload = {
-        "message": msg,
-        "content": base64.b64encode(content).decode("ascii"),
-        "branch": BRANCH,
-    }
-    if sha:
-        payload["sha"] = sha
-    r = gh_api("PUT", f"/repos/{REPO}/contents/{rel_path}", payload)
-    if r.get("error"):
-        return False, f"{r.get('status', '?')} {r.get('body', r.get('exception', ''))[:200]}"
-    return True, "ok"
+    """上传单文件，返回 (ok, info)。409 冲突时重试 1 次。"""
+    for attempt in range(2):
+        sha = get_file_sha(rel_path)
+        payload = {
+            "message": msg,
+            "content": base64.b64encode(content).decode("ascii"),
+            "branch": BRANCH,
+        }
+        if sha:
+            payload["sha"] = sha
+        r = gh_api("PUT", f"/repos/{REPO}/contents/{rel_path}", payload)
+        if r.get("error"):
+            if r.get("status") == 409 and attempt == 0:
+                # SHA 冲突，重试
+                time.sleep(1)
+                continue
+            return False, f"{r.get('status', '?')} {r.get('body', r.get('exception', ''))[:200]}"
+        return True, "ok"
+    return False, "重试仍失败"
 
 
 def collect_files():
