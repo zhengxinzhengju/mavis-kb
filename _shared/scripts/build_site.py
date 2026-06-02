@@ -495,6 +495,13 @@ def build_project_card(project):
     has_monthly = find_latest_monthly(ROOT / pid) is not None
     files_count = list(ROOT.glob(f"projects/{pid}/**/*.md"))
 
+    # 飞书状态: 优先读 index.json 的实际配置（真实状态）
+    feishu = (proj_index.get("tracking", {}) or {}).get("feishu", {}) or {}
+    feishu_configured = bool(feishu.get("webhook_url", ""))
+    # fallback: registry 字段（兼容老项目）
+    if not feishu_configured:
+        feishu_configured = bool(project.get("feishu_webhook_configured", False))
+
     return f'''
     <a href="project-{pid}.html" class="card">
       <div class="head">
@@ -511,7 +518,7 @@ def build_project_card(project):
       <div class="footer-info">
         {"<span style='color: var(--accent-2);'>✅ 有周报</span>" if has_weekly else "<span style='color: var(--warning);'>⏳ 等待首次周报</span>"}
         {"<span style='color: var(--accent-2);'>✅ 有月报</span>" if has_monthly else "<span style='color: var(--text-dim);'>⏳ 等待首次月报</span>"}
-        {"<span style='color: var(--accent-2);'>✅ 飞书已配</span>" if project.get("feishu_webhook_configured") else "<span style='color: var(--warning);'>⚠️ 飞书未配</span>"}
+        {"<span style='color: var(--accent-2);'>✅ 飞书已配</span>" if feishu_configured else "<span style='color: var(--warning);'>⚠️ 飞书未配</span>"}
       </div>
     </a>
     '''
