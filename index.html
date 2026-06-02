@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  (function() {
+    const STORAGE_KEY = "mavis_kb_unlocked_" + new Date().toISOString().slice(0,10).replace(/-/g, '');
+    if (sessionStorage.getItem(STORAGE_KEY) !== 'yes') {
+      window.location.href = 'gate.html';
+    }
+  })();
+</script>
 <title>Mavis 多项目知识库</title>
 <style>
   :root { --bg: #0f1419; --panel: #1a1f29; --panel-2: #232a36; --border: #2d3543; --text: #e6e9ef; --text-dim: #8b95a7; --accent: #4f9eff; --accent-2: #6ee7b7; --warning: #f59e0b; --code-bg: #0a0d12; }
@@ -54,7 +62,7 @@
   <div class="meta">
     <span>📦 v3.0</span>
     <span>📁 9 个项目 active</span>
-    <span>🕐 2026-06-02 06:30 CST</span>
+    <span>🕐 2026-06-02 06:43 CST</span>
     <a href="knowledge-base.zip">📥 完整下载</a>
   </div>
 </header>
@@ -65,7 +73,6 @@
     <p style="color: var(--text); font-weight: 500;">当前 <span style="color: var(--accent-2);">9 个 active 项目</span>，0 个 Git 分支活跃追踪。</p>
     <div class="actions">
       <a href="#projects">查看项目</a>
-      <a href="dashboard.html" class="secondary">📊 Dashboard</a>
       <a href="#add-new" class="secondary">+ 添加新项目</a>
       <a href="knowledge-base.zip" class="secondary">下载 zip</a>
     </div>
@@ -321,7 +328,7 @@ python3 /workspace/knowledge-base/_index/scripts/build_site.py</code></pre>
   </div>
 </main>
 <footer>
-  Mavis 多项目知识库 · 由 Mavis 维护 · 自动生成于 2026-06-02 06:30 CST
+  Mavis 多项目知识库 · 由 Mavis 维护 · 自动生成于 2026-06-02 06:43 CST
 </footer>
 </body>
 </html>
