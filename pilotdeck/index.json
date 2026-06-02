@@ -1,0 +1,94 @@
+{
+  "$schema": "Mavis project schema v1.0",
+  "project": {
+    "id": "pilotdeck",
+    "name": "PilotDeck",
+    "tagline": "One cockpit. All agents. Unified control. Maximum impact.",
+    "category": "Agent OS / 智能体操作系统",
+    "vendor": "OpenBMB",
+    "co_developers": [
+      "清华大学 THUNLP 实验室",
+      "ModelBest (面壁智能)",
+      "OpenBMB",
+      "AI9Stars"
+    ],
+    "license": "AGPL-3.0",
+    "official_site": "https://pilotdeck.openbmb.cn/pilotdeck.github.io/",
+    "github_repo": "https://github.com/OpenBMB/PilotDeck",
+    "created_at": "2026-05-22",
+    "tracked_since": "2026-06-01"
+  },
+  "tracking": {
+    "weekly_report": {
+      "cadence": "every Monday 08:00 (Asia/Shanghai)",
+      "cron_expr": "0 8 * * 1",
+      "cron_task_id": "404484915970695",
+      "deliver_to": "feishu-webhook",
+      "enabled": true,
+      "feishu_configured": true,
+      "last_run": "2026-06-01T17:43:00+08:00"
+    },
+    "monthly_report": {
+      "cadence": "last day of each month 08:00 (Asia/Shanghai)",
+      "cron_expr": "0 8 28-31 * *",
+      "cron_task_id": "404483081200139",
+      "focus": "核心能力变化 + 功能演进路线",
+      "deliver_to": "feishu-webhook",
+      "enabled": true,
+      "feishu_configured": true
+    },
+    "feishu": {
+      "webhook_url": "https://open.feishu.cn/open-apis/bot/v2/hook/aa69fc60-7444-4815-8d96-a47a73771491",
+      "secret": "isedQudmIN5YqGyeasvoud",
+      "signed": true
+    }
+  },
+  "competitors": {
+    "tier1_ids": [
+      "claude-cowork",
+      "skywork",
+      "bitfun-cowork",
+      "openclaw"
+    ],
+    "tier2_ids": [
+      "langgraph",
+      "crewai",
+      "claude-agent-sdk",
+      "openai-agents-sdk",
+      "ms-agent-framework",
+      "google-adk"
+    ],
+    "tier3_ids": [
+      "qoderwork",
+      "minimax-agent-desktop",
+      "stepfun-desktop",
+      "qclaw"
+    ]
+  },
+  "framework_v1_compliance": {
+    "version": "1.0",
+    "migrated_at": "2026-06-02T09:30:00+08:00",
+    "old_path": "/workspace/knowledge-base/pilotdeck/",
+    "new_path": "/workspace/knowledge-base/projects/pilotdeck/",
+    "shared_competitor_pool": "/workspace/knowledge-base/_index/projects.json#competitors_shared"
+  },
+  "last_github_data": {
+    "stargazers_count": 2769,
+    "forks_count": 266,
+    "open_issues_count": 59,
+    "watchers_count": 2769,
+    "language": "TypeScript",
+    "size": 18673,
+    "pushed_at": "2026-06-02T04:10:41Z",
+    "updated_at": "2026-06-02T07:06:32Z",
+    "license": "AGPL-3.0"
+  },
+  "last_data_refresh": "2026-06-02T10:05:00+08:00",
+  "last_snapshot_at": "2026-06-02",
+  "last_weekly_report": "2026-W23",
+  "deployment": {
+    "kb_website": "https://zhengxinzhengju.github.io/mavis-kb/",
+    "kb_website_alt": "https://9islasxosjex.space.minimaxi.com",
+    "project_page": "https://zhengxinzhengju.github.io/mavis-kb/project-pilotdeck.html"
+  }
+}
