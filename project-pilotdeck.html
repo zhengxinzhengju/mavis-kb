@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PilotDeck · 项目详情</title>
+<style>
+  :root { --bg: #0f1419; --panel: #1a1f29; --panel-2: #232a36; --border: #2d3543; --text: #e6e9ef; --text-dim: #8b95a7; --accent: #4f9eff; --accent-2: #6ee7b7; --warning: #f59e0b; --danger: #ef4444; --code-bg: #0a0d12; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+  header { background: var(--panel); border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  header h1 { font-size: 16px; display: flex; align-items: center; gap: 10px; }
+  header h1 a { color: var(--accent); text-decoration: none; }
+  header h1 a:hover { text-decoration: underline; }
+  header .meta { font-size: 12px; color: var(--text-dim); }
+  header .meta a { color: var(--accent); text-decoration: none; margin-left: 12px; }
+  .layout { display: flex; flex: 1; }
+  nav { width: 280px; background: var(--panel); border-right: 1px solid var(--border); padding: 20px 0; overflow-y: auto; flex-shrink: 0; max-height: calc(100vh - 70px); }
+  nav .group { margin-bottom: 18px; }
+  nav .group-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-dim); padding: 0 20px 8px; letter-spacing: 0.5px; }
+  nav a { display: block; padding: 8px 20px; color: var(--text); text-decoration: none; font-size: 13px; border-left: 3px solid transparent; word-break: break-all; }
+  nav a:hover { background: var(--panel-2); border-left-color: var(--accent); }
+  nav a.active { background: var(--panel-2); border-left-color: var(--accent); color: var(--accent); }
+  nav .file-hint { font-size: 10px; color: var(--text-dim); margin-left: 4px; }
+  main { flex: 1; padding: 32px 40px; overflow-y: auto; max-height: calc(100vh - 70px); }
+  article.doc { max-width: 1000px; margin: 0 auto; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 28px 36px; }
+  article.doc h1 { font-size: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  article.doc h2 { font-size: 18px; margin: 28px 0 12px; color: var(--accent); }
+  article.doc h3 { font-size: 15px; margin: 20px 0 10px; color: var(--accent-2); }
+  article.doc h4 { font-size: 13px; margin: 16px 0 8px; color: var(--text); font-weight: 600; }
+  article.doc p, article.doc li { font-size: 14px; line-height: 1.7; margin-bottom: 8px; }
+  article.doc ul, article.doc ol { margin: 8px 0 8px 24px; }
+  article.doc table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  article.doc th, article.doc td { padding: 8px 12px; border: 1px solid var(--border); text-align: left; }
+  article.doc th { background: var(--panel-2); color: var(--text-dim); font-weight: 600; }
+  article.doc pre { background: var(--code-bg); padding: 14px; border-radius: 6px; overflow-x: auto; margin: 12px 0; font-size: 12px; line-height: 1.5; }
+  article.doc code { background: var(--code-bg); padding: 2px 6px; border-radius: 3px; font-size: 12px; color: var(--accent-2); }
+  article.doc pre code { background: transparent; padding: 0; }
+  article.doc .meta { font-size: 12px; color: var(--text-dim); margin-bottom: 20px; }
+  article.doc a { color: var(--accent); text-decoration: none; }
+  article.doc a:hover { text-decoration: underline; }
+  article.doc blockquote { border-left: 3px solid var(--accent); padding: 8px 16px; background: var(--panel-2); margin: 12px 0; color: var(--text-dim); }
+  article.doc strong { color: var(--accent-2); }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-right: 6px; }
+  .badge-ok { background: rgba(110, 231, 183, 0.15); color: var(--accent-2); }
+  .badge-warn { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+  .empty { padding: 60px 20px; text-align: center; color: var(--text-dim); }
+  .empty h2 { color: var(--text); margin-bottom: 12px; font-size: 18px; }
+  .empty p { font-size: 13px; margin-bottom: 16px; }
+  .empty code { background: var(--code-bg); padding: 4px 8px; border-radius: 3px; color: var(--accent-2); font-size: 12px; display: inline-block; margin: 4px 0; }
+  footer { background: var(--panel); border-top: 1px solid var(--border); padding: 12px; text-align: center; font-size: 11px; color: var(--text-dim); }
+</style>
+</head>
+<body>
+<header>
+  <h1>🚀 PilotDeck · <a href="index.html">← 返回知识库</a></h1>
+  <div class="meta">
+    One cockpit. All agents. Unified control. Maximum impact.
+    <a href="https://github.com/OpenBMB/PilotDeck" target="_blank">GitHub ↗</a>
+  </div>
+</header>
+<div class="layout">
+  <nav id="nav">
+    <div class="group"><div class="group-title">概览</div>
+      <a href="#welcome">欢迎页</a>
+      </div>
+      <div class="group"><div class="group-title">档案</div>
+      <a href="#profile">档案 (6KB)</a>
+      </div>
+      <div class="group"><div class="group-title">事件</div>
+      <a href="#timeline">时间线 (3KB)</a>
+      </div>
+      <div class="group"><div class="group-title">简报</div>
+      <a href="#weekly-latest">最新周报 (2026-W23)</a>
+      </div>
+      <div class="group"><div class="group-title">竞品分析</div>
+      <a href="#comp-index">index (1KB)</a>
+      </div>
+      <div class="group"><div class="group-title">竞品分析</div>
+      <a href="#comp-tier1-direct-comparison">tier1-direct-comparison (11KB)</a>
+      </div>
+      <div class="group"><div class="group-title">竞品分析</div>
+      <a href="#comp-tier2-frameworks-comparison">tier2-frameworks-comparison (2KB)</a>
+      </div>
+      <div class="group"><div class="group-title">快照</div>
+      <a href="#snap-2026-06-02">2026-06-02</a>
+      </div>
+      <div class="group"><div class="group-title">快照</div>
+      <a href="#snap-2026-06-01">2026-06-01</a>
+      </div>
+  </nav>
+  <main>
+    
+    <article class="doc" id="welcome">
+      <h1>🚀 PilotDeck</h1>
+      <p class="meta">One cockpit. All agents. Unified control. Maximum impact.</p>
+      <p><strong>追踪起始:</strong> —</p>
+      <p><strong>主仓库:</strong> <a href="https://github.com/OpenBMB/PilotDeck">https://github.com/OpenBMB/PilotDeck</a></p>
+      <h2>关键数据 (GitHub API 实时)</h2>
+      <table><tr><td>GitHub Stars</td><td>2.8k</td></tr><tr><td>Forks</td><td>265</td></tr><tr><td>Watchers</td><td>2.8k</td></tr><tr><td>Open Issues</td><td>59</td></tr><tr><td>License</td><td>AGPL-3.0</td></tr><tr><td>主语言</td><td>TypeScript</td></tr><tr><td>Size</td><td>18.2 MB</td></tr><tr><td>最近 push</td><td>2026-06-02</td></tr></table>
+      <h2>运行状态</h2>
+      <p><span class="badge badge-ok">周报 cron</span> <code>0 8 * * 1</code></p><p><span class="badge badge-ok">月报 cron</span> <code>0 8 28-31 * *</code></p><p><span class="badge badge-ok">飞书推送</span> 已配置</p>
+      <h2>核心能力</h2>
+      <ul></ul>
+    </article>
+
+
+    <article class="doc" id="profile" style="display:none">
+      <h1>📋 项目档案</h1>
+      <p class="meta">文件: <code>profile.md</code></p>
+      <blockquote>最后更新：2026-06-01 17:43 (Asia/Shanghai)</blockquote>
+<blockquote>追踪者：Mavis (root session 404453968618295)</blockquote>
+<blockquote>数据源：GitHub REST API (2026-06-01 17:43 拉取)</blockquote>
+<h2>一句话定位</h2>
+<p><strong>Task-oriented AI Agent productivity platform</strong>——以 WorkSpace 为核心的多项目并行长周期 Agent 操作系统。</p>
+<blockquote>副标语：**"Pilot Every Agent from One Deck"** ——从一个桌面就能指挥所有 AI 智能体</blockquote>
+<h2>联合开发方</h2>
+<table>
+<tr>
+<th>角色</th>
+<th>团队</th>
+<th>备注</th>
+</tr>
+<tr>
+<td>学术</td>
+<td>清华大学 THUNLP 实验室</td>
+<td>研究方向</td>
+</tr>
+<tr>
+<td>商业</td>
+<td>ModelBest (面壁智能)</td>
+<td>商业化落地，VoxCPM 语音模型支持</td>
+</tr>
+<tr>
+<td>平台</td>
+<td>OpenBMB</td>
+<td>开源平台</td>
+</tr>
+<tr>
+<td>工程</td>
+<td>AI9Stars</td>
+<td>工程实现</td>
+</tr>
+</table>
+<h2>核心能力 (4 大支柱)</h2>
+<table>
+<tr>
+<th>能力</th>
+<th>一句话描述</th>
+<th>关键特性</th>
+</tr>
+<tr>
+<td>**WorkSpace**</td>
+<td>项目级"工作舱"——独立 FS + 独立 Memory + 独立 Skills</td>
+<td>物理隔离、范围受限检索、技能自然累积、双轨记忆(Project Memory + Collaboration Feedback)</td>
+</tr>
+<tr>
+<td>**Smart Router**</td>
+<td>智能任务路由——子 Agent 级别而非 request 级别</td>
+<td>子任务分配模型，不打断 KV-cache；自然语言自定义规则；任务难度三档(简单/中等/复杂)；可省 70-87% Token</td>
+</tr>
+<tr>
+<td>**Memory (白盒)**</td>
+<td>记忆可检查、可修改、可回滚</td>
+<td>全链路可见 + Dream Mode 自动整理 + 一键回滚</td>
+</tr>
+<tr>
+<td>**Always-on**</td>
+<td>Agent 24 小时常驻</td>
+<td>主动扫描任务、自主推进、长周期任务支撑</td>
+</tr>
+</table>
+<h2>技术架构（从源码目录提取）</h2>
+<pre>
+src/
+├── agent/            # Agent 核心：loop, runtime, session, sub-agent
+├── always-on/        # Always-on 后台执行：runtime, protocol, workspace
+├── context/          # 上下文管理：memory, compaction, budget, recovery
+│   ├── memory/       # 白盒记忆实现
+│   ├── compaction/   # 记忆压缩（Dream Mode 核心）
+│   └── budget/       # 上下文预算管理
+├── router/           # 智能路由：orchestrate, scenario, tokenSaver, stats
+│   ├── orchestrate/  # 主副 Agent 编排
+│   └── tokenSaver/   # Token 节省策略
+├── mcp/              # MCP 协议：client, runtime, protocol
+├── gateway/          # API 网关
+├── extension/        # 插件系统
+├── lifecycle/        # 生命周期管理
+├── permission/       # 权限控制
+├── tool/             # 工具接口
+├── session/          # 会话管理
+├── task/             # 任务系统
+├── adapters/         # 前端适配器（Web/CLI/IM）
+├── pilot/            # Pilot 核心
+├── cli/              # 命令行接口
+├── cron/             # 定时任务
+├── model/            # 模型抽象层
+├── web/              # Web 服务
+├── ui/               # 前端（React + Vite + Tailwind + shadcn/ui）
+└── skills/           # 内建技能（skill-creator, find-skills）
+</pre>
+<h2>部署形态</h2>
+<ul>
+<li><strong>Web UI</strong>: 浏览器访问 <code>http://localhost:3001</code></li>
+<li><strong>桌面应用</strong>: macOS (Apple Silicon) / Windows (x64 / ARM64) 都有预构建安装包</li>
+<li><strong>命令行</strong>: CLI</li>
+<li><strong>IM 适配</strong>: 飞书 / 企业微信（通过 <code>adapters/</code> 层）</li>
+</ul>
+<h2>安装方式</h2>
+<ol>
+<li><strong>一键安装</strong> (macOS / Linux): <code>curl -fsSL https://raw.githubusercontent.com/OpenBMB/PilotDeck/main/install.sh | bash</code></li>
+<li><strong>源码构建</strong>: <code>git clone && npm install</code></li>
+<li><strong>Docker Compose</strong>: <code>docker compose up -d</code></li>
+</ol>
+<h2>模型支持</h2>
+<p>OpenAI 兼容端点，包括但不限于：</p>
+<ul>
+<li>OpenAI / Anthropic</li>
+<li>DeepSeek / Qwen / Kimi / MiniMax</li>
+<li>火山方舟 (Volcano Ark) — 2026-05-29 通过 PR #76 集成</li>
+</ul>
+<h2>关键数据（2026-06-01 GitHub API 实时拉取）</h2>
+<table>
+<tr>
+<th>指标</th>
+<th>数值</th>
+<th>备注</th>
+</tr>
+<tr>
+<td>GitHub Stars</td>
+<td>2,648</td>
+<td>10 天内 0 → 2.6k</td>
+</tr>
+<tr>
+<td>Forks</td>
+<td>246</td>
+<td></td>
+</tr>
+<tr>
+<td>Open Issues</td>
+<td>3</td>
+<td>#93 #82 #78</td>
+</tr>
+<tr>
+<td>Open PRs</td>
+<td>17</td>
+<td></td>
+</tr>
+<tr>
+<td>Contributors</td>
+<td>8 (含 1 bot)</td>
+<td>9 人含 cursoragent 团队账号</td>
+</tr>
+<tr>
+<td>总 Commits</td>
+<td>686</td>
+<td></td>
+</tr>
+<tr>
+<td>License</td>
+<td>AGPL-3.0</td>
+<td>⚠️ 商业使用需注意</td>
+</tr>
+<tr>
+<td>仓库创建</td>
+<td>2026-05-22</td>
+<td>10 天前</td>
+</tr>
+<tr>
+<td>最近 push</td>
+<td>2026-06-01 03:49 UTC</td>
+<td>今天</td>
+</tr>
+<tr>
+<td>最近 commit</td>
+<td>2026-05-29 09:34 UTC</td>
+<td>PR #76 合并</td>
+</tr>
+<tr>
+<td>Tags / Releases</td>
+<td>0</td>
+<td>⚠️ 暂无正式 Release</td>
+</tr>
+<tr>
+<td>主语言</td>
+<td>TypeScript</td>
+<td>69.9%</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>18.8 MB</td>
+<td></td>
+</tr>
+</table>
+<h2>贡献者排行（截至 2026-06-01）</h2>
+<table>
+<tr>
+<th>排名</th>
+<th>用户</th>
+<th>提交数</th>
+<th>角色推断</th>
+</tr>
+<tr>
+<td>1</td>
+<td>Mingwwww</td>
+<td>196</td>
+<td>核心维护者，OpenAI 集成 / Settings</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Kaguya-19</td>
+<td>188</td>
+<td>核心维护者，Docker / Settings</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Gucc111</td>
+<td>167</td>
+<td>核心维护者</td>
+</tr>
+<tr>
+<td>4</td>
+<td>mmrdmn</td>
+<td>52</td>
+<td>Installer / Skills</td>
+</tr>
+<tr>
+<td>5</td>
+<td>zhengdaqi</td>
+<td>29</td>
+<td>UI / Electron</td>
+</tr>
+<tr>
+<td>6</td>
+<td>xhd0728</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>dependabot[bot]</td>
+<td>8</td>
+<td>依赖自动更新</td>
+</tr>
+<tr>
+<td>8</td>
+<td>mssssss123</td>
+<td>5</td>
+<td>Project Settings</td>
+</tr>
+</table>
+<h2>已发布版本（源码 tag 视角）</h2>
+<p>虽然 GitHub Releases 为 0，但根据媒体报道：</p>
+<ul>
+<li>v0.0.9 — 2026-05-25</li>
+<li>v0.0.10 — 2026-05-26</li>
+<li>v0.0.11 — 2026-05-27</li>
+</ul>
+<p>说明：团队在密集迭代，但还没打 git tag / 发 GitHub Release。</p>
+<h2>核心性能指标（官方公开测试）</h2>
+<table>
+<tr>
+<th>场景</th>
+<th>不开路由</th>
+<th>开路由</th>
+<th>节省</th>
+</tr>
+<tr>
+<td>程序员性格测试</td>
+<td>$10.97</td>
+<td>$1.42</td>
+<td>~87%</td>
+</tr>
+<tr>
+<td>社交媒体内容生成</td>
+<td>$12.58</td>
+<td>$2.83</td>
+<td>~77%</td>
+</tr>
+<tr>
+<td>复杂任务（播客/金融/代码）</td>
+<td>$18.36</td>
+<td>$3.15</td>
+<td>~83%</td>
+</tr>
+</table>
+<p>路由得分对比：Sonnet 4.6 单体 69.1 分 vs Sonnet 4.6 + MiniMax-M2.7 双模型 70.6 分 —— <strong>多模型组合得分反而更高</strong>。</p>
+<h2>目标用户</h2>
+<ul>
+<li>多 Agent 项目的科研/工程团队</li>
+<li>知识工作者（白皮书、报告、剧本创作）</li>
+<li>移动/AR 小游戏开发者</li>
+<li>多语言社交媒体运营</li>
+<li>AI 工程平台搭建者</li>
+<li>成本敏感的 AI 创业团队</li>
+</ul>
+<h2>已验证的应用场景</h2>
+<ol>
+<li><strong>模拟经营游戏开发</strong> — 奶茶店游戏（设计 + UI + 玩法）</li>
+<li><strong>数据可视化大屏</strong> — 全球 AI 公司融资数据</li>
+<li><strong>多语种播客生成</strong> — 联动 VoxCPM 端侧模型，30 种语言</li>
+<li><strong>长周期内容创作</strong> — 白皮书、行业报告</li>
+<li><strong>手机陀螺仪小游戏</strong> — 端侧模型自动生成</li>
+<li><strong>3D 开放世界</strong> — 一天做出本地可跑的"塞尔达式"3D 世界</li>
+<li><strong>AI 模型训练流程自动化</strong> — 后台持续运行</li>
+</ol>
+<h2>风险与不确定性</h2>
+<ul>
+<li><strong>License</strong>: AGPL-3.0 对商业产品集成不友好，可能限制企业采用</li>
+<li><strong>生态早期</strong>: 起步阶段，第三方 Skills / Plugin 不多</li>
+<li><strong>依赖清华团队节奏</strong>: 核心 3 人贡献了 551/686 (80%) commits，单点风险</li>
+<li><strong>版本节奏快但不稳</strong>: 3 天连发 3 个版本，API 可能还不稳定</li>
+<li><strong>国际化</strong>: 文档以中文为主，海外开发者上手门槛</li>
+<li><strong>暂无正式 Release</strong>: GitHub Tags = 0，企业部署缺少版本锚点</li>
+</ul>
+<h2>更新规则</h2>
+<ul>
+<li><strong>每周一 (周报触发时)</strong>: 拉取 GitHub 指标、commit、PR 数据，刷新本文件</li>
+<li><strong>每月最后一日 (月报触发时)</strong>: 重点章节（核心能力 + 技术栈）做版本对比，输出演进路线</li>
+<li><strong>重大事件</strong>: 立即追加到 <code>timeline.md</code>，并视情况触发即时简报</li>
+</ul>
+    </article>
+
+
+    <article class="doc" id="timeline" style="display:none">
+      <h1>📅 重大事件时间线</h1>
+      <p class="meta">文件: <code>timeline.md</code></p>
+      <blockquote>按时间倒序排列。每条事件包含：日期、类型、摘要、影响评估、来源。</blockquote>
+<h2>事件模板</h2>
+<pre>
+### YYYY-MM-DD | <类型>
+**摘要**: 一句话
+**影响**: 重要程度 (低/中/高/关键)
+**详情**:
+- ...
+**来源**: [链接]
+</pre>
+<p>---</p>
+<h2>2026 年</h2>
+<h3>2026-06-01 | 社区信号</h3>
+<p><strong>摘要</strong>: 首个用户报告的 issue 出现——"导入 skill 失败" (#93)</p>
+<p><strong>影响</strong>: 中</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>表明项目已从媒体爆红阶段进入"真实用户使用 + 报错"阶段</li>
+<li>是从宣传走向落地的关键信号</li>
+</ul>
+<p><strong>来源</strong>: https://github.com/OpenBMB/PilotDeck/issues/93</p>
+<h3>2026-05-31 | 社区反馈</h3>
+<p><strong>摘要</strong>: Issue #82：自动安装脚本未处理 3000/3001 端口占用</p>
+<p><strong>影响</strong>: 低</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>安装体验问题，社区自助报告</li>
+</ul>
+<p><strong>来源</strong>: https://github.com/OpenBMB/PilotDeck/issues/82</p>
+<h3>2026-05-29 | 代码合并 (高峰)</h3>
+<p><strong>摘要</strong>: 当日合并 6 个 PR（#45, #55, #58, #60, #61, #62, #76, #77）</p>
+<p><strong>影响</strong>: 高</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>#76: 添加 火山方舟 (Volcano Ark) API provider — 国内用户友好</li>
+<li>#77: 修复 onboarding 流程的 LLM 测试响应校验</li>
+<li>#62: Docker 运行时配置和 pnpm 构建同步</li>
+<li>#61: 澄清 Settings 中模型 base URL 格式</li>
+<li>#58: 修复非 ASCII 文件名的下载问题</li>
+<li>#55: 修复通用 skill 导入和 frontmatter 兼容性</li>
+<li>#45: 降低 Electron 渲染器在 streaming 时的 CPU 占用</li>
+</ul>
+<p><strong>来源</strong>: https://github.com/OpenBMB/PilotDeck/pulls?q=is%3Apr+is%3Aclosed+merged%3A2026-05-29</p>
+<h3>2026-05-28 | 代码合并</h3>
+<p><strong>摘要</strong>: 合并 #41, #31, #30 — 早期稳定性修复</p>
+<p><strong>影响</strong>: 中</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>#41: 修复 OpenAI tool call 标准化</li>
+<li>#31: 修复 installer 浏览器超时 + 允许从任意路径创建 workspace</li>
+<li>#30: 增强 project settings</li>
+</ul>
+<p><strong>来源</strong>: GitHub</p>
+<h3>2026-05-28 | 媒体集中曝光</h3>
+<p><strong>摘要</strong>: 新智元 / 华尔街见闻 / 搜狐 / 博客园 等多家媒体集中报道 PilotDeck 开源</p>
+<p><strong>影响</strong>: 关键</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>主推文标题："清华团队连夜开源 Agent 神器，Token 成本狂降 70%"</li>
+<li>对标 OpenClaw（小龙虾），强调"小龙虾凉了"</li>
+<li>引发开发者社区讨论，star 增长加速</li>
+</ul>
+<p><strong>来源</strong>: 华尔街见闻、搜狐、新智元</p>
+<h3>2026-05-27 | 版本发布</h3>
+<p><strong>摘要</strong>: v0.0.11 发布（媒体提及，但仓库 Tags 仍为 0）</p>
+<p><strong>影响</strong>: 中</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>团队密集迭代，3 天连发 3 个版本（v0.0.9/10/11）</li>
+<li>说明项目状态早期，API 不稳定</li>
+</ul>
+<p><strong>来源</strong>: itech001 报道</p>
+<h3>2026-05-25 ~ 05-29 | 端侧大模型开源周</h3>
+<p><strong>摘要</strong>: 面壁智能 + OpenBMB 联合举办"端侧大模型开源周"，PilotDeck 是第四弹</p>
+<p><strong>影响</strong>: 高</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>每天解锁一个端侧大模型杀手锏</li>
+<li>第四弹：智能体操作系统 (Agent OS) PilotDeck</li>
+<li>配套案例：一天内用端侧模型做出可本地跑的"塞尔达"式 3D 开放世界</li>
+</ul>
+<p><strong>来源</strong>: https://www.cn486.com/news/4120497/</p>
+<h3>2026-05-26 | 媒体首发</h3>
+<p><strong>摘要</strong>: 各大媒体首发 PilotDeck 详细技术解析</p>
+<p><strong>影响</strong>: 高</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>详细拆解 WorkSpace 三层架构 / Smart Router 子 Agent 路由 / Dream 记忆机制</li>
+<li>标题："OpenBMB 开源 PilotDeck:清华系团队要给 Agent 造一个操作系统"</li>
+</ul>
+<p><strong>来源</strong>: 博客园 itech001</p>
+<h3>2026-05-22 | 仓库创建</h3>
+<p><strong>摘要</strong>: OpenBMB 在 GitHub 创建 PilotDeck 仓库</p>
+<p><strong>影响</strong>: 关键</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>仓库 ID: 1246399437</li>
+<li>10 天后达到 2,648 stars + 246 forks + 686 commits</li>
+<li>由 清华 THUNLP + ModelBest + OpenBMB + AI9Stars 联合开发</li>
+</ul>
+<p><strong>来源</strong>: GitHub API</p>
+<p>---</p>
+<p>（事件将持续追加，最新事件在顶部）</p>
+    </article>
+
+
+    <article class="doc" id="weekly-latest" style="display:none">
+      <h1>📊 最新周报</h1>
+      <p class="meta">文件: <code>2026-W23.md</code> · 大小 2KB</p>
+      <blockquote>生成时间: 2026-06-02 | （多项目框架 v3.0 · 周度追踪）</blockquote>
+<h2>1. 仓库概览</h2>
+<ul>
+<li><strong>Stars</strong>: 2.8k</li>
+<li><strong>Forks</strong>: 265</li>
+<li><strong>Open Issues</strong>: 59</li>
+<li><strong>主语言</strong>: TypeScript</li>
+<li><strong>License</strong>: AGPL-3.0</li>
+<li><strong>大小</strong>: 18.2 MB</li>
+<li><strong>最近 push</strong>: 2026-06-02</li>
+<li><strong>创建于</strong>: 2026-05-22</li>
+</ul>
+<h2>2. 本周 release</h2>
+<p>_（本周无新 release）_</p>
+<h2>3. 最近 8 次 commit</h2>
+<ul>
+<li><code>2026-06-02</code> <strong>请输入用户名</strong> — Merge pull request #109 from Gucc111/fix/telemetry-url</li>
+<li><code>2026-06-02</code> <strong>Gucc1</strong> — fix(telemetry): replace hardcoded IP with tele.pilotdeck.cn </li>
+<li><code>2026-06-01</code> <strong>LI MINGWEI</strong> — Merge pull request #103 from OpenBMB/fix/im-elicitation-rend</li>
+<li><code>2026-06-01</code> <strong>Mingwwww</strong> — feat(channels): add elicitation (ask_user_question) support </li>
+<li><code>2026-06-01</code> <strong>Kaguya-19</strong> — Merge branch 'main' of github.com:OpenBMB/PilotDeck</li>
+<li><code>2026-06-01</code> <strong>LI MINGWEI</strong> — Merge pull request #102 from OpenBMB/fix/im-render-cleanup</li>
+<li><code>2026-06-01</code> <strong>Kaguya-19</strong> — Merge branch 'main' of github.com:OpenBMB/PilotDeck</li>
+<li><code>2026-06-01</code> <strong>Mingwwww</strong> — fix(email,sms,homeassistant): suppress tool_call noise in re</li>
+</ul>
+<h2>4. 近期 closed PR (10 条)</h2>
+<ul>
+<li><code>2026-06-02</code> [merged] fix(telemetry): replace hardcoded IP with tele.pilotdec</li>
+<li><code>2026-06-01</code> [merged] feat(channels): add elicitation (ask_user_question) sup</li>
+<li><code>2026-06-01</code> [merged] fix(channels): suppress tool_call noise in all IM chann</li>
+<li><code>2026-06-01</code> [merged] feat(bootstrap): auto-patch cron section into existing </li>
+<li><code>2026-06-01</code> [merged] feat(feishu): improve IM channel with project switching</li>
+<li><code>2026-06-01</code> [merged] chore: remove tests directory</li>
+<li><code>2026-06-01</code> [merged] fix: correctly route write_file truncation to max_outpu</li>
+<li><code>2026-06-01</code> [merged] fix(docker): enable cron tools by default in generated </li>
+</ul>
+<h2>5. Open Issues 数量</h2>
+<ul>
+<li>当前 open issues: <strong>59</strong> 个（API 实时）</li>
+</ul>
+<h2>6. 关键判断</h2>
+<ul>
+<li>本周核心信号: OpenBMB 体系下 PilotDeck 当前 2.8k stars · 59 open issues · 最近 push 2026-06-02。重点关注 WorkSpace 模板生态 + MCP 接入成熟度。</li>
+<li>数据源: GitHub API（已认证 token 拉取 · 2.8k stars 验证）</li>
+<li>下次自动更新: 下周一</li>
+</ul>
+<h2>7. 附录</h2>
+<ul>
+<li>仓库主页: https://github.com/OpenBMB/PilotDeck</li>
+<li>数据快照: <code>snapshots/2026-06-02.json</code></li>
+<li>报告生成器: <code>_index/scripts/weekly_runner.py</code></li>
+</ul>
+    </article>
+
+
+    <article class="doc" id="comp-index" style="display:none">
+      <h1>🥊 index</h1>
+      <p class="meta">文件: <code>index.md</code> · 大小 1KB</p>
+      <blockquote>持续更新。最后更新：2026-06-01</blockquote>
+<h2>竞品分层</h2>
+<table>
+<tr>
+<th>层级</th>
+<th>含义</th>
+<th>竞品</th>
+<th>监控方式</th>
+</tr>
+<tr>
+<td>**T1 直接对标**</td>
+<td>同为 Agent OS / 桌面 Agent / 项目级工作舱</td>
+<td>Claude Cowork, Skywork 桌面版, BitFun CoWork, OpenClaw(已凉)</td>
+<td>每周 release、stars、媒体曝光</td>
+</tr>
+<tr>
+<td>**T2 框架层**</td>
+<td>Agent 框架 / SDK（被 PilotDeck 内部可能集成）</td>
+<td>LangGraph, CrewAI, Claude Agent SDK, OpenAI Agents SDK, MS Agent Framework, Google ADK</td>
+<td>每月重大 release、架构演进</td>
+</tr>
+<tr>
+<td>**T3 IDE/编程工具**</td>
+<td>边缘相关（仅工作舱概念有重叠）</td>
+<td>Claude Code, Cursor, GitHub Copilot</td>
+<td>季度回顾</td>
+</tr>
+</table>
+<h2>详细对比文档</h2>
+<ul>
+<li><code>tier1-direct-comparison.md</code> — T1 详细对比表</li>
+<li><code>tier2-frameworks-comparison.md</code> — T2 框架对比表</li>
+<li><code>historical-trends.md</code> — 各竞品成长趋势（每月更新）</li>
+</ul>
+<h2>周报/月报中的竞品内容</h2>
+<ul>
+<li><strong>周报</strong>: 重点关注 T1 是否有新 release / 媒体讨论</li>
+<li><strong>月报</strong>: T1 + T2 全量回顾，做横向 benchmark 对比</li>
+</ul>
+    </article>
+
+
+    <article class="doc" id="comp-tier1-direct-comparison" style="display:none">
+      <h1>🥊 tier1-direct-comparison</h1>
+      <p class="meta">文件: <code>tier1-direct-comparison.md</code> · 大小 11KB</p>
+      <blockquote>**最后更新**: 2026-06-01 18:05 (Asia/Shanghai)</blockquote>
+<blockquote>覆盖范围: 桌面 Agent / 项目级 OS / 本地优先 Agent</blockquote>
+<blockquote>数据来源: 各产品官网、官方文档、媒体报道、GitHub API</blockquote>
+<h2>竞品全景</h2>
+<table>
+<tr>
+<th>竞品</th>
+<th>厂商</th>
+<th>形态</th>
+<th>首发时间</th>
+<th>当前规模</th>
+<th>License</th>
+<th>平台</th>
+</tr>
+<tr>
+<td>**Claude Cowork**</td>
+<td>Anthropic</td>
+<td>桌面应用 (Claude Desktop)</td>
+<td>2026-01-13</td>
+<td>商业，订阅 $20-200/月</td>
+<td>闭源</td>
+<td>macOS (Windows 即将)</td>
+</tr>
+<tr>
+<td>**Skywork 桌面版**</td>
+<td>昆仑天工 (昆仑万维)</td>
+<td>Windows 桌面应用</td>
+<td>2026-02-04</td>
+<td>商业，Basic/Plus 订阅</td>
+<td>闭源</td>
+<td>Windows 优先</td>
+</tr>
+<tr>
+<td>**BitFun CoWork**</td>
+<td>GCWing (个人)</td>
+<td>开源 IDE + CoWork 模式</td>
+<td>2026-02 (CoWork)</td>
+<td>v0.1.0 早期</td>
+<td>**MIT**</td>
+<td>Windows / macOS</td>
+</tr>
+<tr>
+<td>**OpenClaw**</td>
+<td>Peter Steinberger (NousResearch)</td>
+<td>本地 Node.js 服务</td>
+<td>2026-01-25</td>
+<td>28 万+ Stars, GitHub #1</td>
+<td>(待查)</td>
+<td>跨平台</td>
+</tr>
+<tr>
+<td>**QoderWork**</td>
+<td>阿里</td>
+<td>桌面 Agent</td>
+<td>2026-01-30 消息</td>
+<td>内部消息阶段</td>
+<td>闭源</td>
+<td>未知</td>
+</tr>
+<tr>
+<td>**MiniMax Agent 桌面版**</td>
+<td>MiniMax</td>
+<td>桌面应用</td>
+<td>2026-02-03 上线</td>
+<td>商业</td>
+<td>闭源</td>
+<td>跨平台</td>
+</tr>
+<tr>
+<td>**阶跃 AI 桌面伙伴**</td>
+<td>阶跃星辰</td>
+<td>桌面应用</td>
+<td>2025-09</td>
+<td>商业</td>
+<td>闭源</td>
+<td>跨平台</td>
+</tr>
+</table>
+<h2>1. Claude Cowork (Anthropic)</h2>
+<h3>关键事实</h3>
+<ul>
+<li><strong>首发</strong>: 2026-01-13，Claude Max 订阅 ($100-200/月) 独占</li>
+<li><strong>2026-02 降价</strong>: 下放至 Pro 档 ($20/月)</li>
+<li><strong>平台</strong>: 仅 macOS (Windows 在规划中)</li>
+<li><strong>核心代码</strong>: 几乎全部由 Claude 自己生成，1.5 周从需求到上线</li>
+<li><strong>开发模式</strong>: 每位开发者同时管理 3-8 个 Claude 窗口指挥其工作</li>
+</ul>
+<h3>核心能力</h3>
+<ul>
+<li>指定本地文件夹 → Claude 直接读/写/创建文件</li>
+<li>任务队列 + 并行处理，"给同事留言"的体验</li>
+<li>Skills 系统（Markdown 写的工作流，1 次创建无限调用）</li>
+<li>连接器：Asana、Notion、PayPal 等</li>
+<li>Chrome 扩展</li>
+</ul>
+<h3>生态布局</h3>
+<ul>
+<li>2026-01-30 发布 <code>knowledge-work-plugins</code> 开源仓库</li>
+<li><strong>18 个岗位插件</strong>: 销售、产品、财务、法务、HR、运营、设计师、工程师……</li>
+<li>9.7k+ stars, 1k+ forks</li>
+<li>TechCrunch、CNBC、CNN 同步报道</li>
+</ul>
+<h3>战略意图</h3>
+<ul>
+<li>Claude Code → Cowork = 开发者工具 → 全员生产力工具</li>
+<li>把 Skills Marketplace 打造成"AI 时代的 App Store"</li>
+<li>对标微软 Copilot 的生产力平台战略</li>
+</ul>
+<h3>与 PilotDeck 对比</h3>
+<table>
+<tr>
+<th>维度</th>
+<th>Claude Cowork</th>
+<th>PilotDeck</th>
+</tr>
+<tr>
+<td>平台</td>
+<td>仅 macOS</td>
+<td>macOS/Linux/Windows/Docker</td>
+</tr>
+<tr>
+<td>项目隔离</td>
+<td>Projects (文件夹+规则)</td>
+<td>**WorkSpace 三层 (FS+Memory+Skills)**</td>
+</tr>
+<tr>
+<td>记忆</td>
+<td>黑盒</td>
+<td>**白盒可编辑+回滚**</td>
+</tr>
+<tr>
+<td>主动性</td>
+<td>用户触发</td>
+<td>**Always-on 24h**</td>
+</tr>
+<tr>
+<td>路由</td>
+<td>手动选模型</td>
+<td>**子 Agent 级别智能路由**</td>
+</tr>
+<tr>
+<td>License</td>
+<td>闭源</td>
+<td>AGPL-3.0 (企业风险)</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>订阅 $20-200/月</td>
+<td>BYO-Key + 智能路由省 70%</td>
+</tr>
+</table>
+<p>---</p>
+<h2>2. Skywork 桌面版 (昆仑天工)</h2>
+<h3>关键事实</h3>
+<ul>
+<li><strong>首发</strong>: 2026-02-04，全球发布</li>
+<li><strong>母公司</strong>: 昆仑万维 (上市公司)</li>
+<li><strong>战略</strong>: "Windows 党的胜利" — 填补 Windows 阵营空白</li>
+<li><strong>商业模式</strong>: 付费订阅 (Basic / Plus 两档)</li>
+<li><strong>2025-05 起点</strong>: Skywork Super Agents 网页版发布</li>
+</ul>
+<h3>核心能力</h3>
+<ul>
+<li><strong>三模型自由切换</strong>: Claude Opus 4.5 / Sonnet 4.5 / Gemini 3 Pro + auto 智能推荐</li>
+<li><strong>100+ 内置 Skills</strong>: Office 三件套、网页生成、图像生成、视频生成</li>
+<li><strong>本地虚拟机隔离</strong>: 文件不出本机</li>
+<li><strong>执行前确认</strong>: 操作清单 → 用户确认 → 执行</li>
+<li><strong>多任务并行</strong>: 同时处理跨文件、跨格式任务</li>
+</ul>
+<h3>性能宣传 (官方)</h3>
+<ul>
+<li>图像/视频质量 "超越 Claude Cowork"</li>
+<li>"auto" 模式下任务执行速度超越 Claude Cowork</li>
+<li>实测表现：2 分钟不到生成可交互的 AI 峰会官网</li>
+</ul>
+<h3>战略意图</h3>
+<ul>
+<li>对标 Claude Cowork + OpenClaw，主打 Windows 生态</li>
+<li>"AI 新榜" 等媒体评测已经把它定位为 "Windows 版 Claude Cowork"</li>
+<li>"OS 级同事" 的产品定位 = 操作系统级 AI 助手</li>
+</ul>
+<h3>与 PilotDeck 对比</h3>
+<table>
+<tr>
+<th>维度</th>
+<th>Skywork 桌面版</th>
+<th>PilotDeck</th>
+</tr>
+<tr>
+<td>平台</td>
+<td>Windows 优先</td>
+<td>全平台</td>
+</tr>
+<tr>
+<td>模型</td>
+<td>三模型 + auto</td>
+<td>全 OpenAI 兼容 + 火山方舟等国内</td>
+</tr>
+<tr>
+<td>Skills</td>
+<td>100+ 内置</td>
+<td>WorkSpace 内装（少但可装）</td>
+</tr>
+<tr>
+<td>记忆</td>
+<td>不可见</td>
+<td>白盒可编辑</td>
+</tr>
+<tr>
+<td>路由</td>
+<td>auto 模式</td>
+<td>**子 Agent 级别 + 自定义规则**</td>
+</tr>
+<tr>
+<td>隔离</td>
+<td>本地 VM</td>
+<td>**项目级三层隔离**</td>
+</tr>
+<tr>
+<td>主动性</td>
+<td>用户触发</td>
+<td>**Always-on 24h**</td>
+</tr>
+<tr>
+<td>License</td>
+<td>闭源</td>
+<td>AGPL-3.0</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>订阅</td>
+<td>BYO-Key</td>
+</tr>
+</table>
+<p>---</p>
+<h2>3. BitFun + BitFun CoWork (个人开发者 GCWing)</h2>
+<h3>关键事实</h3>
+<ul>
+<li><strong>主体首发</strong>: 2026-02-18 公布，2026-03-11 正式发布</li>
+<li><strong>CoWork 模式</strong>: 2026-02 推出</li>
+<li><strong>License</strong>: <strong>MIT</strong> (vs PilotDeck 的 AGPL-3.0) — 商业友好</li>
+<li><strong>当前状态</strong>: v0.1.0 早期版本</li>
+<li><strong>技术栈</strong>: Rust + TypeScript + Tauri (极致轻量)</li>
+</ul>
+<h3>核心能力</h3>
+<ul>
+<li><strong>4 大工作模式</strong>: Agentic / Plan / Debug / Review</li>
+<li><strong>Agent 体系</strong>: 个人助理 / Code Agent / CoWork Agent / 自定义 Agent</li>
+<li><strong>MCP 协议</strong>: 完整支持</li>
+<li><strong>Skills</strong>: 自动读取 Cursor / Claude Code / Codex 配置</li>
+<li><strong>代码本地运行 + 全链路可审计</strong> (97% 代码由 Vibe Coding 生成)</li>
+</ul>
+<h3>与 PilotDeck 对比</h3>
+<table>
+<tr>
+<th>维度</th>
+<th>BitFun CoWork</th>
+<th>PilotDeck</th>
+</tr>
+<tr>
+<td>定位</td>
+<td>IDE + CoWork (编程为主)</td>
+<td>Agent OS (通用生产力)</td>
+</tr>
+<tr>
+<td>License</td>
+<td>**MIT** ⭐</td>
+<td>AGPL-3.0</td>
+</tr>
+<tr>
+<td>项目隔离</td>
+<td>任务级</td>
+<td>**WorkSpace 三层**</td>
+</tr>
+<tr>
+<td>记忆</td>
+<td>黑盒</td>
+<td>白盒</td>
+</tr>
+<tr>
+<td>主动性</td>
+<td>用户触发</td>
+<td>**Always-on 24h**</td>
+</tr>
+<tr>
+<td>Skills</td>
+<td>Markdown 脚本</td>
+<td>WorkSpace 装</td>
+</tr>
+<tr>
+<td>国际化</td>
+<td>中文为主</td>
+<td>中文为主</td>
+</tr>
+<tr>
+<td>成熟度</td>
+<td>v0.1.0 早期</td>
+<td>686 commits, 9 人团队</td>
+</tr>
+</table>
+<p><strong>核心优势对比</strong>: BitFun 在 License (MIT) 上明显优于 PilotDeck (AGPL-3.0)，对商业用户更友好。PilotDeck 在项目隔离、记忆管理、主动性上明显领先。</p>
+<p>---</p>
+<h2>4. OpenClaw (NousResearch / Peter Steinberger)</h2>
+<h3>关键事实</h3>
+<ul>
+<li><strong>首发</strong>: 2026-01-25</li>
+<li><strong>作者</strong>: Peter Steinberger (奥地利独立开发者，前 PSPDFKit 创始人)</li>
+<li><strong>Star 增长曲线</strong> (史上最快):</li>
+<li>首日: 9,000+</li>
+<li>72 小时: 60,000+</li>
+<li>1 个月内: 100,000+</li>
+<li>3 月: 250,000+</li>
+<li>5 月初: 280,000+ (超越 React)</li>
+<li><strong>代码规模</strong>: 30 万行 TypeScript (个人 + 社区)</li>
+</ul>
+<h3>关键里程碑</h3>
+<ul>
+<li>2026-01-25: 首发 (Clawdbot)</li>
+<li>商标争议: 改名 Moltbot → 最终定名 OpenClaw</li>
+<li>$CLAWD 代币骗局: 1600 万美元市值后归零</li>
+<li>2026-02: ClawJacked 漏洞 (CVE 8.8)</li>
+<li>2026-04-25: v2026.4.24 — DeepSeek V4 Flash 设为新默认模型</li>
+<li>2026-05-06: v2.18 — ContextEngine + Active Memory 重大更新</li>
+<li>2026-05-07: v2026.5.7 — 稳定版</li>
+<li>2026-05-28: 媒体已定性"凉了" (vs PilotDeck 同期爆红)</li>
+</ul>
+<h3>核心能力</h3>
+<ul>
+<li><strong>Local Gateway 架构</strong>: 本地 Node.js 服务 + 消息应用桥接</li>
+<li><strong>多平台接入</strong>: WhatsApp / Telegram / Discord / Slack / Signal / iMessage</li>
+<li><strong>心跳系统</strong>: Cron 定时主动推送</li>
+<li><strong>BYO-Key 模式</strong>: 模型无关 (OpenAI / Anthropic / Ollama 本地模型)</li>
+<li><strong>Skills 生态</strong>: AgentSkills 插件系统</li>
+<li><strong>v2.18 升级</strong>: ContextEngine 分层压缩 (62% → 89%)、Active Memory (31M 评分模型)、OTEL 全链路追踪</li>
+</ul>
+<h3>安全风险</h3>
+<ul>
+<li>ClawJacked CVE 8.8 (已修复)</li>
+<li>$CLAWD 加密骗局</li>
+<li>完整系统访问权限 = 巨大攻击面</li>
+</ul>
+<h3>与 PilotDeck 对比</h3>
+<table>
+<tr>
+<th>维度</th>
+<th>OpenClaw</th>
+<th>PilotDeck</th>
+</tr>
+<tr>
+<td>规模</td>
+<td>280k stars, 30 万行代码</td>
+<td>2.6k stars, 686 commits</td>
+</tr>
+<tr>
+<td>定位</td>
+<td>通用 Agent (聊天+执行)</td>
+<td>生产力 OS (项目级)</td>
+</tr>
+<tr>
+<td>接入</td>
+<td>消息应用 (WhatsApp 等)</td>
+<td>Web/桌面/CLI/IM (飞书/企微)</td>
+</tr>
+<tr>
+<td>项目隔离</td>
+<td>无 WorkSpace 概念</td>
+<td>**WorkSpace 三层**</td>
+</tr>
+<tr>
+<td>记忆</td>
+<td>本地 Markdown 文件</td>
+<td>**白盒 + Dream + Rollback**</td>
+</tr>
+<tr>
+<td>路由</td>
+<td>无</td>
+<td>**子 Agent 智能路由**</td>
+</tr>
+<tr>
+<td>主动性</td>
+<td>Cron 心跳</td>
+<td>**Always-on + 主动发现**</td>
+</tr>
+<tr>
+<td>Skills</td>
+<td>Skills 生态</td>
+<td>WorkSpace 装</td>
+</tr>
+<tr>
+<td>风险</td>
+<td>全系统访问、ClawJacked</td>
+<td>AGPL-3.0、商业风险</td>
+</tr>
+<tr>
+<td>现状</td>
+<td>进入"工程化稳定期"，媒体定"凉了"</td>
+<td>媒体爆红中</td>
+</tr>
+</table>
+<p><strong>PilotDeck 优势</strong>: 项目隔离、记忆白盒、智能路由 (PilotDeck 三件套独此一家)  </p>
+<p><strong>OpenClaw 优势</strong>: 规模、生态成熟度、Cron 心跳</p>
+<p>---</p>
+<h2>5. 国内其他玩家</h2>
+<h3>阿里 QoderWork</h3>
+<ul>
+<li>2026-01-30 消息</li>
+<li>桌面 Agent 工具，一句话调用授权本地应用</li>
+<li>截至 2026-06 公开信息极少</li>
+</ul>
+<h3>MiniMax Agent 桌面版</h3>
+<ul>
+<li>2026-02-03 上线</li>
+<li>接管本地环境，操作文件 + 软件 + 长期记忆</li>
+<li>网页端新增 Expert 功能 (可复用模板)</li>
+</ul>
+<h3>阶跃 AI 桌面伙伴</h3>
+<ul>
+<li>2025-09 较早发布</li>
+<li>本地化任务执行，主打"主动提供服务"</li>
+</ul>
+<h3>QClaw (腾讯包装版 OpenClaw)</h3>
+<ul>
+<li>原生支持: 微信 / QQ / MCP / Skills Store / 本地模型 / 多平台通信</li>
+<li>借助腾讯 IM 生态抢占 Agent 入口</li>
+</ul>
+<p>---</p>
+<h2>战略对比矩阵</h2>
+<table>
+<tr>
+<th>维度</th>
+<th>PilotDeck</th>
+<th>Claude Cowork</th>
+<th>Skywork</th>
+<th>BitFun CoWork</th>
+<th>OpenClaw</th>
+</tr>
+<tr>
+<td>平台覆盖</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐⭐ (仅 macOS)</td>
+<td>⭐⭐⭐ (Windows)</td>
+<td>⭐⭐⭐</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>项目隔离</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐⭐</td>
+<td>⭐⭐</td>
+<td>⭐⭐</td>
+<td>⭐</td>
+</tr>
+<tr>
+<td>白盒记忆</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐</td>
+<td>⭐</td>
+<td>⭐</td>
+<td>⭐⭐ (本地 MD)</td>
+</tr>
+<tr>
+<td>智能路由</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐</td>
+<td>⭐⭐⭐ (auto)</td>
+<td>⭐</td>
+<td>⭐</td>
+</tr>
+<tr>
+<td>主动性</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐⭐</td>
+<td>⭐</td>
+<td>⭐</td>
+<td>⭐⭐⭐⭐ (心跳)</td>
+</tr>
+<tr>
+<td>Skills 生态</td>
+<td>⭐⭐</td>
+<td>⭐⭐⭐⭐⭐ (18 插件)</td>
+<td>⭐⭐⭐⭐ (100+)</td>
+<td>⭐⭐</td>
+<td>⭐⭐⭐ (AgentSkills)</td>
+</tr>
+<tr>
+<td>MCP 支持</td>
+<td>⭐⭐⭐⭐</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>国际化</td>
+<td>⭐⭐</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐⭐⭐</td>
+<td>⭐⭐</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>文档完善度</td>
+<td>⭐⭐⭐</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐⭐⭐</td>
+<td>⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>License 友好</td>
+<td>⭐⭐ (AGPL)</td>
+<td>⭐⭐⭐⭐ (闭源订阅)</td>
+<td>⭐⭐⭐ (闭源订阅)</td>
+<td>⭐⭐⭐⭐⭐ (MIT)</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>社区规模</td>
+<td>⭐⭐</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐⭐⭐</td>
+<td>⭐</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>商业化成熟</td>
+<td>⭐⭐</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+<td>⭐</td>
+<td>⭐⭐⭐</td>
+</tr>
+</table>
+<h2>对 PilotDeck 的启示</h2>
+<h3>优势要保持</h3>
+<ol>
+<li><strong>WorkSpace 三层隔离</strong> — 全行业独此一家，继续做深</li>
+<li><strong>白盒记忆 + Dream</strong> — 唯一可编辑可回滚的产品</li>
+<li><strong>子 Agent 智能路由</strong> — 有公开 benchmark 数据支撑</li>
+<li><strong>Always-on</strong> — Cron 心跳 OpenClaw 也有，但 PilotDeck 集成更深</li>
+</ol>
+<h3>短板要补</h3>
+<ol>
+<li><strong>Skills 生态</strong> — 急需 WorkSpace 级 Skills Marketplace</li>
+<li><strong>License</strong> — AGPL-3.0 限制企业采用，需提供商业 License 路径</li>
+<li><strong>国际化</strong> — 文档以中文为主，海外开发者上手门槛</li>
+<li><strong>无正式 Release</strong> — Tags = 0，企业部署缺少版本锚点</li>
+</ol>
+<h3>战略机会</h3>
+<ol>
+<li><strong>国内差异化</strong>: 火山方舟集成 + 中文文档 + 清华/面壁背书 = 护城河</li>
+<li><strong>MCP 深度</strong>: 借 Anthropic 把 MCP 推成标准的东风</li>
+<li><strong>多模型协同</strong>: 比 Skywork 三模型更灵活的子 Agent 路由</li>
+<li><strong>本地优先</strong>: 数据敏感场景下唯一 WorkSpace 级方案</li>
+</ol>
+<h3>战略威胁</h3>
+<ol>
+<li><strong>Claude Cowork 跟进</strong>: 如果 Anthropic 推出 Windows 版本 + 加上项目隔离，将是巨大威胁</li>
+<li><strong>OpenClaw 回归</strong>: 一旦 OpenClaw 解决 ClawJacked 信任问题，规模优势仍在</li>
+<li><strong>Skywork 进化</strong>: 昆仑万维资源充足，3-6 个月内可能跟进 WorkSpace 概念</li>
+<li><strong>国内大厂</strong>: 阿里 QoderWork、字节、腾讯 QClaw 一旦发力，个人/小团队项目难以抗衡</li>
+</ol>
+    </article>
+
+
+    <article class="doc" id="comp-tier2-frameworks-comparison" style="display:none">
+      <h1>🥊 tier2-frameworks-comparison</h1>
+      <p class="meta">文件: <code>tier2-frameworks-comparison.md</code> · 大小 2KB</p>
+      <blockquote>这些是 Agent 框架/SDK，不直接对标 PilotDeck 但 PilotDeck 内部可能集成或互操作。</blockquote>
+<blockquote>**最后更新**: 2026-06-01 18:05</blockquote>
+<h2>框架总览</h2>
+<table>
+<tr>
+<th>框架</th>
+<th>厂商</th>
+<th>Stars</th>
+<th>架构风格</th>
+<th>多语言</th>
+<th>MCP</th>
+<th>Skills</th>
+</tr>
+<tr>
+<td>LangGraph</td>
+<td>LangChain</td>
+<td>31k</td>
+<td>图/状态机</td>
+<td>Py + JS</td>
+<td>⚠️ 适配器</td>
+<td>⚠️ 子图</td>
+</tr>
+<tr>
+<td>CrewAI</td>
+<td>CrewAI Inc.</td>
+<td>50.4k</td>
+<td>角色组队</td>
+<td>Py</td>
+<td>✅ 原生</td>
+<td>✅ 一等公民</td>
+</tr>
+<tr>
+<td>Claude Agent SDK</td>
+<td>Anthropic</td>
+<td>6.6k</td>
+<td>自主工具循环</td>
+<td>Py + TS</td>
+<td>✅ 最深</td>
+<td>✅ 一等公民</td>
+</tr>
+<tr>
+<td>OpenAI Agents SDK</td>
+<td>OpenAI</td>
+<td>25.7k</td>
+<td>轻量 Provider 无关</td>
+<td>Py + JS</td>
+<td>✅ 原生</td>
+<td>⚠️ 基础</td>
+</tr>
+<tr>
+<td>MS Agent Framework</td>
+<td>Microsoft</td>
+<td>10k</td>
+<td>图工作流 + 分层</td>
+<td>Py + .NET</td>
+<td>⚠️ 集成中</td>
+<td>⚠️ 基础</td>
+</tr>
+<tr>
+<td>Google ADK</td>
+<td>Google</td>
+<td>19.4k</td>
+<td>代码优先 + 层级</td>
+<td>Py + Java + Go</td>
+<td>✅ 原生</td>
+<td>⭐ 建设中</td>
+</tr>
+</table>
+<h2>关键观察</h2>
+<h3>2026 年框架格局已基本定型</h3>
+<ul>
+<li>早期百花齐放（AutoGPT/BabyAGI/CAMEL/MetaGPT）→ 主流 6 框架收敛</li>
+<li>MS Agent Framework 统一了 AutoGen + Semantic Kernel（AutoGen 进入维护）</li>
+<li>Google ADK 是唯一 3 语言一致的</li>
+</ul>
+<h3>Skills 系统的两极分化</h3>
+<ul>
+<li><strong>一等公民</strong>: CrewAI, Claude Agent SDK（都有专门仓库和 Marketplace）</li>
+<li><strong>建设中</strong>: Google ADK（Skill Registry 刚合并）</li>
+<li><strong>基础/无</strong>: OpenAI Agents SDK, MS Agent Framework, LangGraph</li>
+</ul>
+<h3>MCP 集成深度</h3>
+<ul>
+<li><strong>最深的</strong>: Claude Agent SDK（支持进程内 SDK MCP Server，零额外进程）</li>
+<li><strong>原生</strong>: CrewAI, OpenAI SDK, Google ADK</li>
+<li><strong>适配器</strong>: LangGraph（通过 langchain-mcp-adapters）</li>
+</ul>
+<h2>PilotDeck 的位置</h2>
+<p>PilotDeck 不是一个"框架"——它是一个<strong>面向终端用户的 Agent OS</strong>。框架是给开发者用的，OS 是给最终用户用的。</p>
+<p>但 PilotDeck 内部：</p>
+<ul>
+<li>路由层可以参考 LangGraph 的图状态机</li>
+<li>Skills 系统可以参考 CrewAI 的 Markdown + Marketplace 设计</li>
+<li>MCP 集成对标 Claude Agent SDK 的深度</li>
+</ul>
+<h2>监控建议</h2>
+<ul>
+<li><strong>每周</strong>: 只看是否有重大 release（> 1k star 增长）</li>
+<li><strong>每月</strong>: 做一次框架生态对比，输出"PilotDeck 是否落后于框架层新特性"的判断</li>
+</ul>
+<h2>新增追踪对象</h2>
+<p>考虑到 T2 框架的重要性在上升，建议月报中加入：</p>
+<table>
+<tr>
+<th>框架</th>
+<th>监控指标</th>
+</tr>
+<tr>
+<td>LangGraph</td>
+<td>stars 增长、v1.0 进展、图状态机新特性</td>
+</tr>
+<tr>
+<td>CrewAI</td>
+<td>Skills 仓库增长、v1.x 路线图</td>
+</tr>
+<tr>
+<td>Claude Agent SDK</td>
+<td>MCP 新能力、Skills Marketplace 扩张</td>
+</tr>
+<tr>
+<td>OpenAI Agents SDK</td>
+<td>Sandbox Agents 进展、多 LLM 支持</td>
+</tr>
+<tr>
+<td>MS Agent Framework</td>
+<td>.NET 生态整合、Foundry Toolboxes</td>
+</tr>
+<tr>
+<td>Google ADK</td>
+<td>Skill Registry GA 进度、三语言一致性</td>
+</tr>
+</table>
+    </article>
+
+
+    <article class="doc" id="snap-2026-06-02" style="display:none">
+      <h1>📸 数据快照 2026-06-02</h1>
+      <p class="meta">文件: <code>2026-06-02.md</code></p>
+      <ul>
+<li><strong>Stars</strong>: 2.8k</li>
+<li><strong>Forks</strong>: 265</li>
+<li><strong>Open Issues</strong>: 59</li>
+<li><strong>主语言</strong>: TypeScript</li>
+<li><strong>最近 push</strong>: 2026-06-02</li>
+<li><strong>仓库</strong>: https://github.com/OpenBMB/PilotDeck</li>
+</ul>
+<p>_由 weekly_runner.py v3.0 自动生成_</p>
+    </article>
+
+
+    <article class="doc" id="snap-2026-06-01" style="display:none">
+      <h1>📸 数据快照 2026-06-01</h1>
+      <p class="meta">文件: <code>2026-06-01.md</code></p>
+      <blockquote>**基线快照**。后续每周一会刷新并对比增量。</blockquote>
+<blockquote>数据采集时间：2026-06-01 17:43 (Asia/Shanghai)</blockquote>
+<blockquote>数据源：GitHub REST API (api.github.com/repos/OpenBMB/PilotDeck)</blockquote>
+<h2>仓库数据</h2>
+<table>
+<tr>
+<th>指标</th>
+<th>数值</th>
+</tr>
+<tr>
+<td>仓库 ID</td>
+<td>1246399437</td>
+</tr>
+<tr>
+<td>Stars</td>
+<td>**2,648**</td>
+</tr>
+<tr>
+<td>Forks</td>
+<td>246</td>
+</tr>
+<tr>
+<td>Open Issues</td>
+<td>3 (#93, #82, #78)</td>
+</tr>
+<tr>
+<td>Open PRs</td>
+<td>17</td>
+</tr>
+<tr>
+<td>Contributors</td>
+<td>8 (含 1 dependabot)</td>
+</tr>
+<tr>
+<td>总 Commits</td>
+<td>686</td>
+</tr>
+<tr>
+<td>License</td>
+<td>AGPL-3.0</td>
+</tr>
+<tr>
+<td>主语言</td>
+<td>TypeScript</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>18,836 KB</td>
+</tr>
+<tr>
+<td>仓库创建</td>
+<td>2026-05-22</td>
+</tr>
+<tr>
+<td>最近 push</td>
+<td>2026-06-01 03:49 UTC</td>
+</tr>
+<tr>
+<td>最近 commit</td>
+<td>2026-05-29 09:34 UTC (PR #76 合并)</td>
+</tr>
+<tr>
+<td>Tags (Releases)</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Discussions</td>
+<td>未启用</td>
+</tr>
+</table>
+<h2>贡献者排行</h2>
+<table>
+<tr>
+<th>#</th>
+<th>用户</th>
+<th>Commits</th>
+<th>占比</th>
+</tr>
+<tr>
+<td>1</td>
+<td>Mingwwww</td>
+<td>196</td>
+<td>28.6%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Kaguya-19</td>
+<td>188</td>
+<td>27.4%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Gucc111</td>
+<td>167</td>
+<td>24.3%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>mmrdmn</td>
+<td>52</td>
+<td>7.6%</td>
+</tr>
+<tr>
+<td>5</td>
+<td>zhengdaqi</td>
+<td>29</td>
+<td>4.2%</td>
+</tr>
+<tr>
+<td>6</td>
+<td>xhd0728</td>
+<td>12</td>
+<td>1.7%</td>
+</tr>
+<tr>
+<td>7</td>
+<td>dependabot[bot]</td>
+<td>8</td>
+<td>1.2%</td>
+</tr>
+<tr>
+<td>8</td>
+<td>mssssss123</td>
+<td>5</td>
+<td>0.7%</td>
+</tr>
+<tr>
+<td></td>
+<td>**Top 3 合计**</td>
+<td>**551**</td>
+<td>**80.3%**</td>
+</tr>
+</table>
+<p>⚠️ <strong>单点风险</strong>: 3 个核心贡献者贡献了 80% 的 commit，关注后续人员扩充。</p>
+<h2>已合并 PR 列表 (近 10 个)</h2>
+<table>
+<tr>
+<th>PR #</th>
+<th>标题</th>
+<th>作者</th>
+<th>合并日期</th>
+</tr>
+<tr>
+<td>#77</td>
+<td>fix(onboarding): validate LLM test response shape</td>
+<td>Mingwwww</td>
+<td>2026-05-29</td>
+</tr>
+<tr>
+<td>#76</td>
+<td>fix: add Volcano Ark (火山方舟) API provider support</td>
+<td>rollroyces</td>
+<td>2026-05-29</td>
+</tr>
+<tr>
+<td>#62</td>
+<td>fix(docker): sync runtime config and pnpm builds</td>
+<td>Kaguya-19</td>
+<td>2026-05-29</td>
+</tr>
+<tr>
+<td>#61</td>
+<td>fix(settings): clarify model base URL format</td>
+<td>Mingwwww</td>
+<td>2026-05-29</td>
+</tr>
+<tr>
+<td>#60</td>
+<td>Feat/settings</td>
+<td>Kaguya-19</td>
+<td>2026-05-29</td>
+</tr>
+<tr>
+<td>#58</td>
+<td>Fix downloads for non-ASCII filenames</td>
+<td>mmrdmn</td>
+<td>2026-05-29</td>
+</tr>
+<tr>
+<td>#55</td>
+<td>Fix general skill imports and frontmatter compatibility</td>
+<td>mmrdmn</td>
+<td>2026-05-29</td>
+</tr>
+<tr>
+<td>#45</td>
+<td>fix(ui): reduce Electron renderer CPU during streaming</td>
+<td>zhengdaqi</td>
+<td>2026-05-29</td>
+</tr>
+<tr>
+<td>#41</td>
+<td>Fix OpenAI tool call normalization</td>
+<td>Mingwwww</td>
+<td>2026-05-28</td>
+</tr>
+<tr>
+<td>#31</td>
+<td>fix: installer browser timeout + allow workspace from any path</td>
+<td>mmrdmn</td>
+<td>2026-05-28</td>
+</tr>
+</table>
+<h2>Open Issues 列表</h2>
+<table>
+<tr>
+<th>#</th>
+<th>标题</th>
+<th>报告日期</th>
+</tr>
+<tr>
+<td>#93</td>
+<td>导入 skill 失败</td>
+<td>2026-06-01</td>
+</tr>
+<tr>
+<td>#82</td>
+<td>自动安装脚本未处理 3000/3001 端口占用</td>
+<td>2026-05-31</td>
+</tr>
+<tr>
+<td>#78</td>
+<td>调用工具一直失败</td>
+<td>2026-05-29</td>
+</tr>
+</table>
+<h2>能力快照</h2>
+<ul>
+<li>✅ WorkSpace 三层隔离（FS + Memory + Skills）</li>
+<li>✅ 双轨记忆（Project Memory + Collaboration Feedback）</li>
+<li>✅ 白盒记忆 + Dream + Rollback</li>
+<li>✅ 子 Agent 级别智能路由（节省 70-87% Token）</li>
+<li>✅ Always-on 24h 后台执行</li>
+<li>✅ 端云协同（自动部署 VoxCPM 等端侧模型）</li>
+<li>✅ MCP 原生</li>
+<li>✅ 一键安装（macOS/Linux/Windows/Docker）</li>
+<li>✅ IM 适配（飞书/企业微信）</li>
+<li>✅ 多模型支持（含火山方舟）</li>
+<li>⚠️ 暂未发布正式 Release（Tags = 0）</li>
+<li>⚠️ AGPL-3.0 License</li>
+<li>⚠️ Discussions 未启用</li>
+</ul>
+<h2>起始状态总评</h2>
+<p><strong>热度</strong>: ⭐⭐⭐⭐⭐（10 天 2.6k stars，媒体集中曝光）  </p>
+<p><strong>成熟度</strong>: ⭐⭐⭐（核心能力齐备，但 Release / 生态起步阶段）  </p>
+<p><strong>稳定性</strong>: ⭐⭐（3 天连发 3 版本 + 大量 installer/兼容性 fix）  </p>
+<p><strong>商业化</strong>: ⭐⭐（AGPL-3.0 + 团队 9 人 + Release 缺失）  </p>
+<p><strong>机会点</strong>: 桌面 Agent 大方向 + 国内市场 + 智能路由差异化</p>
+<p>---</p>
+<p>本快照由 Mavis 在 cron 任务首次执行时建立，用于后续 weekly diff 对比。</p>
+    </article>
+
+  </main>
+</div>
+<footer>PilotDeck 追踪项目 · Mavis 维护 · 自动生成于 2026-06-02 05:49 CST</footer>
+<script>
+  const articles = document.querySelectorAll('article.doc');
+  const links = document.querySelectorAll('nav a');
+  function show(id) {
+    articles.forEach(a => a.style.display = (a.id === id) ? 'block' : 'none');
+    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    document.querySelector('main').scrollTop = 0;
+  }
+  function handleHash() {
+    const id = (location.hash || '#welcome').slice(1);
+    show(Array.from(articles).some(a => a.id === id) ? id : 'welcome');
+  }
+  links.forEach(l => l.addEventListener('click', e => {
+    const href = l.getAttribute('href');
+    if (href && href.startsWith('#')) { e.preventDefault(); history.pushState(null, '', href); handleHash(); }
+  }));
+  window.addEventListener('popstate', handleHash);
+  handleHash();
+</script>
+</body>
+</html>
