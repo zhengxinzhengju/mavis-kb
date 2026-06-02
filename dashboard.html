@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   (function() {
-    const STORAGE_KEY = "mavis_kb_unlocked_" + new Date().toISOString().slice(0,10).replace(/-/g, '');
+    const STORAGE_KEY = "mavis_kb_unlocked_v3";
     if (sessionStorage.getItem(STORAGE_KEY) !== 'yes') {
       window.location.href = 'gate.html';
     }
