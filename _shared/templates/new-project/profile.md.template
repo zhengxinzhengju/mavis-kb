@@ -1,0 +1,27 @@
+# {PROJECT_NAME} · 项目档案
+
+> 数据采集: {DATE} | 框架版本: v3.3
+
+## 基本信息
+
+- **项目**: {project_id}
+- **主仓库**: https://github.com/{github_org}/{github_repo}
+- **Stars**: 待补全
+- **Forks**: 待补全
+- **Open Issues**: 待补全
+- **License**: 待补全
+- **主语言**: 待补全
+
+## 定位
+
+> （一句话说明这个项目是什么、解决什么问题、跟 PilotDeck 是什么关系）
+
+## 核心能力
+
+- 能力 1
+- 能力 2
+- 能力 3
+
+## 风险与机会
+
+（待 weekly_runner 跑出数据后补充）
