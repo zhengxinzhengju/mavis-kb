@@ -23,8 +23,9 @@
       "cron_expr": "0 8 28-31 * *"
     },
     "feishu": {
-      "webhook_url": "",
-      "secret": ""
+      "webhook_url": "https://open.feishu.cn/open-apis/bot/v2/hook/aa69fc60-7444-4815-8d96-a47a73771491",
+      "secret": "isedQudmIN5YqGyeasvoud",
+      "note": "新项目自动继承 pilotdeck 的飞书配置（同一个 webhook/secret）。如需单独配，编辑此处。"
     }
   },
   "last_github_data": null,
