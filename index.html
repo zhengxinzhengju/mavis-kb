@@ -60,9 +60,9 @@
 <header>
   <h1><span class="dot"></span> Mavis 多项目知识库</h1>
   <div class="meta">
-    <span>📦 v3.0</span>
+    <span>📦 v3.3</span>
     <span>📁 9 个项目 active</span>
-    <span>🕐 2026-06-02 07:17 CST</span>
+    <span>🕐 2026-06-02 07:31 CST</span>
     <a href="knowledge-base.zip">📥 完整下载</a>
   </div>
 </header>
@@ -89,7 +89,7 @@
       <p class="tagline">One cockpit. All agents. Unified control. Maximum impact.</p>
       <div class="stats">
         <div class="stat"><div class="label">GitHub Stars</div><div class="value">2.8k</div></div>
-        <div class="stat"><div class="label">Forks</div><div class="value">265</div></div>
+        <div class="stat"><div class="label">Forks</div><div class="value">266</div></div>
         <div class="stat"><div class="label">Open Issues</div><div class="value">59</div></div>
         <div class="stat"><div class="label">追踪起始</div><div class="value">2026-06-01</div></div>
       </div>
@@ -273,23 +273,31 @@ cp -r /workspace/knowledge-base/projects/_template/ \
 vim /workspace/knowledge-base/projects/&lt;new-id&gt;/index.json
 
 # 3. 在全局注册表登记 + 重新生成 + 部署
-vim /workspace/knowledge-base/_index/projects.json
+vim _shared/registry.json
 python3 /workspace/knowledge-base/_index/scripts/build_site.py</code></pre>
   </div>
   <h2 class="section">🏗 框架结构</h2>
   <div class="framework-box">
     <h3>目录布局</h3>
-    <pre><code>/workspace/knowledge-base/
-├── _index/
-│   ├── projects.json
+    <pre><code>mavis-kb/                         ← GitHub 仓库根
+├── README.md                    ← 仓库入口
+├── _shared/                     ← 跨项目共享
+│   ├── scripts/                 ← 所有可执行脚本
+│   ├── templates/new-project/   ← 新项目模板
+│   ├── registry.json            ← 项目注册表
+│   ├── password.json
+│   └── dashboard.json
+├── pilotdeck/                   ← 项目 1（顶层平铺）
 │   ├── README.md
-│   └── scripts/build_site.py    ← 本生成器
-├── projects/
-│   ├── _template/
-│   ├── pilotdeck/                ← 项目 1
-│   ├── openclaw/                 ← 项目 2
-│   └── &lt;new-project&gt;/
-└── (output &lt;- build_site 写入)</code></pre>
+│   ├── profile.md
+│   ├── index.json
+│   ├── competitors/
+│   ├── snapshots/
+│   └── history/                 ← 🆕 长期归档
+│       └── 2026/2026-06/
+├── openclaw/                    ← 项目 2
+├── ... (9 个项目顶层)
+└── &lt;new-project&gt;/             ← 加新项目 = 复制模板 + 改 index.json + push</code></pre>
   </div>
   <h2 class="section">🥊 共享竞品池</h2>
   <div class="framework-box">
@@ -329,7 +337,7 @@ python3 /workspace/knowledge-base/_index/scripts/build_site.py</code></pre>
   </div>
 </main>
 <footer>
-  Mavis 多项目知识库 · 由 Mavis 维护 · 自动生成于 2026-06-02 07:17 CST
+  Mavis 多项目知识库 · 由 Mavis 维护 · 自动生成于 2026-06-02 07:31 CST
 </footer>
 </body>
 </html>
