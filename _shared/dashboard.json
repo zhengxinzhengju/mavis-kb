@@ -1,0 +1,120 @@
+{
+  "generated_at": "2026-06-02 06:27 CST",
+  "totals": {
+    "stars": 747007,
+    "forks": 132354,
+    "issues": 26326,
+    "size_mb": 2112.0,
+    "projects": 9
+  },
+  "projects": [
+    {
+      "id": "openclaw",
+      "name": "OpenClaw",
+      "tagline": "Your own personal AI assistant. Any OS. Any Platform. The lo",
+      "stars": 376111,
+      "forks": 78557,
+      "issues": 7067,
+      "language": "TypeScript",
+      "license": "NOASSERTION",
+      "pushed": "2026-06-02",
+      "size_mb": 1460.4423828125
+    },
+    {
+      "id": "hermes-agent",
+      "name": "Hermes Agent",
+      "tagline": "The only agent with a built-in learning loop - 会自我进化的个人 AI 助",
+      "stars": 176301,
+      "forks": 30100,
+      "issues": 16326,
+      "language": "Python",
+      "license": "MIT",
+      "pushed": "2026-06-02",
+      "size_mb": 279.802734375
+    },
+    {
+      "id": "deer-flow",
+      "name": "DeerFlow",
+      "tagline": "Deep Exploration and Efficient Research Flow - 字节跳动开源的长时程 Su",
+      "stars": 70229,
+      "forks": 9482,
+      "issues": 922,
+      "language": "Python",
+      "license": "MIT",
+      "pushed": "2026-06-02",
+      "size_mb": 36.1171875
+    },
+    {
+      "id": "harness",
+      "name": "Harness",
+      "tagline": "Open Source DevOps Platform (原 Gitness) - Drone 团队打造的 All-in",
+      "stars": 36308,
+      "forks": 3180,
+      "issues": 95,
+      "language": "Go",
+      "license": "Apache-2.0",
+      "pushed": "2026-06-01",
+      "size_mb": 57.8212890625
+    },
+    {
+      "id": "openhuman",
+      "name": "OpenHuman",
+      "tagline": "Personal AI Super Intelligence - 分钟级建立上下文的本地 AI 分身",
+      "stars": 30344,
+      "forks": 2898,
+      "issues": 105,
+      "language": "Rust",
+      "license": "GPL-3.0",
+      "pushed": "2026-06-02",
+      "size_mb": 100.255859375
+    },
+    {
+      "id": "picoclaw",
+      "name": "PicoClaw",
+      "tagline": "在 10 美元 RISC-V 芯片上跑的 AI 智能体 - 极致轻量",
+      "stars": 29259,
+      "forks": 4191,
+      "issues": 81,
+      "language": "Go",
+      "license": "MIT",
+      "pushed": "2026-06-02",
+      "size_mb": 38.830078125
+    },
+    {
+      "id": "qwenpaw",
+      "name": "QwenPaw",
+      "tagline": "Qwen Personal Agent Workstation - 通义千问生态的桌面 Agent 平台（前 CoPaw",
+      "stars": 17153,
+      "forks": 2542,
+      "issues": 893,
+      "language": "Python",
+      "license": "Apache-2.0",
+      "pushed": "2026-06-02",
+      "size_mb": 79.705078125
+    },
+    {
+      "id": "higress",
+      "name": "Higress",
+      "tagline": "Next-generation Cloud Native Gateway - 阿里开源的三合一网关",
+      "stars": 8538,
+      "forks": 1139,
+      "issues": 778,
+      "language": "Go",
+      "license": "Apache-2.0",
+      "pushed": "2026-06-02",
+      "size_mb": 40.81640625
+    },
+    {
+      "id": "pilotdeck",
+      "name": "PilotDeck",
+      "tagline": "One cockpit. All agents. Unified control. Maximum impact.",
+      "stars": 2764,
+      "forks": 265,
+      "issues": 59,
+      "language": "TypeScript",
+      "license": "AGPL-3.0",
+      "pushed": "2026-06-02",
+      "size_mb": 18.2353515625
+    }
+  ]
+}
