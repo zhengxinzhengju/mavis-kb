@@ -30,7 +30,6 @@ REGISTRY_PATH = Path("/workspace/knowledge-base/_shared/registry.json")
 REPO_MAP = {
     "nanoclaw":        "nanocoai/nanoclaw",
     "zeroclaw":        "zeroclaw-labs/zeroclaw",
-    "swarm":        "openai/swarm",
     "pilotdeck":     "OpenBMB/PilotDeck",
     "openclaw":      "openclaw/openclaw",
     "deer-flow":     "bytedance/deer-flow",
