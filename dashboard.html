@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mavis 知识库 Dashboard</title>
+<style>
+  :root { --bg: #0f1419; --panel: #1a1f29; --panel-2: #232a36; --border: #2d3543; --text: #e6e9ef; --text-dim: #8b95a7; --accent: #4f9eff; --accent-2: #6ee7b7; --warning: #f59e0b; --code-bg: #0a0d12; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { min-height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); }
+  body { display: flex; flex-direction: column; }
+  header { background: var(--panel); border-bottom: 1px solid var(--border); padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  header h1 { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+  header h1 .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 14px var(--accent-2); }
+  header .meta { font-size: 12px; color: var(--text-dim); display: flex; gap: 18px; flex-wrap: wrap; }
+  header .meta a { color: var(--accent); text-decoration: none; }
+  main { flex: 1; padding: 32px; max-width: 1400px; margin: 0 auto; width: 100%; }
+  .section-title { font-size: 14px; text-transform: uppercase; color: var(--text-dim); letter-spacing: 1px; margin: 32px 0 14px; font-weight: 600; }
+  .totals { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .total-card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; }
+  .total-card .label { font-size: 12px; color: var(--text-dim); margin-bottom: 6px; }
+  .total-card .value { font-size: 28px; font-weight: 700; color: var(--text); }
+  .total-card .sub { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+  .rank-list { display: flex; flex-direction: column; gap: 10px; }
+  .rank-card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 18px; text-decoration: none; color: var(--text); transition: all 0.15s; }
+  .rank-card:hover { border-color: var(--accent); transform: translateX(4px); }
+  .rank-num { font-size: 24px; font-weight: 800; color: var(--text-dim); width: 40px; text-align: center; }
+  .rank-card:nth-child(1) .rank-num { color: #ffd700; }
+  .rank-card:nth-child(2) .rank-num { color: #c0c0c0; }
+  .rank-card:nth-child(3) .rank-num { color: #cd7f32; }
+  .rank-info { flex: 1; }
+  .rank-name { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .rank-tagline { font-weight: 400; color: var(--text-dim); font-size: 12px; margin-left: 8px; }
+  .rank-bar-wrap { height: 6px; background: var(--panel-2); border-radius: 3px; margin-bottom: 8px; overflow: hidden; }
+  .rank-bar { height: 100%; border-radius: 3px; transition: width 0.3s; }
+  .rank-stats { display: flex; gap: 16px; font-size: 12px; color: var(--text-dim); }
+  .rank-stats .stat { color: var(--text); font-weight: 500; }
+  .data-panel { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid var(--border); text-align: left; }
+  th { color: var(--text-dim); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td.num { font-family: 'SF Mono', Monaco, monospace; text-align: right; }
+  td a { color: var(--text); text-decoration: none; }
+  td a:hover { color: var(--accent); }
+  .lang-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+  .bar-wrap { background: var(--panel-2); border-radius: 3px; height: 8px; overflow: hidden; }
+  .bar { height: 100%; border-radius: 3px; transition: width 0.3s; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; }
+  .badge.active { background: rgba(110, 231, 183, 0.15); color: var(--accent-2); }
+  .badge.dim { background: var(--panel-2); color: var(--text-dim); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+  footer { background: var(--panel); border-top: 1px solid var(--border); padding: 16px 32px; font-size: 11px; color: var(--text-dim); text-align: center; margin-top: 40px; }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="dot"></span> Mavis 知识库 Dashboard</h1>
+  <div class="meta">
+    <span>📊 9 个项目</span>
+    <span>🕐 2026-06-02 06:27 CST</span>
+    <a href="index.html">← 返回主页</a>
+  </div>
+</header>
+<main>
+  <div class="totals">
+    <div class="total-card">
+      <div class="label">⭐ 总 Stars</div>
+      <div class="value">747,007</div>
+      <div class="sub">9 个项目合计</div>
+    </div>
+    <div class="total-card">
+      <div class="label">🍴 总 Forks</div>
+      <div class="value">132,354</div>
+      <div class="sub">社区贡献指标</div>
+    </div>
+    <div class="total-card">
+      <div class="label">📋 总 Open Issues</div>
+      <div class="value">26,326</div>
+      <div class="sub">需要关注的工作量</div>
+    </div>
+    <div class="total-card">
+      <div class="label">💾 总代码量</div>
+      <div class="value">2,112.0 MB</div>
+      <div class="sub">不含依赖 / vendor</div>
+    </div>
+  </div>
+
+  <div class="section-title">🏆 Stars 排行（按规模）</div>
+  <div class="rank-list">
+        <a href="project-openclaw.html" class="rank-card">
+          <div class="rank-num">#1</div>
+          <div class="rank-info">
+            <div class="rank-name">OpenClaw <span class="rank-tagline">Your own personal AI assistant. Any OS. Any Platform. The lo</span></div>
+            <div class="rank-bar-wrap">
+              <div class="rank-bar" style="width:100.0%; background:#6ee7b7"></div>
+            </div>
+            <div class="rank-stats">
+              <span class="stat">⭐ 376,111</span>
+              <span class="stat">🍴 78,557</span>
+              <span class="stat">📋 7,067</span>
+              <span class="stat">🔤 TypeScript</span>
+            </div>
+          </div>
+        </a>
+        <a href="project-hermes-agent.html" class="rank-card">
+          <div class="rank-num">#2</div>
+          <div class="rank-info">
+            <div class="rank-name">Hermes Agent <span class="rank-tagline">The only agent with a built-in learning loop - 会自我进化的个人 AI 助</span></div>
+            <div class="rank-bar-wrap">
+              <div class="rank-bar" style="width:46.9%; background:#f59e0b"></div>
+            </div>
+            <div class="rank-stats">
+              <span class="stat">⭐ 176,301</span>
+              <span class="stat">🍴 30,100</span>
+              <span class="stat">📋 16,326</span>
+              <span class="stat">🔤 Python</span>
+            </div>
+          </div>
+        </a>
+        <a href="project-deer-flow.html" class="rank-card">
+          <div class="rank-num">#3</div>
+          <div class="rank-info">
+            <div class="rank-name">DeerFlow <span class="rank-tagline">Deep Exploration and Efficient Research Flow - 字节跳动开源的长时程 Su</span></div>
+            <div class="rank-bar-wrap">
+              <div class="rank-bar" style="width:18.7%; background:#a78bfa"></div>
+            </div>
+            <div class="rank-stats">
+              <span class="stat">⭐ 70,229</span>
+              <span class="stat">🍴 9,482</span>
+              <span class="stat">📋 922</span>
+              <span class="stat">🔤 Python</span>
+            </div>
+          </div>
+        </a>
+        <a href="project-harness.html" class="rank-card">
+          <div class="rank-num">#4</div>
+          <div class="rank-info">
+            <div class="rank-name">Harness <span class="rank-tagline">Open Source DevOps Platform (原 Gitness) - Drone 团队打造的 All-in</span></div>
+            <div class="rank-bar-wrap">
+              <div class="rank-bar" style="width:9.7%; background:#f472b6"></div>
+            </div>
+            <div class="rank-stats">
+              <span class="stat">⭐ 36,308</span>
+              <span class="stat">🍴 3,180</span>
+              <span class="stat">📋 95</span>
+              <span class="stat">🔤 Go</span>
+            </div>
+          </div>
+        </a>
+        <a href="project-openhuman.html" class="rank-card">
+          <div class="rank-num">#5</div>
+          <div class="rank-info">
+            <div class="rank-name">OpenHuman <span class="rank-tagline">Personal AI Super Intelligence - 分钟级建立上下文的本地 AI 分身</span></div>
+            <div class="rank-bar-wrap">
+              <div class="rank-bar" style="width:8.1%; background:#4f9eff"></div>
+            </div>
+            <div class="rank-stats">
+              <span class="stat">⭐ 30,344</span>
+              <span class="stat">🍴 2,898</span>
+              <span class="stat">📋 105</span>
+              <span class="stat">🔤 Rust</span>
+            </div>
+          </div>
+        </a>
+        <a href="project-picoclaw.html" class="rank-card">
+          <div class="rank-num">#6</div>
+          <div class="rank-info">
+            <div class="rank-name">PicoClaw <span class="rank-tagline">在 10 美元 RISC-V 芯片上跑的 AI 智能体 - 极致轻量</span></div>
+            <div class="rank-bar-wrap">
+              <div class="rank-bar" style="width:7.8%; background:#8b95a7"></div>
+            </div>
+            <div class="rank-stats">
+              <span class="stat">⭐ 29,259</span>
+              <span class="stat">🍴 4,191</span>
+              <span class="stat">📋 81</span>
+              <span class="stat">🔤 Go</span>
+            </div>
+          </div>
+        </a>
+        <a href="project-qwenpaw.html" class="rank-card">
+          <div class="rank-num">#7</div>
+          <div class="rank-info">
+            <div class="rank-name">QwenPaw <span class="rank-tagline">Qwen Personal Agent Workstation - 通义千问生态的桌面 Agent 平台（前 CoPaw</span></div>
+            <div class="rank-bar-wrap">
+              <div class="rank-bar" style="width:4.6%; background:#8b95a7"></div>
+            </div>
+            <div class="rank-stats">
+              <span class="stat">⭐ 17,153</span>
+              <span class="stat">🍴 2,542</span>
+              <span class="stat">📋 893</span>
+              <span class="stat">🔤 Python</span>
+            </div>
+          </div>
+        </a>
+        <a href="project-higress.html" class="rank-card">
+          <div class="rank-num">#8</div>
+          <div class="rank-info">
+            <div class="rank-name">Higress <span class="rank-tagline">Next-generation Cloud Native Gateway - 阿里开源的三合一网关</span></div>
+            <div class="rank-bar-wrap">
+              <div class="rank-bar" style="width:2.3%; background:#8b95a7"></div>
+            </div>
+            <div class="rank-stats">
+              <span class="stat">⭐ 8,538</span>
+              <span class="stat">🍴 1,139</span>
+              <span class="stat">📋 778</span>
+              <span class="stat">🔤 Go</span>
+            </div>
+          </div>
+        </a>
+        <a href="project-pilotdeck.html" class="rank-card">
+          <div class="rank-num">#9</div>
+          <div class="rank-info">
+            <div class="rank-name">PilotDeck <span class="rank-tagline">One cockpit. All agents. Unified control. Maximum impact.</span></div>
+            <div class="rank-bar-wrap">
+              <div class="rank-bar" style="width:0.7%; background:#8b95a7"></div>
+            </div>
+            <div class="rank-stats">
+              <span class="stat">⭐ 2,764</span>
+              <span class="stat">🍴 265</span>
+              <span class="stat">📋 59</span>
+              <span class="stat">🔤 TypeScript</span>
+            </div>
+          </div>
+        </a>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <div class="section-title">🎨 按语言分布</div>
+      <div class="data-panel">
+        <table>
+          <tr><th>语言</th><th class="num">Stars</th><th class="num">占比</th><th>分布</th></tr>
+          
+        <tr>
+          <td><span class="lang-dot" style="background:#3178c6"></span> TypeScript</td>
+          <td class="num">378,875</td>
+          <td class="num">50.7%</td>
+          <td>
+            <div class="bar-wrap"><div class="bar" style="width:50.7%; background:#3178c6"></div></div>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="lang-dot" style="background:#3776ab"></span> Python</td>
+          <td class="num">263,683</td>
+          <td class="num">35.3%</td>
+          <td>
+            <div class="bar-wrap"><div class="bar" style="width:35.3%; background:#3776ab"></div></div>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="lang-dot" style="background:#00add8"></span> Go</td>
+          <td class="num">74,105</td>
+          <td class="num">9.9%</td>
+          <td>
+            <div class="bar-wrap"><div class="bar" style="width:9.9%; background:#00add8"></div></div>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="lang-dot" style="background:#dea584"></span> Rust</td>
+          <td class="num">30,344</td>
+          <td class="num">4.1%</td>
+          <td>
+            <div class="bar-wrap"><div class="bar" style="width:4.1%; background:#dea584"></div></div>
+          </td>
+        </tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="section-title">🔥 Issues 排行（压力榜）</div>
+      <div class="data-panel">
+        <table>
+          <tr><th>项目</th><th class="num">Issues</th><th class="num">Stars</th><th class="num">I/S 比</th></tr>
+          
+        <tr>
+          <td><a href="project-hermes-agent.html">Hermes Agent</a></td>
+          <td class="num">16,326</td>
+          <td class="num">176,301</td>
+          <td class="num">9.26%</td>
+        </tr>
+        <tr>
+          <td><a href="project-openclaw.html">OpenClaw</a></td>
+          <td class="num">7,067</td>
+          <td class="num">376,111</td>
+          <td class="num">1.88%</td>
+        </tr>
+        <tr>
+          <td><a href="project-deer-flow.html">DeerFlow</a></td>
+          <td class="num">922</td>
+          <td class="num">70,229</td>
+          <td class="num">1.31%</td>
+        </tr>
+        <tr>
+          <td><a href="project-qwenpaw.html">QwenPaw</a></td>
+          <td class="num">893</td>
+          <td class="num">17,153</td>
+          <td class="num">5.21%</td>
+        </tr>
+        <tr>
+          <td><a href="project-higress.html">Higress</a></td>
+          <td class="num">778</td>
+          <td class="num">8,538</td>
+          <td class="num">9.11%</td>
+        </tr>
+        <tr>
+          <td><a href="project-openhuman.html">OpenHuman</a></td>
+          <td class="num">105</td>
+          <td class="num">30,344</td>
+          <td class="num">0.35%</td>
+        </tr>
+        <tr>
+          <td><a href="project-harness.html">Harness</a></td>
+          <td class="num">95</td>
+          <td class="num">36,308</td>
+          <td class="num">0.26%</td>
+        </tr>
+        <tr>
+          <td><a href="project-picoclaw.html">PicoClaw</a></td>
+          <td class="num">81</td>
+          <td class="num">29,259</td>
+          <td class="num">0.28%</td>
+        </tr>
+        <tr>
+          <td><a href="project-pilotdeck.html">PilotDeck</a></td>
+          <td class="num">59</td>
+          <td class="num">2,764</td>
+          <td class="num">2.13%</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">⚡ 活跃度排行（最近 push）</div>
+  <div class="data-panel">
+    <table>
+      <tr><th>项目</th><th>最近 push</th><th>距今</th><th>状态</th></tr>
+      
+        <tr>
+          <td><a href="project-openclaw.html">OpenClaw</a></td>
+          <td>2026-06-02</td>
+          <td>0 天前</td>
+          <td><span class="badge active">0 天前</span></td>
+        </tr>
+        <tr>
+          <td><a href="project-hermes-agent.html">Hermes Agent</a></td>
+          <td>2026-06-02</td>
+          <td>0 天前</td>
+          <td><span class="badge active">0 天前</span></td>
+        </tr>
+        <tr>
+          <td><a href="project-deer-flow.html">DeerFlow</a></td>
+          <td>2026-06-02</td>
+          <td>0 天前</td>
+          <td><span class="badge active">0 天前</span></td>
+        </tr>
+        <tr>
+          <td><a href="project-openhuman.html">OpenHuman</a></td>
+          <td>2026-06-02</td>
+          <td>0 天前</td>
+          <td><span class="badge active">0 天前</span></td>
+        </tr>
+        <tr>
+          <td><a href="project-picoclaw.html">PicoClaw</a></td>
+          <td>2026-06-02</td>
+          <td>0 天前</td>
+          <td><span class="badge active">0 天前</span></td>
+        </tr>
+        <tr>
+          <td><a href="project-qwenpaw.html">QwenPaw</a></td>
+          <td>2026-06-02</td>
+          <td>0 天前</td>
+          <td><span class="badge active">0 天前</span></td>
+        </tr>
+        <tr>
+          <td><a href="project-higress.html">Higress</a></td>
+          <td>2026-06-02</td>
+          <td>0 天前</td>
+          <td><span class="badge active">0 天前</span></td>
+        </tr>
+        <tr>
+          <td><a href="project-pilotdeck.html">PilotDeck</a></td>
+          <td>2026-06-02</td>
+          <td>0 天前</td>
+          <td><span class="badge active">0 天前</span></td>
+        </tr>
+        <tr>
+          <td><a href="project-harness.html">Harness</a></td>
+          <td>2026-06-01</td>
+          <td>1 天前</td>
+          <td><span class="badge active">1 天前</span></td>
+        </tr>
+    </table>
+  </div>
+</main>
+<footer>Mavis 知识库 Dashboard · Mavis 自动生成 · 数据来自 GitHub API（已认证 token）</footer>
+</body>
+</html>
