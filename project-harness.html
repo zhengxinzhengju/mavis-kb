@@ -2,15 +2,16 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   (function() {
-    const STORAGE_KEY = "mavis_kb_unlocked_" + new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const STORAGE_KEY = "mavis_kb_unlocked_v3";
     if (sessionStorage.getItem(STORAGE_KEY) !== 'yes') {
       window.location.href = 'gate.html';
     }
   })();
 </script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Harness · 项目详情</title>
 <style>
   :root { --bg: #0f1419; --panel: #1a1f29; --panel-2: #232a36; --border: #2d3543; --text: #e6e9ef; --text-dim: #8b95a7; --accent: #4f9eff; --accent-2: #6ee7b7; --warning: #f59e0b; --danger: #ef4444; --code-bg: #0a0d12; }
@@ -278,7 +279,7 @@
 
   </main>
 </div>
-<footer>Harness 追踪项目 · Mavis 维护 · 自动生成于 2026-06-02 06:50 CST</footer>
+<footer>Harness 追踪项目 · Mavis 维护 · 自动生成于 2026-06-02 07:00 CST</footer>
 <script>
   const articles = document.querySelectorAll('article.doc');
   const links = document.querySelectorAll('nav a');
