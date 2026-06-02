@@ -1,0 +1,105 @@
+{
+  "$schema": "Mavis project schema v1.0",
+  "project": {
+    "id": "qwenpaw",
+    "name": "QwenPaw",
+    "tagline": "Qwen Personal Agent Workstation - 通义千问生态的桌面 Agent 平台（前 CoPaw）",
+    "category": "Desktop Agent",
+    "vendor": "Alibaba (阿里) / AgentScope",
+    "co_developers": [
+      "阿里云",
+      "通义实验室",
+      "AgentScope 团队"
+    ],
+    "license": "Apache-2.0 (推测)",
+    "official_site": "https://qwenpaw.com (待确认)",
+    "github_repo": "https://github.com/agentscope-ai/QwenPaw",
+    "tracked_since": "2026-06-02"
+  },
+  "tracking": {
+    "weekly_report": {
+      "cadence": "every Monday 08:00 (Asia/Shanghai)",
+      "cron_expr": "0 8 * * 1",
+      "deliver_to": "feishu-webhook",
+      "enabled": true,
+      "feishu_configured": true,
+      "cron_task_id": "404738977693767"
+    },
+    "monthly_report": {
+      "cadence": "last day of each month 08:00 (Asia/Shanghai)",
+      "cron_expr": "0 8 28-31 * *",
+      "focus": "Desktop Agent 项目动态",
+      "deliver_to": "feishu-webhook",
+      "enabled": true,
+      "feishu_configured": true,
+      "cron_task_id": "404740690899268"
+    },
+    "feishu": {
+      "webhook_url": "https://open.feishu.cn/open-apis/bot/v2/hook/aa69fc60-7444-4815-8d96-a47a73771491",
+      "secret": "isedQudmIN5YqGyeasvoud",
+      "signed": true
+    }
+  },
+  "competitors": {
+    "tier1_ids": [
+      "openclaw",
+      "pilotdeck",
+      "hermes-agent",
+      "openhuman",
+      "picoclaw"
+    ],
+    "tier2_ids": [
+      "langgraph",
+      "crewai"
+    ]
+  },
+  "monitoring_priorities": {
+    "high": [
+      "Qwen 生态整合进展",
+      "阿里云资源投入",
+      "用户量增长"
+    ],
+    "medium": [
+      "多平台接入稳定性",
+      "Skills 生态",
+      "Multi-Agent 能力"
+    ],
+    "low": [
+      "GitHub Issues 关闭率"
+    ]
+  },
+  "key_features": [
+    "2026-04-12 由 CoPaw 正式更名 QwenPaw，发布 1.1.0",
+    "深度绑定 Qwen 系列模型 (Qwen-2.5/CodeQwen)",
+    "多平台接入: 钉钉/飞书/QQ/Discord/iMessage",
+    "本地一键部署 + 云端一键部署",
+    "支持本地模型挂载",
+    "端云结合 (本地模型增强 + 云端千问协同)",
+    "Multi-Agent 协作探索",
+    "安全升级: 隐私 + 端侧推理"
+  ],
+  "framework_v1_compliance": {
+    "version": "1.0",
+    "created_at": "2026-06-02T02:17:18+08:00",
+    "bulk_init": true
+  },
+  "last_data_refresh": "2026-06-02T02:17:18+08:00",
+  "last_github_data": {
+    "stargazers_count": 17153,
+    "forks_count": 2542,
+    "open_issues_count": 893,
+    "watchers_count": 17153,
+    "language": "Python",
+    "size": 81618,
+    "pushed_at": "2026-06-02T03:25:52Z",
+    "updated_at": "2026-06-02T06:03:50Z",
+    "license": "Apache-2.0"
+  },
+  "last_snapshot_at": "2026-06-02",
+  "last_weekly_report": "2026-W23",
+  "deployment": {
+    "kb_website": "https://zhengxinzhengju.github.io/mavis-kb/",
+    "kb_website_alt": "https://9islasxosjex.space.minimaxi.com",
+    "project_page": "https://zhengxinzhengju.github.io/mavis-kb/project-qwenpaw.html"
+  }
+}
