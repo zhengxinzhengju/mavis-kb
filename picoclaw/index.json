@@ -1,0 +1,96 @@
+{
+  "$schema": "Mavis project schema v1.0",
+  "project": {
+    "id": "picoclaw",
+    "name": "PicoClaw",
+    "tagline": "在 10 美元 RISC-V 芯片上跑的 AI 智能体 - 极致轻量",
+    "category": "Edge AI Agent",
+    "vendor": "Sipeed (矽速科技)",
+    "co_developers": [
+      "Sipeed 技术团队"
+    ],
+    "license": "MIT (推测)",
+    "official_site": "https://github.com/sipeed/picoclaw",
+    "github_repo": "https://github.com/sipeed/picoclaw",
+    "tracked_since": "2026-06-02"
+  },
+  "tracking": {
+    "weekly_report": {
+      "cadence": "every Monday 08:00 (Asia/Shanghai)",
+      "cron_expr": "0 8 * * 1",
+      "deliver_to": "feishu-webhook",
+      "enabled": true,
+      "feishu_configured": true,
+      "cron_task_id": "404738977693771"
+    },
+    "monthly_report": {
+      "cadence": "last day of each month 08:00 (Asia/Shanghai)",
+      "cron_expr": "0 8 28-31 * *",
+      "focus": "Edge AI Agent 项目动态",
+      "deliver_to": "feishu-webhook",
+      "enabled": true,
+      "feishu_configured": true,
+      "cron_task_id": "404740690899272"
+    },
+    "feishu": {
+      "webhook_url": "https://open.feishu.cn/open-apis/bot/v2/hook/aa69fc60-7444-4815-8d96-a47a73771491",
+      "secret": "isedQudmIN5YqGyeasvoud",
+      "signed": true
+    }
+  },
+  "competitors": {
+    "tier1_ids": [
+      "openclaw",
+      "openhuman",
+      "pilotdeck"
+    ],
+    "tier2_ids": []
+  },
+  "monitoring_priorities": {
+    "high": [
+      "嵌入式场景采用",
+      "10 美元硬件适配",
+      "跨架构稳定性"
+    ],
+    "medium": [
+      "Skills 生态",
+      "Telegram/Discord 集成"
+    ],
+    "low": [
+      "GitHub stars 增长"
+    ]
+  },
+  "key_features": [
+    "内存 < 10MB，启动 < 1秒",
+    "0.6GHz 单核流畅运行",
+    "RISC-V / ARM / x86 全平台",
+    "联网搜索 + 文件系统 + 长短期记忆 + 定时任务 + 子 Agent",
+    "Telegram / Discord 接入",
+    "OpenAI 兼容 LLM 接入",
+    "单一二进制部署"
+  ],
+  "framework_v1_compliance": {
+    "version": "1.0",
+    "created_at": "2026-06-02T02:17:21+08:00",
+    "bulk_init": true
+  },
+  "last_data_refresh": "2026-06-02T02:17:21+08:00",
+  "last_github_data": {
+    "stargazers_count": 29259,
+    "forks_count": 4191,
+    "open_issues_count": 81,
+    "watchers_count": 29259,
+    "language": "Go",
+    "size": 39762,
+    "pushed_at": "2026-06-02T01:30:38Z",
+    "updated_at": "2026-06-02T01:53:07Z",
+    "license": "MIT"
+  },
+  "last_snapshot_at": "2026-06-02",
+  "last_weekly_report": "2026-W23",
+  "deployment": {
+    "kb_website": "https://zhengxinzhengju.github.io/mavis-kb/",
+    "kb_website_alt": "https://9islasxosjex.space.minimaxi.com",
+    "project_page": "https://zhengxinzhengju.github.io/mavis-kb/project-picoclaw.html"
+  }
+}
