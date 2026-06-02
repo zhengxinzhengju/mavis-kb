@@ -1,0 +1,39 @@
+{
+  "project": {
+    "id": "zeroclaw",
+    "name": "ZeroClaw",
+    "tagline": "Fast, small, and fully autonomous AI personal assistant infrastructure, any OS, any platform — deploy anywhere, swap anything 🦀",
+    "github_repo": "https://github.com/zeroclaw-labs/zeroclaw",
+    "category": "T1",
+    "license": "Apache-2.0",
+    "language": "Rust"
+  },
+  "key_features": [],
+  "tracking": {
+    "weekly_report": {
+      "enabled": true,
+      "cron_expr": "40 9 * * 1"
+    },
+    "monthly_report": {
+      "enabled": true,
+      "cron_expr": "40 9 40-31 * *"
+    },
+    "feishu": {
+      "webhook_url": "",
+      "secret": ""
+    }
+  },
+  "last_github_data": {
+    "stargazers_count": 31707,
+    "forks_count": 4672,
+    "open_issues_count": 450,
+    "watchers_count": 31707,
+    "language": "Rust",
+    "size": 123244,
+    "pushed_at": "2026-06-02T07:55:25Z",
+    "updated_at": "2026-06-02T09:09:24Z",
+    "license": "Apache-2.0"
+  },
+  "last_snapshot_at": "2026-06-02",
+  "last_weekly_report": "2026-W23"
+}
