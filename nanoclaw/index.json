@@ -1,0 +1,39 @@
+{
+  "project": {
+    "id": "nanoclaw",
+    "name": "NanoClaw",
+    "tagline": "A lightweight alternative to OpenClaw that runs in containers for security. Connects to WhatsApp, Telegram, Slack, Discord, Gmail and other messaging apps,, has memory, scheduled jobs, and runs directly on Anthropic's Agents SDK",
+    "github_repo": "https://github.com/nanocoai/nanoclaw",
+    "category": "T1",
+    "license": "MIT",
+    "language": "TypeScript"
+  },
+  "key_features": [],
+  "tracking": {
+    "weekly_report": {
+      "enabled": true,
+      "cron_expr": "50 9 * * 1"
+    },
+    "monthly_report": {
+      "enabled": true,
+      "cron_expr": "50 9 50-31 * *"
+    },
+    "feishu": {
+      "webhook_url": "",
+      "secret": ""
+    }
+  },
+  "last_github_data": {
+    "stargazers_count": 29627,
+    "forks_count": 12905,
+    "open_issues_count": 717,
+    "watchers_count": 29627,
+    "language": "TypeScript",
+    "size": 16801,
+    "pushed_at": "2026-05-31T20:18:00Z",
+    "updated_at": "2026-06-02T09:20:49Z",
+    "license": "MIT"
+  },
+  "last_snapshot_at": "2026-06-02",
+  "last_weekly_report": "2026-W23"
+}
