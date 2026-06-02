@@ -312,7 +312,10 @@
       "tier": "T1 框架",
       "github_repo": "https://github.com/openai/swarm",
       "feishu_webhook_configured": false,
-      "cron_task_ids": {}
+      "cron_task_ids": {
+        "weekly": "404796853654434",
+        "monthly": "404795446797154"
+      }
     }
   ],
   "competitors_shared": {
