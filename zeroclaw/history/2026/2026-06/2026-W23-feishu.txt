@@ -1,0 +1,39 @@
+📊 **zeroclaw** 周报 2026-W23
+
+> （多项目框架 v3.0 · 周度追踪）
+
+**关键数据**:
+- ⭐ Stars: 31.7k · 🍴 Forks: 4.7k · 📋 Issues: 450
+- 🔤 Rust · 📄 Apache-2.0 · 📦 120.4 MB
+- 📅 最近 push: 2026-06-02
+
+**本周变更总结**:
+**🚀 功能升级** (2 项):
+  • feat(channels): define lean default channel bundle (#69
+  → refactor(cargo): extract channels-all aggregate feature
+**🐛 Bug 修复** (5 项):
+  • fix(providers): retry empty completions instead of retu
+  • fix(channels): redact Discord delivery failure targets 
+  • fix(runtime): fall back before visible stream errors (#
+  • fix(email): ignore blank SMTP credential overrides (#69
+**🔧 重构** (1 项):
+  → refactor(cargo): extract channels-all aggregate feature
+**⚠️ 破坏性变更** (1 项):
+  → fix(update,skills): harden error handling — log remove_
+**本周 release**:
+  - **v0.8.0-beta-1** — 2026-05-21
+  - **v0.7.5** — 2026-05-08
+
+**近期提交亮点**:
+
+  - `2026-06-02` fix(providers): retry empty completions instead of
+  - `2026-06-02` fix(channels): redact Discord delivery failure tar
+  - `2026-06-02` fix(runtime): fall back before visible stream erro
+
+- 本周核心信号: 待分析
+- 数据源: GitHub API（已认证 token 拉取 · 31.7k stars 验证）
+- 下次自动更新: 下周一
+
+📄 完整报告: knowledge-base/zeroclaw/briefings/weekly/2026-W23.md
+
+— Mavis 自动追踪
