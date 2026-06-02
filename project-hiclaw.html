@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>
+  (function() {
+    const STORAGE_KEY = "mavis_kb_unlocked_v3";
+    if (sessionStorage.getItem(STORAGE_KEY) !== 'yes') {
+      window.location.href = 'gate.html';
+    }
+  })();
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HiClaw · 项目详情</title>
+<style>
+  :root { --bg: #0f1419; --panel: #1a1f29; --panel-2: #232a36; --border: #2d3543; --text: #e6e9ef; --text-dim: #8b95a7; --accent: #4f9eff; --accent-2: #6ee7b7; --warning: #f59e0b; --danger: #ef4444; --code-bg: #0a0d12; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+  header { background: var(--panel); border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  header h1 { font-size: 16px; display: flex; align-items: center; gap: 10px; }
+  header h1 a { color: var(--accent); text-decoration: none; }
+  header h1 a:hover { text-decoration: underline; }
+  header .meta { font-size: 12px; color: var(--text-dim); }
+  header .meta a { color: var(--accent); text-decoration: none; margin-left: 12px; }
+  .layout { display: flex; flex: 1; }
+  nav { width: 280px; background: var(--panel); border-right: 1px solid var(--border); padding: 20px 0; overflow-y: auto; flex-shrink: 0; max-height: calc(100vh - 70px); }
+  nav .group { margin-bottom: 18px; }
+  nav .group-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-dim); padding: 0 20px 8px; letter-spacing: 0.5px; }
+  nav a { display: block; padding: 8px 20px; color: var(--text); text-decoration: none; font-size: 13px; border-left: 3px solid transparent; word-break: break-all; }
+  nav a:hover { background: var(--panel-2); border-left-color: var(--accent); }
+  nav a.active { background: var(--panel-2); border-left-color: var(--accent); color: var(--accent); }
+  nav .file-hint { font-size: 10px; color: var(--text-dim); margin-left: 4px; }
+  main { flex: 1; padding: 32px 40px; overflow-y: auto; max-height: calc(100vh - 70px); }
+  article.doc { max-width: 1000px; margin: 0 auto; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 28px 36px; }
+  article.doc h1 { font-size: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  article.doc h2 { font-size: 18px; margin: 28px 0 12px; color: var(--accent); }
+  article.doc h3 { font-size: 15px; margin: 20px 0 10px; color: var(--accent-2); }
+  article.doc h4 { font-size: 13px; margin: 16px 0 8px; color: var(--text); font-weight: 600; }
+  article.doc p, article.doc li { font-size: 14px; line-height: 1.7; margin-bottom: 8px; }
+  article.doc ul, article.doc ol { margin: 8px 0 8px 24px; }
+  article.doc table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  article.doc th, article.doc td { padding: 8px 12px; border: 1px solid var(--border); text-align: left; }
+  article.doc th { background: var(--panel-2); color: var(--text-dim); font-weight: 600; }
+  article.doc pre { background: var(--code-bg); padding: 14px; border-radius: 6px; overflow-x: auto; margin: 12px 0; font-size: 12px; line-height: 1.5; }
+  article.doc code { background: var(--code-bg); padding: 2px 6px; border-radius: 3px; font-size: 12px; color: var(--accent-2); }
+  article.doc pre code { background: transparent; padding: 0; }
+  article.doc .meta { font-size: 12px; color: var(--text-dim); margin-bottom: 20px; }
+  article.doc a { color: var(--accent); text-decoration: none; }
+  article.doc a:hover { text-decoration: underline; }
+  article.doc blockquote { border-left: 3px solid var(--accent); padding: 8px 16px; background: var(--panel-2); margin: 12px 0; color: var(--text-dim); }
+  article.doc strong { color: var(--accent-2); }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-right: 6px; }
+  .badge-ok { background: rgba(110, 231, 183, 0.15); color: var(--accent-2); }
+  .badge-warn { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+  .empty { padding: 60px 20px; text-align: center; color: var(--text-dim); }
+  .empty h2 { color: var(--text); margin-bottom: 12px; font-size: 18px; }
+  .empty p { font-size: 13px; margin-bottom: 16px; }
+  .empty code { background: var(--code-bg); padding: 4px 8px; border-radius: 3px; color: var(--accent-2); font-size: 12px; display: inline-block; margin: 4px 0; }
+  footer { background: var(--panel); border-top: 1px solid var(--border); padding: 12px; text-align: center; font-size: 11px; color: var(--text-dim); }
+</style>
+</head>
+<body>
+<header>
+  <h1>🚀 HiClaw · <a href="index.html">← 返回知识库</a></h1>
+  <div class="meta">
+    协作多 Agent 操作系统 — 基于 Matrix 协议的透明人机协作
+    <a href="https://github.com/agentscope-ai/HiClaw" target="_blank">GitHub ↗</a>
+  </div>
+</header>
+<div class="layout">
+  <nav id="nav">
+    <div class="group"><div class="group-title">概览</div>
+      <a href="#welcome">欢迎页</a>
+      </div>
+      <div class="group"><div class="group-title">档案</div>
+      <a href="#profile">档案 (1KB)</a>
+      </div>
+      <div class="group"><div class="group-title">事件</div>
+      <a href="#timeline">时间线 (0KB)</a>
+      </div>
+      <div class="group"><div class="group-title">简报</div>
+      <a href="#weekly-latest">最新周报 (2026-W23)</a>
+      </div>
+      <div class="group"><div class="group-title">竞品分析</div>
+      <a href="#comp-agent-os-comparison">agent-os-comparison (0KB)</a>
+      </div>
+      <div class="group"><div class="group-title">快照</div>
+      <a href="#snap-2026-06-02">2026-06-02</a>
+      </div>
+  </nav>
+  <main>
+    
+    <article class="doc" id="welcome">
+      <h1>🚀 HiClaw</h1>
+      <p class="meta">协作多 Agent 操作系统 — 基于 Matrix 协议的透明人机协作</p>
+      <p><strong>追踪起始:</strong> —</p>
+      <p><strong>主仓库:</strong> <a href="https://github.com/agentscope-ai/HiClaw">https://github.com/agentscope-ai/HiClaw</a></p>
+      <h2>关键数据 (GitHub API 实时)</h2>
+      <table><tr><td>GitHub Stars</td><td>4.7k</td></tr><tr><td>Forks</td><td>567</td></tr><tr><td>Watchers</td><td>4.7k</td></tr><tr><td>Open Issues</td><td>255</td></tr><tr><td>License</td><td>Apache-2.0</td></tr><tr><td>主语言</td><td>Go</td></tr><tr><td>Size</td><td>15.0 MB</td></tr><tr><td>最近 push</td><td>2026-06-02</td></tr></table>
+      <h2>运行状态</h2>
+      <p><span class="badge badge-ok">周报 cron</span> <code>0 8 * * 1</code></p><p><span class="badge badge-ok">月报 cron</span> <code>0 8 28-31 * *</code></p>
+      <h2>核心能力</h2>
+      <ul><li>基于 Matrix 协议的多 Agent 协作</li><li>人机协作（Human-in-the-loop）</li><li>透明的任务协调</li><li>开源 Multi-Agent OS</li><li>AgentScope 团队出品（阿里）</li><li>Go 编写 + Apache-2.0</li></ul>
+    </article>
+
+
+    <article class="doc" id="profile" style="display:none">
+      <h1>📋 项目档案</h1>
+      <p class="meta">文件: <code>profile.md</code></p>
+      <blockquote>数据采集: 2026-06-02 | 框架版本: v3.3</blockquote>
+<h2>基本信息</h2>
+<ul>
+<li><strong>项目</strong>: HiClaw</li>
+<li><strong>主仓库</strong>: https://github.com/agentscope-ai/HiClaw</li>
+<li><strong>所属组织</strong>: AgentScope（阿里）</li>
+<li><strong>Stars</strong>: 4,716</li>
+<li><strong>Forks</strong>: 567</li>
+<li><strong>Open Issues</strong>: 255</li>
+<li><strong>License</strong>: Apache-2.0</li>
+<li><strong>主语言</strong>: Go</li>
+<li><strong>大小</strong>: 15.0 MB</li>
+<li><strong>最近 push</strong>: 2026-06-02</li>
+<li><strong>创建于</strong>: 2026-02-21</li>
+</ul>
+<h2>定位</h2>
+<blockquote>"An open-source Collaborative Multi-Agent OS for transparent, human-in-the-loop task coordination via Matrix rooms."</blockquote>
+<p>HiClaw 是阿里 AgentScope 团队 2026-02 推出的<strong>协作多 Agent 操作系统</strong>，核心是基于 <strong>Matrix 协议</strong>（去中心化即时通讯协议）实现：</p>
+<ul>
+<li><strong>透明的多 Agent 协作</strong> — 所有 Agent 通信经 Matrix rooms 路由</li>
+<li><strong>Human-in-the-loop</strong> — 人类可观察、介入、调整 Agent 协作</li>
+<li><strong>任务协调</strong> — 多个 Agent 共同完成复杂工作流</li>
+</ul>
+<h2>与 QwenPaw 的关系</h2>
+<table>
+<tr>
+<th>维度</th>
+<th>QwenPaw</th>
+<th>HiClaw</th>
+</tr>
+<tr>
+<td>形态</td>
+<td>桌面 Agent 平台</td>
+<td>多 Agent 操作系统</td>
+</tr>
+<tr>
+<td>模型</td>
+<td>Qwen 系列</td>
+<td>任意 LLM</td>
+</tr>
+<tr>
+<td>协作</td>
+<td>单 Agent + Skills</td>
+<td>多 Agent + Matrix 协议</td>
+</tr>
+<tr>
+<td>协议</td>
+<td>自有 IM</td>
+<td>Matrix（开放）</td>
+</tr>
+<tr>
+<td>交互</td>
+<td>GUI</td>
+<td>Rooms + 人机协作</td>
+</tr>
+</table>
+<h2>核心能力</h2>
+<ul>
+<li>Matrix 协议集成（rooms / events / E2EE）</li>
+<li>多 Agent 任务分发与协调</li>
+<li>透明审计（人可观察 Agent 通信）</li>
+<li>Go 编写的高性能 runtime</li>
+<li>Apache-2.0 友好开源协议</li>
+</ul>
+<h2>风险与机会</h2>
+<ul>
+<li><strong>机会</strong>: Matrix 协议 = 跨平台 Agent 互操作基础</li>
+<li><strong>风险</strong>: 4716 stars 早期阶段</li>
+<li><strong>协同</strong>: 与 QwenPaw 共享 AgentScope 生态</li>
+</ul>
+<h2>追踪建议</h2>
+<ul>
+<li><strong>监控周频</strong>: star 增量 + commit 节奏 + Matrix 集成深度</li>
+<li><strong>关键事件</strong>: v1.0 / 跨项目互操作 demo / QwenPaw 联动</li>
+</ul>
+    </article>
+
+
+    <article class="doc" id="timeline" style="display:none">
+      <h1>📅 重大事件时间线</h1>
+      <p class="meta">文件: <code>timeline.md</code></p>
+      <blockquote>关键事件由 weekly_runner 自动追加</blockquote>
+<h2>2026</h2>
+<ul>
+<li><strong>2026-06-02</strong> 加入 Mavis 知识库追踪系统</li>
+<li><strong>2026-02-21</strong> GitHub 仓库创建（AgentScope 团队）</li>
+</ul>
+    </article>
+
+
+    <article class="doc" id="weekly-latest" style="display:none">
+      <h1>📊 最新周报</h1>
+      <p class="meta">文件: <code>2026-W23.md</code> · 大小 2KB</p>
+      <blockquote>生成时间: 2026-06-02 | （多项目框架 v3.0 · 周度追踪）</blockquote>
+<h2>1. 仓库概览</h2>
+<ul>
+<li><strong>Stars</strong>: 4.7k</li>
+<li><strong>Forks</strong>: 567</li>
+<li><strong>Open Issues</strong>: 255</li>
+<li><strong>主语言</strong>: Go</li>
+<li><strong>License</strong>: Apache-2.0</li>
+<li><strong>大小</strong>: 15.0 MB</li>
+<li><strong>最近 push</strong>: 2026-06-02</li>
+<li><strong>创建于</strong>: 2026-02-21</li>
+</ul>
+<h2>2. 本周 release</h2>
+<ul>
+<li><strong>v1.1.2</strong> (<code>v1.1.2</code>) — 2026-05-27</li>
+<li><strong>v1.1.1</strong> (<code>v1.1.1</code>) — 2026-05-07</li>
+<li><strong>v1.1.0</strong> (<code>v1.1.0</code>) — 2026-04-24</li>
+<li><strong>v1.1.0-rc.1</strong> (<code>v1.1.0-rc.1</code>) — 2026-04-23</li>
+<li><strong>v1.0.9</strong> (<code>v1.0.9</code>) — 2026-04-02</li>
+</ul>
+<h2>3. 最近 8 次 commit</h2>
+<ul>
+<li><code>2026-06-02</code> <strong>CYJiang</strong> — test: cover delete cleanup, runtime switch, skills update, n</li>
+<li><code>2026-06-01</code> <strong>shiyiyue1102</strong> — docs: clarify Team delegation matching (#868)</li>
+<li><code>2026-06-01</code> <strong>shiyiyue1102</strong> — docs: expand FAQ for Worker and setup questions (#869)</li>
+<li><code>2026-06-01</code> <strong>shiyiyue1102</strong> — fix(copaw): honor runtime path env defaults (#876)</li>
+<li><code>2026-06-01</code> <strong>shiyiyue1102</strong> — fix(controller): reject team worker name conflicts (#871)</li>
+<li><code>2026-06-01</code> <strong>shiyiyue1102</strong> — fix(install): match mounted socket to selected runtime (#885</li>
+<li><code>2026-06-01</code> <strong>shiyiyue1102</strong> — fix(controller): preserve leader coordination context after </li>
+<li><code>2026-06-01</code> <strong>shiyiyue1102</strong> — fix(controller): add host gateway extra host for docker work</li>
+</ul>
+<h2>4. 近期 closed PR (10 条)</h2>
+<ul>
+<li><code>2026-06-01</code> [closed] feat(install): add Podman autostart support via podman-</li>
+<li><code>2026-06-01</code> [merged] fix(controller): add host gateway extra host for docker</li>
+<li><code>2026-06-01</code> [merged] fix(install): match mounted socket to selected runtime</li>
+<li><code>2026-06-01</code> [merged] fix(controller): preserve leader coordination context a</li>
+<li><code>2026-05-29</code> [merged] fix(worker): add --network hiclaw-net to manual Worker </li>
+<li><code>2026-06-02</code> [merged] test: cover delete cleanup, runtime switch, skills upda</li>
+<li><code>2026-05-31</code> [closed] feat(install): add Podman Quadlet autostart support via</li>
+<li><code>2026-06-01</code> [merged] fix(copaw): honor runtime path env defaults</li>
+</ul>
+<h2>5. Open Issues 数量</h2>
+<ul>
+<li>当前 open issues: <strong>255</strong> 个（API 实时）</li>
+</ul>
+<h2>6. 关键判断</h2>
+<ul>
+<li>本周核心信号: 待分析</li>
+<li>数据源: GitHub API（已认证 token 拉取 · 4.7k stars 验证）</li>
+<li>下次自动更新: 下周一</li>
+</ul>
+<h2>7. 附录</h2>
+<ul>
+<li>仓库主页: https://github.com/agentscope-ai/HiClaw</li>
+<li>数据快照: <code>snapshots/2026-06-02.json</code></li>
+<li>报告生成器: <code>_shared/scripts/weekly_runner.py</code></li>
+</ul>
+    </article>
+
+
+    <article class="doc" id="comp-agent-os-comparison" style="display:none">
+      <h1>🥊 agent-os-comparison</h1>
+      <p class="meta">文件: <code>agent-os-comparison.md</code> · 大小 0KB</p>
+      <h2>1. QwenPaw (同门, agentscope-ai, 17k stars)</h2>
+<ul>
+<li><strong>核心定位</strong>: 桌面 Agent 平台</li>
+<li><strong>战略影响</strong>: ✅ <strong>强协同</strong> — 同组织生态</li>
+<li><strong>差异</strong>: QwenPaw 偏桌面端，HiClaw 偏多 Agent OS</li>
+</ul>
+<h2>2. AutoGen (Microsoft, 58k stars)</h2>
+<ul>
+<li><strong>核心定位</strong>: 微软多 Agent 框架</li>
+<li><strong>战略影响</strong>: 🟡 <strong>中性</strong> — 都做多 Agent，但路线不同</li>
+</ul>
+<h2>3. CrewAI (52k stars)</h2>
+<ul>
+<li><strong>核心定位</strong>: Role-based Multi-Agent</li>
+<li><strong>战略影响</strong>: 🟡 <strong>中性</strong> — 角色派 vs 房间派</li>
+</ul>
+<h2>4. LangGraph (LangChain 子项目)</h2>
+<ul>
+<li><strong>核心定位</strong>: 图结构多 Agent</li>
+<li><strong>战略影响</strong>: 🟡 <strong>中性</strong> — 表达方式不同</li>
+</ul>
+<h2>战略判断</h2>
+<ul>
+<li>HiClaw 4716 stars 早期阶段</li>
+<li><strong>核心差异化</strong>: Matrix 协议 + 人机协作 + 透明审计</li>
+<li><strong>机会</strong>: 押注"Agent 互操作" + 阿里生态协同</li>
+<li><strong>风险</strong>: 4716 stars 距头部框架仍有 5-10x 差距</li>
+</ul>
+    </article>
+
+
+    <article class="doc" id="snap-2026-06-02" style="display:none">
+      <h1>📸 数据快照 2026-06-02</h1>
+      <p class="meta">文件: <code>2026-06-02.md</code></p>
+      <ul>
+<li><strong>Stars</strong>: 4.7k</li>
+<li><strong>Forks</strong>: 567</li>
+<li><strong>Open Issues</strong>: 255</li>
+<li><strong>主语言</strong>: Go</li>
+<li><strong>最近 push</strong>: 2026-06-02</li>
+<li><strong>仓库</strong>: https://github.com/agentscope-ai/HiClaw</li>
+</ul>
+<p>_由 weekly_runner.py v3.0 自动生成_</p>
+    </article>
+
+  </main>
+</div>
+<footer>HiClaw 追踪项目 · Mavis 维护 · 自动生成于 2026-06-02 08:19 CST</footer>
+<script>
+  const articles = document.querySelectorAll('article.doc');
+  const links = document.querySelectorAll('nav a');
+  function show(id) {
+    articles.forEach(a => a.style.display = (a.id === id) ? 'block' : 'none');
+    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    document.querySelector('main').scrollTop = 0;
+  }
+  function handleHash() {
+    const id = (location.hash || '#welcome').slice(1);
+    show(Array.from(articles).some(a => a.id === id) ? id : 'welcome');
+  }
+  links.forEach(l => l.addEventListener('click', e => {
+    const href = l.getAttribute('href');
+    if (href && href.startsWith('#')) { e.preventDefault(); history.pushState(null, '', href); handleHash(); }
+  }));
+  window.addEventListener('popstate', handleHash);
+  handleHash();
+</script>
+</body>
+</html>
