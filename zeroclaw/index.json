@@ -19,8 +19,8 @@
       "cron_expr": "40 9 40-31 * *"
     },
     "feishu": {
-      "webhook_url": "",
-      "secret": ""
+      "webhook_url": "https://open.feishu.cn/open-apis/bot/v2/hook/aa69fc60-7444-4815-8d96-a47a73771491",
+      "secret": "isedQudmIN5YqGyeasvoud"
     }
   },
   "last_github_data": {
