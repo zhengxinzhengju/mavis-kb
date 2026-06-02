@@ -1,0 +1,106 @@
+{
+  "$schema": "Mavis project schema v1.0",
+  "project": {
+    "id": "hermes-agent",
+    "name": "Hermes Agent",
+    "tagline": "The only agent with a built-in learning loop - 会自我进化的个人 AI 助理",
+    "category": "Self-Evolving Personal Agent",
+    "vendor": "NousResearch",
+    "co_developers": [
+      "Teknium (主开发)",
+      "社区 290+ 贡献者"
+    ],
+    "license": "MIT",
+    "official_site": "https://nousresearch.ai (推测)",
+    "github_repo": "https://github.com/NousResearch/hermes-agent",
+    "tracked_since": "2026-06-02"
+  },
+  "tracking": {
+    "weekly_report": {
+      "cadence": "every Monday 08:00 (Asia/Shanghai)",
+      "cron_expr": "0 8 * * 1",
+      "deliver_to": "feishu-webhook",
+      "enabled": true,
+      "feishu_configured": true,
+      "cron_task_id": "404738977693768"
+    },
+    "monthly_report": {
+      "cadence": "last day of each month 08:00 (Asia/Shanghai)",
+      "cron_expr": "0 8 28-31 * *",
+      "focus": "Self-Evolving Personal Agent 项目动态",
+      "deliver_to": "feishu-webhook",
+      "enabled": true,
+      "feishu_configured": true,
+      "cron_task_id": "404740690899269"
+    },
+    "feishu": {
+      "webhook_url": "https://open.feishu.cn/open-apis/bot/v2/hook/aa69fc60-7444-4815-8d96-a47a73771491",
+      "secret": "isedQudmIN5YqGyeasvoud",
+      "signed": true
+    }
+  },
+  "competitors": {
+    "tier1_ids": [
+      "openclaw",
+      "pilotdeck",
+      "deer-flow",
+      "openhuman"
+    ],
+    "tier2_ids": [
+      "langgraph",
+      "crewai",
+      "claude-agent-sdk"
+    ]
+  },
+  "monitoring_priorities": {
+    "high": [
+      "v0.x 快速版本迭代",
+      "Nous Portal 模型集成",
+      "自我进化机制实际效果"
+    ],
+    "medium": [
+      "Skills Hub 生态扩张",
+      "TUI 体验优化",
+      "MCP 双向支持"
+    ],
+    "low": [
+      "GitHub 16k open issues 关闭率"
+    ]
+  },
+  "key_features": [
+    "自我进化闭环: 任务→技能创建→技能优化→跨会话调用",
+    "持久记忆双文件: MEMORY.md + USER.md",
+    "SQLite FTS5 全文搜索",
+    "40+ 工具 + 105 内置技能",
+    "12+ 消息平台 (Telegram/Discord/Slack/微信/QQ/飞书/钉钉等)",
+    "v0.11.0 React/Ink TUI 全面重写",
+    "5 大推理路径 (NVIDIA NIM/Arcee AI/Step Plan 等)",
+    "AWS Bedrock 原生支持",
+    "Skills Hub 7 源 + 4 级信任模型",
+    "6 终端后端 (local/docker/ssh/daytona/singularity/modal)"
+  ],
+  "framework_v1_compliance": {
+    "version": "1.0",
+    "created_at": "2026-06-02T02:17:19+08:00",
+    "bulk_init": true
+  },
+  "last_data_refresh": "2026-06-02T02:17:19+08:00",
+  "last_github_data": {
+    "stargazers_count": 176301,
+    "forks_count": 30100,
+    "open_issues_count": 16326,
+    "watchers_count": 176301,
+    "language": "Python",
+    "size": 286518,
+    "pushed_at": "2026-06-02T05:12:53Z",
+    "updated_at": "2026-06-02T06:11:15Z",
+    "license": "MIT"
+  },
+  "last_snapshot_at": "2026-06-02",
+  "last_weekly_report": "2026-W23",
+  "deployment": {
+    "kb_website": "https://zhengxinzhengju.github.io/mavis-kb/",
+    "kb_website_alt": "https://9islasxosjex.space.minimaxi.com",
+    "project_page": "https://zhengxinzhengju.github.io/mavis-kb/project-hermes-agent.html"
+  }
+}
