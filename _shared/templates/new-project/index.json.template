@@ -1,0 +1,48 @@
+{
+  "project": {
+    "id": "{project_id}",
+    "name": "{PROJECT_NAME}",
+    "tagline": "（一句话定位）",
+    "github_repo": "https://github.com/{github_org}/{github_repo}",
+    "category": "T1",
+    "license": "—",
+    "language": "—"
+  },
+  "key_features": [
+    "能力 1",
+    "能力 2",
+    "能力 3"
+  ],
+  "tracking": {
+    "weekly_report": {
+      "enabled": true,
+      "cron_expr": "0 8 * * 1"
+    },
+    "monthly_report": {
+      "enabled": true,
+      "cron_expr": "0 8 28-31 * *"
+    },
+    "feishu": {
+      "webhook_url": "",
+      "secret": ""
+    }
+  },
+  "last_github_data": null,
+  "last_snapshot_at": null,
+  "deployment": {
+    "kb_website": "https://zhengxinzhengju.github.io/mavis-kb/",
+    "kb_website_alt": "https://xxxx.space.minimaxi.com",
+    "project_page": "https://zhengxinzhengju.github.io/mavis-kb/project-{project_id}.html"
+  },
+  "history_structure": {
+    "history_root": "history/",
+    "yearly_pattern": "history/YYYY/",
+    "monthly_pattern": "history/YYYY/YYYY-MM/",
+    "file_patterns": {
+      "weekly": "YYYY-Wnn-weekly.md",
+      "monthly": "YYYY-MM-monthly.md",
+      "snapshot": "YYYY-MM-DD-snapshot.md",
+      "feishu": "YYYY-Wnn-feishu.txt"
+    }
+  }
+}
