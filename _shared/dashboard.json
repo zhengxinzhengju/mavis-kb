@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-06-02 06:27 CST",
+  "generated_at": "2026-06-02 09:26 CST",
   "totals": {
-    "stars": 747007,
-    "forks": 132354,
-    "issues": 26326,
-    "size_mb": 2112.0,
-    "projects": 9
+    "stars": 813062,
+    "forks": 150499,
+    "issues": 27748,
+    "size_mb": 2263.8,
+    "projects": 12
   },
   "projects": [
     {
@@ -57,6 +57,18 @@
       "size_mb": 57.8212890625
     },
     {
+      "id": "zeroclaw",
+      "name": "ZeroClaw",
+      "tagline": "Fast, small, and fully autonomous AI personal assistant infr",
+      "stars": 31707,
+      "forks": 4672,
+      "issues": 450,
+      "language": "Rust",
+      "license": "Apache-2.0",
+      "pushed": "2026-06-02",
+      "size_mb": 120.35546875
+    },
+    {
       "id": "openhuman",
       "name": "OpenHuman",
       "tagline": "Personal AI Super Intelligence - 分钟级建立上下文的本地 AI 分身",
@@ -67,6 +79,18 @@
       "license": "GPL-3.0",
       "pushed": "2026-06-02",
       "size_mb": 100.255859375
+    },
+    {
+      "id": "nanoclaw",
+      "name": "NanoClaw",
+      "tagline": "A lightweight alternative to OpenClaw that runs in container",
+      "stars": 29627,
+      "forks": 12905,
+      "issues": 717,
+      "language": "TypeScript",
+      "license": "MIT",
+      "pushed": "2026-05-31",
+      "size_mb": 16.4072265625
     },
     {
       "id": "picoclaw",
@@ -105,11 +129,23 @@
       "size_mb": 40.81640625
     },
     {
+      "id": "hiclaw",
+      "name": "HiClaw",
+      "tagline": "协作多 Agent 操作系统 — 基于 Matrix 协议的透明人机协作",
+      "stars": 4716,
+      "forks": 567,
+      "issues": 255,
+      "language": "Go",
+      "license": "Apache-2.0",
+      "pushed": "2026-06-02",
+      "size_mb": 15.0126953125
+    },
+    {
       "id": "pilotdeck",
       "name": "PilotDeck",
       "tagline": "One cockpit. All agents. Unified control. Maximum impact.",
-      "stars": 2764,
-      "forks": 265,
+      "stars": 2769,
+      "forks": 266,
       "issues": 59,
       "language": "TypeScript",
       "license": "AGPL-3.0",
