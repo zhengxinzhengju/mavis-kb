@@ -301,6 +301,18 @@
         "weekly": "404796853654428",
         "monthly": "404795446797145"
       }
+    },
+    {
+      "id": "swarm",
+      "name": "OpenAI Swarm",
+      "status": "active",
+      "tracking_since": "2026-06-02",
+      "sequential_id": "project-11",
+      "stagger_time": "09:40",
+      "tier": "T1 框架",
+      "github_repo": "https://github.com/openai/swarm",
+      "feishu_webhook_configured": false,
+      "cron_task_ids": {}
     }
   ],
   "competitors_shared": {
@@ -462,6 +474,11 @@
         "project": "hiclaw",
         "time": "09:30",
         "tier": "T1 Multi-Agent OS"
+      },
+      {
+        "project": "swarm",
+        "time": "09:40",
+        "tier": "T1 框架"
       }
     ],
     "active_hours": "07:30 - 10:00",
