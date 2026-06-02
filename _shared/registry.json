@@ -1,0 +1,491 @@
+{
+  "$schema_version": "1.0",
+  "framework": "Mavis 多项目知识库追踪框架",
+  "root": "/workspace/knowledge-base/",
+  "site": "/workspace/knowledge-base/_site/",
+  "last_updated": "2026-06-02T02:17:22+08:00",
+  "projects": [
+    {
+      "id": "pilotdeck",
+      "display_name": "PilotDeck",
+      "vendor": "OpenBMB",
+      "category": "Agent OS",
+      "tracking_since": "2026-06-01",
+      "status": "active",
+      "schedule": "0 8 * * 1 (Asia/Shanghai) — 08:00",
+      "feishu_webhook_configured": true,
+      "cron_task_ids": {
+        "weekly": "404484915970695",
+        "monthly": "404483081200139"
+      },
+      "primary_url": "https://github.com/OpenBMB/PilotDeck",
+      "competitors_tier1": [
+        "claude-cowork",
+        "skywork",
+        "bitfun-cowork",
+        "openclaw"
+      ],
+      "competitors_tier2": [
+        "langgraph",
+        "crewai",
+        "claude-agent-sdk",
+        "openai-agents-sdk",
+        "ms-agent-framework",
+        "google-adk"
+      ],
+      "monthly_schedule": "0 8 28-31 * * (Asia/Shanghai) — 08:00",
+      "tier": "T0 主项目",
+      "stagger_offset_minutes": 0
+    },
+    {
+      "id": "openclaw",
+      "display_name": "OpenClaw",
+      "vendor": "NousResearch (Peter Steinberger)",
+      "category": "Local-First AI Agent",
+      "tracking_since": "2026-06-02",
+      "status": "active",
+      "schedule": "10 8 * * 1 (Asia/Shanghai) — 08:10",
+      "feishu_webhook_configured": true,
+      "cron_task_ids": {
+        "weekly": "404572285354876",
+        "monthly": "404574797529385"
+      },
+      "primary_url": "https://github.com/openclaw/openclaw",
+      "tags": [
+        "local-first",
+        "general-agent",
+        "mass-adopted",
+        "single-maintainer-risk"
+      ],
+      "competitors_tier1": [
+        "claude-cowork",
+        "skywork",
+        "bitfun-cowork",
+        "pilotdeck"
+      ],
+      "monthly_schedule": "10 8 28-31 * * (Asia/Shanghai) — 08:10",
+      "tier": "T1 媒体焦点",
+      "stagger_offset_minutes": 10
+    },
+    {
+      "id": "deer-flow",
+      "display_name": "DeerFlow",
+      "vendor": "ByteDance (字节跳动)",
+      "category": "Super Agent Framework",
+      "tracking_since": "2026-06-02",
+      "status": "active",
+      "schedule": "30 8 * * 1 (Asia/Shanghai) — 08:30",
+      "feishu_webhook_configured": true,
+      "cron_task_ids": {
+        "weekly": "404740690899267",
+        "monthly": "404738977693766"
+      },
+      "primary_url": "https://github.com/bytedance/deer-flow",
+      "tags": [
+        "LangGraph 1.0 + LangChain 重构 v2.0",
+        "Lead Agent + Sub-Agent 动态生成与并行执行",
+        "Docker 沙箱隔离 (AioSandboxProvider/Local/K8s)"
+      ],
+      "competitors_tier1": [
+        "openclaw",
+        "pilotdeck",
+        "hermes-agent",
+        "openhuman",
+        "qwenpaw"
+      ],
+      "competitors_tier2": [
+        "langgraph",
+        "crewai",
+        "claude-agent-sdk",
+        "openai-agents-sdk"
+      ],
+      "monthly_schedule": "30 8 28-31 * * (Asia/Shanghai) — 08:30",
+      "tier": "T1 字节跳动",
+      "stagger_offset_minutes": 30
+    },
+    {
+      "id": "qwenpaw",
+      "display_name": "QwenPaw",
+      "vendor": "Alibaba (阿里) / AgentScope",
+      "category": "Desktop Agent",
+      "tracking_since": "2026-06-02",
+      "status": "active",
+      "schedule": "40 8 * * 1 (Asia/Shanghai) — 08:40",
+      "feishu_webhook_configured": true,
+      "cron_task_ids": {
+        "weekly": "404738977693767",
+        "monthly": "404740690899268"
+      },
+      "primary_url": "https://github.com/agentscope-ai/QwenPaw",
+      "tags": [
+        "2026-04-12 由 CoPaw 正式更名 QwenPaw，发布 1.1.0",
+        "深度绑定 Qwen 系列模型 (Qwen-2.5/CodeQwen)",
+        "多平台接入: 钉钉/飞书/QQ/Discord/iMessage"
+      ],
+      "competitors_tier1": [
+        "openclaw",
+        "pilotdeck",
+        "hermes-agent",
+        "openhuman",
+        "picoclaw"
+      ],
+      "competitors_tier2": [
+        "langgraph",
+        "crewai"
+      ],
+      "monthly_schedule": "40 8 28-31 * * (Asia/Shanghai) — 08:40",
+      "tier": "T1 阿里生态",
+      "stagger_offset_minutes": 40
+    },
+    {
+      "id": "hermes-agent",
+      "display_name": "Hermes Agent",
+      "vendor": "NousResearch",
+      "category": "Self-Evolving Personal Agent",
+      "tracking_since": "2026-06-02",
+      "status": "active",
+      "schedule": "20 8 * * 1 (Asia/Shanghai) — 08:20",
+      "feishu_webhook_configured": true,
+      "cron_task_ids": {
+        "weekly": "404738977693768",
+        "monthly": "404740690899269"
+      },
+      "primary_url": "https://github.com/NousResearch/hermes-agent",
+      "tags": [
+        "自我进化闭环: 任务→技能创建→技能优化→跨会话调用",
+        "持久记忆双文件: MEMORY.md + USER.md",
+        "SQLite FTS5 全文搜索"
+      ],
+      "competitors_tier1": [
+        "openclaw",
+        "pilotdeck",
+        "deer-flow",
+        "openhuman"
+      ],
+      "competitors_tier2": [
+        "langgraph",
+        "crewai",
+        "claude-agent-sdk"
+      ],
+      "monthly_schedule": "20 8 28-31 * * (Asia/Shanghai) — 08:20",
+      "tier": "T1 对标 OpenClaw",
+      "stagger_offset_minutes": 20
+    },
+    {
+      "id": "harness",
+      "display_name": "Harness",
+      "vendor": "Harness Inc. (Jyoti Bansal)",
+      "category": "DevOps Platform",
+      "tracking_since": "2026-06-02",
+      "status": "active",
+      "schedule": "0 9 * * 1 (Asia/Shanghai) — 09:00",
+      "feishu_webhook_configured": true,
+      "cron_task_ids": {
+        "weekly": "404738977693769",
+        "monthly": "404740690899270"
+      },
+      "primary_url": "https://github.com/harness/harness",
+      "tags": [
+        "源码托管 (Git SCM)",
+        "CI/CD 流水线",
+        "Gitspaces (托管开发环境, 类 Vercel 预览)"
+      ],
+      "competitors_tier1": [],
+      "competitors_tier2": [
+        "gitea",
+        "woodpecker-ci"
+      ],
+      "monthly_schedule": "0 9 28-31 * * (Asia/Shanghai) — 09:00",
+      "tier": "T2 基础设施",
+      "stagger_offset_minutes": 0
+    },
+    {
+      "id": "openhuman",
+      "display_name": "OpenHuman",
+      "vendor": "Tiny Humans AI",
+      "category": "Personal Desktop Agent",
+      "tracking_since": "2026-06-02",
+      "status": "active",
+      "schedule": "50 8 * * 1 (Asia/Shanghai) — 08:50",
+      "feishu_webhook_configured": true,
+      "cron_task_ids": {
+        "weekly": "404738977693770",
+        "monthly": "404740690899271"
+      },
+      "primary_url": "https://github.com/tinyhumansai/openhuman",
+      "tags": [
+        "118+ 第三方集成 (Gmail/Notion/GitHub/Slack/Calendar/Jira/Linear/Stripe)",
+        "Memory Tree 持久化知识图谱 (本地 SQLite + Obsidian 兼容)",
+        "TokenJuice 压缩 (减少 80% Token)"
+      ],
+      "competitors_tier1": [
+        "openclaw",
+        "pilotdeck",
+        "deer-flow",
+        "hermes-agent",
+        "qwenpaw"
+      ],
+      "competitors_tier2": [],
+      "monthly_schedule": "50 8 28-31 * * (Asia/Shanghai) — 08:50",
+      "tier": "T1 Desktop Agent",
+      "stagger_offset_minutes": 50
+    },
+    {
+      "id": "picoclaw",
+      "display_name": "PicoClaw",
+      "vendor": "Sipeed (矽速科技)",
+      "category": "Edge AI Agent",
+      "tracking_since": "2026-06-02",
+      "status": "active",
+      "schedule": "20 9 * * 1 (Asia/Shanghai) — 09:20",
+      "feishu_webhook_configured": true,
+      "cron_task_ids": {
+        "weekly": "404738977693771",
+        "monthly": "404740690899272"
+      },
+      "primary_url": "https://github.com/sipeed/picoclaw",
+      "tags": [
+        "内存 < 10MB，启动 < 1秒",
+        "0.6GHz 单核流畅运行",
+        "RISC-V / ARM / x86 全平台"
+      ],
+      "competitors_tier1": [
+        "openclaw",
+        "openhuman",
+        "pilotdeck"
+      ],
+      "competitors_tier2": [],
+      "monthly_schedule": "20 9 28-31 * * (Asia/Shanghai) — 09:20",
+      "tier": "T2 边缘 AI",
+      "stagger_offset_minutes": 20
+    },
+    {
+      "id": "higress",
+      "display_name": "Higress",
+      "vendor": "Alibaba (阿里云)",
+      "category": "Cloud Native API Gateway",
+      "tracking_since": "2026-06-02",
+      "status": "active",
+      "schedule": "10 9 * * 1 (Asia/Shanghai) — 09:10",
+      "feishu_webhook_configured": true,
+      "cron_task_ids": {
+        "weekly": "404738977693772",
+        "monthly": "404740690903360"
+      },
+      "primary_url": "https://github.com/higress-group/higress",
+      "tags": [
+        "基于 Istio + Envoy",
+        "Ingress / Gateway API 标准",
+        "毫秒级配置热更新 (无 reload)"
+      ],
+      "competitors_tier1": [],
+      "competitors_tier2": [
+        "envoy",
+        "traefik",
+        "kong"
+      ],
+      "monthly_schedule": "10 9 28-31 * * (Asia/Shanghai) — 09:10",
+      "tier": "T2 AI 网关",
+      "stagger_offset_minutes": 10
+    }
+  ],
+  "competitors_shared": {
+    "$schema_version": "1.0",
+    "description": "跨项目共享竞品池，避免重复",
+    "competitors": {
+      "claude-cowork": {
+        "name": "Claude Cowork",
+        "vendor": "Anthropic",
+        "url": "https://www.anthropic.com",
+        "category": "Desktop Agent",
+        "first_seen": "2026-01-13"
+      },
+      "skywork": {
+        "name": "Skywork 桌面版",
+        "vendor": "昆仑天工 (昆仑万维)",
+        "url": "https://skywork.ai/desktop",
+        "category": "Desktop Agent (Windows)",
+        "first_seen": "2026-02-04"
+      },
+      "bitfun-cowork": {
+        "name": "BitFun CoWork",
+        "vendor": "GCWing (个人)",
+        "url": "https://github.com/GCWing/BitFun",
+        "category": "Open Source CoWork",
+        "first_seen": "2026-02",
+        "license": "MIT"
+      },
+      "openclaw": {
+        "name": "OpenClaw",
+        "vendor": "NousResearch (Peter Steinberger)",
+        "url": "https://github.com/openclaw/openclaw",
+        "category": "Local-First Agent",
+        "first_seen": "2026-01-25"
+      },
+      "langgraph": {
+        "name": "LangGraph",
+        "vendor": "LangChain",
+        "url": "https://github.com/langchain-ai/langgraph",
+        "category": "Agent Framework",
+        "stars": 31000
+      },
+      "crewai": {
+        "name": "CrewAI",
+        "vendor": "CrewAI Inc.",
+        "url": "https://github.com/crewAIInc/crewAI",
+        "category": "Agent Framework",
+        "stars": 50400
+      },
+      "claude-agent-sdk": {
+        "name": "Claude Agent SDK",
+        "vendor": "Anthropic",
+        "url": "https://github.com/anthropics/claude-agent-sdk-python",
+        "category": "Agent SDK",
+        "stars": 6600
+      },
+      "openai-agents-sdk": {
+        "name": "OpenAI Agents SDK",
+        "vendor": "OpenAI",
+        "url": "https://github.com/openai/openai-agents-python",
+        "category": "Agent SDK",
+        "stars": 25700
+      },
+      "ms-agent-framework": {
+        "name": "MS Agent Framework",
+        "vendor": "Microsoft",
+        "url": "https://github.com/microsoft/agent-framework",
+        "category": "Agent Framework",
+        "stars": 10000
+      },
+      "google-adk": {
+        "name": "Google ADK",
+        "vendor": "Google",
+        "url": "https://github.com/google/adk-python",
+        "category": "Agent Framework",
+        "stars": 19400
+      }
+    }
+  },
+  "drive_naming_convention": {
+    "pattern": "[{project}] {NN}-{category}_{name}_{date}_{version}.{ext}",
+    "examples": [
+      "[PilotDeck] 02-周报_2026-W22.md",
+      "[PilotDeck] 02-周报_2026-W22-feishu.txt",
+      "[PilotDeck] 03-竞品_T1_2026-06-01.md",
+      "[NewProject] 01-档案_2026-07-01.md"
+    ],
+    "categories": {
+      "01": "档案 (profile)",
+      "02": "简报 (briefings)",
+      "03": "竞品 (competitors)",
+      "04": "模板 (templates)",
+      "05": "配置 (config)",
+      "06": "日志 (logs)"
+    }
+  },
+  "add_new_project": {
+    "steps": [
+      "1. 复制 _template/ 目录到 projects/<new-id>/",
+      "2. 编辑 projects/<new-id>/index.json 填入项目元数据",
+      "3. 在 _index/projects.json 的 projects 数组中添加新条目",
+      "4. （可选）配置 cron 任务",
+      "5. 重新部署 _site/ 知识库浏览器"
+    ]
+  },
+  "framework_version": "3.3",
+  "stagger_strategy": {
+    "version": "1.3",
+    "rationale": "18 个 cron 同时触发会资源争抢 + 飞书刷屏 + GitHub API 撞车",
+    "pattern": "10 分钟错开，按用户关注度 + 类别排序",
+    "span": "08:00 - 09:20 (1h20m)",
+    "groups": [
+      {
+        "time": "08:00",
+        "project": "pilotdeck",
+        "tier": "T0"
+      },
+      {
+        "time": "08:10",
+        "project": "openclaw",
+        "tier": "T1 媒体焦点"
+      },
+      {
+        "time": "08:20",
+        "project": "hermes-agent",
+        "tier": "T1 对标"
+      },
+      {
+        "time": "08:30",
+        "project": "deer-flow",
+        "tier": "T1 字节"
+      },
+      {
+        "time": "08:40",
+        "project": "qwenpaw",
+        "tier": "T1 阿里"
+      },
+      {
+        "time": "08:50",
+        "project": "openhuman",
+        "tier": "T1 Desktop"
+      },
+      {
+        "time": "09:00",
+        "project": "harness",
+        "tier": "T2 DevOps"
+      },
+      {
+        "time": "09:10",
+        "project": "higress",
+        "tier": "T2 AI Gateway"
+      },
+      {
+        "time": "09:20",
+        "project": "picoclaw",
+        "tier": "T2 Edge AI"
+      }
+    ],
+    "active_hours": "07:30 - 10:00",
+    "expected_finish": "2026-06-08 09:25 (周一 9 个项目全部完成)"
+  },
+  "changelog": [
+    {
+      "version": "3.0",
+      "date": "2026-06-02",
+      "title": "Tracker Runner 集成 + 18 个 cron prompt 简化",
+      "changes": [
+        "新增 weekly_runner.py v3.0：支持 --project <id> 单项目 / --all 批量 / --monthly 月报",
+        "18 个 cron 任务 prompt 简化为一行命令（python3 weekly_runner.py ...）",
+        "周报/月报全跑通，9 个项目全部 200 OK，飞书推送全成功",
+        "build_site.py v2.0：真正读 md 文件嵌入 HTML（profile/timeline/weekly/monthly/competitors/snapshots）",
+        "GitHub API 用认证 token（rate limit 5000/h）",
+        "GitHub Pages 部署到 zhengxinzhengju/mavis-kb: https://zhengxinzhengju.github.io/mavis-kb/"
+      ]
+    },
+    {
+      "version": "3.3",
+      "date": "2026-06-02",
+      "title": "架构升级: 顶层平铺 + history/ 长期归档",
+      "changes": [
+        "9 个项目从 projects/ 提升到仓库根目录顶层平铺",
+        "新增 history/ 目录按 YYYY/YYYY-MM 长期归档周报/月报/snapshot",
+        "scripts/ 移动到 _shared/scripts/",
+        "projects.json 改名为 _shared/registry.json",
+        "加 .gitignore 排除 _cache/ 和 _site/ 产物",
+        "新项目接入: 复制 _shared/templates/new-project/ + 改 index.json + push"
+      ]
+    }
+  ],
+  "deployment": {
+    "github_repo": "https://github.com/zhengxinzhengju/mavis-kb",
+    "github_pages": "https://zhengxinzhengju.github.io/mavis-kb/",
+    "minimaxi_url": "https://9islasxosjex.space.minimaxi.com",
+    "pages_status": "built",
+    "public": true,
+    "https_enforced": true,
+    "build_type": "legacy",
+    "deployed_at": "2026-06-02",
+    "notes": "国内访问 github.io 较慢，推荐使用 minimaxi URL。GitHub Pages 用于国际访问。"
+  },
+  "architecture": "v3.3-flat-multi-project"
+}
