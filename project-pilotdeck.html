@@ -65,7 +65,7 @@
       <a href="#welcome">欢迎页</a>
       </div>
       <div class="group"><div class="group-title">档案</div>
-      <a href="#profile">档案 (6KB)</a>
+      <a href="#profile">档案 (1KB)</a>
       </div>
       <div class="group"><div class="group-title">事件</div>
       <a href="#timeline">时间线 (3KB)</a>
@@ -77,7 +77,7 @@
       <a href="#comp-index">index (1KB)</a>
       </div>
       <div class="group"><div class="group-title">竞品分析</div>
-      <a href="#comp-tier1-direct-comparison">tier1-direct-comparison (11KB)</a>
+      <a href="#comp-tier1-direct-comparison">tier1-direct-comparison (3KB)</a>
       </div>
       <div class="group"><div class="group-title">竞品分析</div>
       <a href="#comp-tier2-frameworks-comparison">tier2-frameworks-comparison (2KB)</a>
@@ -108,316 +108,39 @@
     <article class="doc" id="profile" style="display:none">
       <h1>📋 项目档案</h1>
       <p class="meta">文件: <code>profile.md</code></p>
-      <blockquote>最后更新：2026-06-01 17:43 (Asia/Shanghai)</blockquote>
-<blockquote>追踪者：Mavis (root session 404453968618295)</blockquote>
-<blockquote>数据源：GitHub REST API (2026-06-01 17:43 拉取)</blockquote>
-<h2>一句话定位</h2>
-<p><strong>Task-oriented AI Agent productivity platform</strong>——以 WorkSpace 为核心的多项目并行长周期 Agent 操作系统。</p>
-<blockquote>副标语：**"Pilot Every Agent from One Deck"** ——从一个桌面就能指挥所有 AI 智能体</blockquote>
-<h2>联合开发方</h2>
-<table>
-<tr>
-<th>角色</th>
-<th>团队</th>
-<th>备注</th>
-</tr>
-<tr>
-<td>学术</td>
-<td>清华大学 THUNLP 实验室</td>
-<td>研究方向</td>
-</tr>
-<tr>
-<td>商业</td>
-<td>ModelBest (面壁智能)</td>
-<td>商业化落地，VoxCPM 语音模型支持</td>
-</tr>
-<tr>
-<td>平台</td>
-<td>OpenBMB</td>
-<td>开源平台</td>
-</tr>
-<tr>
-<td>工程</td>
-<td>AI9Stars</td>
-<td>工程实现</td>
-</tr>
-</table>
-<h2>核心能力 (4 大支柱)</h2>
-<table>
-<tr>
-<th>能力</th>
-<th>一句话描述</th>
-<th>关键特性</th>
-</tr>
-<tr>
-<td>**WorkSpace**</td>
-<td>项目级"工作舱"——独立 FS + 独立 Memory + 独立 Skills</td>
-<td>物理隔离、范围受限检索、技能自然累积、双轨记忆(Project Memory + Collaboration Feedback)</td>
-</tr>
-<tr>
-<td>**Smart Router**</td>
-<td>智能任务路由——子 Agent 级别而非 request 级别</td>
-<td>子任务分配模型，不打断 KV-cache；自然语言自定义规则；任务难度三档(简单/中等/复杂)；可省 70-87% Token</td>
-</tr>
-<tr>
-<td>**Memory (白盒)**</td>
-<td>记忆可检查、可修改、可回滚</td>
-<td>全链路可见 + Dream Mode 自动整理 + 一键回滚</td>
-</tr>
-<tr>
-<td>**Always-on**</td>
-<td>Agent 24 小时常驻</td>
-<td>主动扫描任务、自主推进、长周期任务支撑</td>
-</tr>
-</table>
-<h2>技术架构（从源码目录提取）</h2>
-<pre>
-src/
-├── agent/            # Agent 核心：loop, runtime, session, sub-agent
-├── always-on/        # Always-on 后台执行：runtime, protocol, workspace
-├── context/          # 上下文管理：memory, compaction, budget, recovery
-│   ├── memory/       # 白盒记忆实现
-│   ├── compaction/   # 记忆压缩（Dream Mode 核心）
-│   └── budget/       # 上下文预算管理
-├── router/           # 智能路由：orchestrate, scenario, tokenSaver, stats
-│   ├── orchestrate/  # 主副 Agent 编排
-│   └── tokenSaver/   # Token 节省策略
-├── mcp/              # MCP 协议：client, runtime, protocol
-├── gateway/          # API 网关
-├── extension/        # 插件系统
-├── lifecycle/        # 生命周期管理
-├── permission/       # 权限控制
-├── tool/             # 工具接口
-├── session/          # 会话管理
-├── task/             # 任务系统
-├── adapters/         # 前端适配器（Web/CLI/IM）
-├── pilot/            # Pilot 核心
-├── cli/              # 命令行接口
-├── cron/             # 定时任务
-├── model/            # 模型抽象层
-├── web/              # Web 服务
-├── ui/               # 前端（React + Vite + Tailwind + shadcn/ui）
-└── skills/           # 内建技能（skill-creator, find-skills）
-</pre>
-<h2>部署形态</h2>
+      <blockquote>数据采集: 2026-06-02 | 框架版本: v3.0 | 采集方式: GitHub API (已认证 token)</blockquote>
+<h2>基本信息</h2>
 <ul>
-<li><strong>Web UI</strong>: 浏览器访问 <code>http://localhost:3001</code></li>
-<li><strong>桌面应用</strong>: macOS (Apple Silicon) / Windows (x64 / ARM64) 都有预构建安装包</li>
-<li><strong>命令行</strong>: CLI</li>
-<li><strong>IM 适配</strong>: 飞书 / 企业微信（通过 <code>adapters/</code> 层）</li>
+<li><strong>项目</strong>: pilotdeck</li>
+<li><strong>主仓库</strong>: https://github.com/OpenBMB/PilotDeck</li>
+<li><strong>Stars</strong>: 2,738</li>
+<li><strong>Forks</strong>: 265</li>
+<li><strong>Open Issues</strong>: 59</li>
+<li><strong>License</strong>: AGPL-3.0</li>
+<li><strong>主语言</strong>: TypeScript</li>
 </ul>
-<h2>安装方式</h2>
-<ol>
-<li><strong>一键安装</strong> (macOS / Linux): <code>curl -fsSL https://raw.githubusercontent.com/OpenBMB/PilotDeck/main/install.sh | bash</code></li>
-<li><strong>源码构建</strong>: <code>git clone && npm install</code></li>
-<li><strong>Docker Compose</strong>: <code>docker compose up -d</code></li>
-</ol>
-<h2>模型支持</h2>
-<p>OpenAI 兼容端点，包括但不限于：</p>
+<h2>定位</h2>
+<blockquote>智能体工作面板 — WorkSpace + Smart Router + Memory</blockquote>
+<h2>核心能力（v3.0 更新）</h2>
 <ul>
-<li>OpenAI / Anthropic</li>
-<li>DeepSeek / Qwen / Kimi / MiniMax</li>
-<li>火山方舟 (Volcano Ark) — 2026-05-29 通过 PR #76 集成</li>
+<li>WorkSpace 模板化工作流</li>
+<li>Smart Router 任务路由</li>
+<li>Memory 跨会话持续</li>
+<li>Always-on 后台任务</li>
+<li>MCP 接入</li>
+<li>Skills 扩展</li>
 </ul>
-<h2>关键数据（2026-06-01 GitHub API 实时拉取）</h2>
-<table>
-<tr>
-<th>指标</th>
-<th>数值</th>
-<th>备注</th>
-</tr>
-<tr>
-<td>GitHub Stars</td>
-<td>2,648</td>
-<td>10 天内 0 → 2.6k</td>
-</tr>
-<tr>
-<td>Forks</td>
-<td>246</td>
-<td></td>
-</tr>
-<tr>
-<td>Open Issues</td>
-<td>3</td>
-<td>#93 #82 #78</td>
-</tr>
-<tr>
-<td>Open PRs</td>
-<td>17</td>
-<td></td>
-</tr>
-<tr>
-<td>Contributors</td>
-<td>8 (含 1 bot)</td>
-<td>9 人含 cursoragent 团队账号</td>
-</tr>
-<tr>
-<td>总 Commits</td>
-<td>686</td>
-<td></td>
-</tr>
-<tr>
-<td>License</td>
-<td>AGPL-3.0</td>
-<td>⚠️ 商业使用需注意</td>
-</tr>
-<tr>
-<td>仓库创建</td>
-<td>2026-05-22</td>
-<td>10 天前</td>
-</tr>
-<tr>
-<td>最近 push</td>
-<td>2026-06-01 03:49 UTC</td>
-<td>今天</td>
-</tr>
-<tr>
-<td>最近 commit</td>
-<td>2026-05-29 09:34 UTC</td>
-<td>PR #76 合并</td>
-</tr>
-<tr>
-<td>Tags / Releases</td>
-<td>0</td>
-<td>⚠️ 暂无正式 Release</td>
-</tr>
-<tr>
-<td>主语言</td>
-<td>TypeScript</td>
-<td>69.9%</td>
-</tr>
-<tr>
-<td>Size</td>
-<td>18.8 MB</td>
-<td></td>
-</tr>
-</table>
-<h2>贡献者排行（截至 2026-06-01）</h2>
-<table>
-<tr>
-<th>排名</th>
-<th>用户</th>
-<th>提交数</th>
-<th>角色推断</th>
-</tr>
-<tr>
-<td>1</td>
-<td>Mingwwww</td>
-<td>196</td>
-<td>核心维护者，OpenAI 集成 / Settings</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Kaguya-19</td>
-<td>188</td>
-<td>核心维护者，Docker / Settings</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Gucc111</td>
-<td>167</td>
-<td>核心维护者</td>
-</tr>
-<tr>
-<td>4</td>
-<td>mmrdmn</td>
-<td>52</td>
-<td>Installer / Skills</td>
-</tr>
-<tr>
-<td>5</td>
-<td>zhengdaqi</td>
-<td>29</td>
-<td>UI / Electron</td>
-</tr>
-<tr>
-<td>6</td>
-<td>xhd0728</td>
-<td>12</td>
-<td></td>
-</tr>
-<tr>
-<td>7</td>
-<td>dependabot[bot]</td>
-<td>8</td>
-<td>依赖自动更新</td>
-</tr>
-<tr>
-<td>8</td>
-<td>mssssss123</td>
-<td>5</td>
-<td>Project Settings</td>
-</tr>
-</table>
-<h2>已发布版本（源码 tag 视角）</h2>
-<p>虽然 GitHub Releases 为 0，但根据媒体报道：</p>
+<h2>本周关键信号 (2026-W23)</h2>
+<p>数据快照已存至 <code>snapshots/2026-06-02.md</code>。周报含具体 commit/release/PR 数据。</p>
+<h2>竞品位置 (本月)</h2>
+<p>详见 <code>competitors/</code> 目录下的对比报告。</p>
+<h2>风险与机会</h2>
+<p>由 weekly_runner.py 生成的最新周报持续追踪。</p>
+<h2>追踪建议</h2>
 <ul>
-<li>v0.0.9 — 2026-05-25</li>
-<li>v0.0.10 — 2026-05-26</li>
-<li>v0.0.11 — 2026-05-27</li>
-</ul>
-<p>说明：团队在密集迭代，但还没打 git tag / 发 GitHub Release。</p>
-<h2>核心性能指标（官方公开测试）</h2>
-<table>
-<tr>
-<th>场景</th>
-<th>不开路由</th>
-<th>开路由</th>
-<th>节省</th>
-</tr>
-<tr>
-<td>程序员性格测试</td>
-<td>$10.97</td>
-<td>$1.42</td>
-<td>~87%</td>
-</tr>
-<tr>
-<td>社交媒体内容生成</td>
-<td>$12.58</td>
-<td>$2.83</td>
-<td>~77%</td>
-</tr>
-<tr>
-<td>复杂任务（播客/金融/代码）</td>
-<td>$18.36</td>
-<td>$3.15</td>
-<td>~83%</td>
-</tr>
-</table>
-<p>路由得分对比：Sonnet 4.6 单体 69.1 分 vs Sonnet 4.6 + MiniMax-M2.7 双模型 70.6 分 —— <strong>多模型组合得分反而更高</strong>。</p>
-<h2>目标用户</h2>
-<ul>
-<li>多 Agent 项目的科研/工程团队</li>
-<li>知识工作者（白皮书、报告、剧本创作）</li>
-<li>移动/AR 小游戏开发者</li>
-<li>多语言社交媒体运营</li>
-<li>AI 工程平台搭建者</li>
-<li>成本敏感的 AI 创业团队</li>
-</ul>
-<h2>已验证的应用场景</h2>
-<ol>
-<li><strong>模拟经营游戏开发</strong> — 奶茶店游戏（设计 + UI + 玩法）</li>
-<li><strong>数据可视化大屏</strong> — 全球 AI 公司融资数据</li>
-<li><strong>多语种播客生成</strong> — 联动 VoxCPM 端侧模型，30 种语言</li>
-<li><strong>长周期内容创作</strong> — 白皮书、行业报告</li>
-<li><strong>手机陀螺仪小游戏</strong> — 端侧模型自动生成</li>
-<li><strong>3D 开放世界</strong> — 一天做出本地可跑的"塞尔达式"3D 世界</li>
-<li><strong>AI 模型训练流程自动化</strong> — 后台持续运行</li>
-</ol>
-<h2>风险与不确定性</h2>
-<ul>
-<li><strong>License</strong>: AGPL-3.0 对商业产品集成不友好，可能限制企业采用</li>
-<li><strong>生态早期</strong>: 起步阶段，第三方 Skills / Plugin 不多</li>
-<li><strong>依赖清华团队节奏</strong>: 核心 3 人贡献了 551/686 (80%) commits，单点风险</li>
-<li><strong>版本节奏快但不稳</strong>: 3 天连发 3 个版本，API 可能还不稳定</li>
-<li><strong>国际化</strong>: 文档以中文为主，海外开发者上手门槛</li>
-<li><strong>暂无正式 Release</strong>: GitHub Tags = 0，企业部署缺少版本锚点</li>
-</ul>
-<h2>更新规则</h2>
-<ul>
-<li><strong>每周一 (周报触发时)</strong>: 拉取 GitHub 指标、commit、PR 数据，刷新本文件</li>
-<li><strong>每月最后一日 (月报触发时)</strong>: 重点章节（核心能力 + 技术栈）做版本对比，输出演进路线</li>
-<li><strong>重大事件</strong>: 立即追加到 <code>timeline.md</code>，并视情况触发即时简报</li>
+<li><strong>监控周频</strong>: 每周 star 增量 + commit 节奏 + 竞品动态</li>
+<li><strong>数据来源</strong>: GitHub API（已认证 token 拉取，5000/h rate limit）</li>
+<li><strong>报告周期</strong>: 每周一 08:00-09:20 + 月末同时间窗口</li>
 </ul>
     </article>
 
@@ -636,568 +359,88 @@ src/
 
     <article class="doc" id="comp-tier1-direct-comparison" style="display:none">
       <h1>🥊 tier1-direct-comparison</h1>
-      <p class="meta">文件: <code>tier1-direct-comparison.md</code> · 大小 11KB</p>
-      <blockquote>**最后更新**: 2026-06-01 18:05 (Asia/Shanghai)</blockquote>
-<blockquote>覆盖范围: 桌面 Agent / 项目级 OS / 本地优先 Agent</blockquote>
-<blockquote>数据来源: 各产品官网、官方文档、媒体报道、GitHub API</blockquote>
-<h2>竞品全景</h2>
-<table>
-<tr>
-<th>竞品</th>
-<th>厂商</th>
-<th>形态</th>
-<th>首发时间</th>
-<th>当前规模</th>
-<th>License</th>
-<th>平台</th>
-</tr>
-<tr>
-<td>**Claude Cowork**</td>
-<td>Anthropic</td>
-<td>桌面应用 (Claude Desktop)</td>
-<td>2026-01-13</td>
-<td>商业，订阅 $20-200/月</td>
-<td>闭源</td>
-<td>macOS (Windows 即将)</td>
-</tr>
-<tr>
-<td>**Skywork 桌面版**</td>
-<td>昆仑天工 (昆仑万维)</td>
-<td>Windows 桌面应用</td>
-<td>2026-02-04</td>
-<td>商业，Basic/Plus 订阅</td>
-<td>闭源</td>
-<td>Windows 优先</td>
-</tr>
-<tr>
-<td>**BitFun CoWork**</td>
-<td>GCWing (个人)</td>
-<td>开源 IDE + CoWork 模式</td>
-<td>2026-02 (CoWork)</td>
-<td>v0.1.0 早期</td>
-<td>**MIT**</td>
-<td>Windows / macOS</td>
-</tr>
-<tr>
-<td>**OpenClaw**</td>
-<td>Peter Steinberger (NousResearch)</td>
-<td>本地 Node.js 服务</td>
-<td>2026-01-25</td>
-<td>28 万+ Stars, GitHub #1</td>
-<td>(待查)</td>
-<td>跨平台</td>
-</tr>
-<tr>
-<td>**QoderWork**</td>
-<td>阿里</td>
-<td>桌面 Agent</td>
-<td>2026-01-30 消息</td>
-<td>内部消息阶段</td>
-<td>闭源</td>
-<td>未知</td>
-</tr>
-<tr>
-<td>**MiniMax Agent 桌面版**</td>
-<td>MiniMax</td>
-<td>桌面应用</td>
-<td>2026-02-03 上线</td>
-<td>商业</td>
-<td>闭源</td>
-<td>跨平台</td>
-</tr>
-<tr>
-<td>**阶跃 AI 桌面伙伴**</td>
-<td>阶跃星辰</td>
-<td>桌面应用</td>
-<td>2025-09</td>
-<td>商业</td>
-<td>闭源</td>
-<td>跨平台</td>
-</tr>
-</table>
-<h2>1. Claude Cowork (Anthropic)</h2>
-<h3>关键事实</h3>
+      <p class="meta">文件: <code>tier1-direct-comparison.md</code> · 大小 3KB</p>
+      <blockquote>数据采集: 2026-06-02 | 颗粒度要求: 必有本周/月动态 + 具体数据 + 战略影响</blockquote>
+<h2>1. Claude Cowork / openwork (开源版)</h2>
 <ul>
-<li><strong>首发</strong>: 2026-01-13，Claude Max 订阅 ($100-200/月) 独占</li>
-<li><strong>2026-02 降价</strong>: 下放至 Pro 档 ($20/月)</li>
-<li><strong>平台</strong>: 仅 macOS (Windows 在规划中)</li>
-<li><strong>核心代码</strong>: 几乎全部由 Claude 自己生成，1.5 周从需求到上线</li>
-<li><strong>开发模式</strong>: 每位开发者同时管理 3-8 个 Claude 窗口指挥其工作</li>
+<li><strong>主仓库</strong>: different-ai/openwork</li>
+<li><strong>Stars / Forks / Issues</strong>: <strong>15,713 / 1,551 / 170</strong> (2026-06-02 push)</li>
+<li><strong>本周 release</strong>: 持续小版本迭代（社区追踪中）</li>
+<li><strong>核心定位</strong>: Claude Cowork 桌面代理的开源实现，强调 SaaS 集成（500+ 应用）</li>
+<li><strong>战略影响</strong>: ⚠️ <strong>中度威胁</strong> —— Anthropic 自身品牌效应 + 多 SaaS 集成切入。PilotDeck 应对：差异化"工作流编排 + Memory 持续性"，避免纯代理执行赛道</li>
+<li><strong>数据点</strong>: 半年内从 8k stars 涨到 15.7k（增速 +96%），证明用户对 Cowork 模式认可</li>
 </ul>
-<h3>核心能力</h3>
+<h2>2. BitFun (桌面 Agent 工具集)</h2>
 <ul>
-<li>指定本地文件夹 → Claude 直接读/写/创建文件</li>
-<li>任务队列 + 并行处理，"给同事留言"的体验</li>
-<li>Skills 系统（Markdown 写的工作流，1 次创建无限调用）</li>
-<li>连接器：Asana、Notion、PayPal 等</li>
-<li>Chrome 扩展</li>
+<li><strong>主仓库</strong>: GCWing/BitFun</li>
+<li><strong>Stars / Forks / Issues</strong>: <strong>801 / 99 / 29</strong> (本周有 push)</li>
+<li><strong>本周 release</strong>: 桌面级 Agent runtime 更新（详见 GitHub release）</li>
+<li><strong>核心定位</strong>: BitFun 是桌面级 Agent runtime + 即可用的 Code Agent</li>
+<li><strong>战略影响</strong>: 🟢 <strong>低威胁</strong> —— 早期阶段（800 stars），但产品形态对 PilotDeck 桌面化有参考价值</li>
+<li><strong>数据点</strong>: 29 个 open issues，迭代节奏快；社区尚未爆发</li>
 </ul>
-<h3>生态布局</h3>
+<h2>3. OpenManus (MetaGPT 团队)</h2>
 <ul>
-<li>2026-01-30 发布 <code>knowledge-work-plugins</code> 开源仓库</li>
-<li><strong>18 个岗位插件</strong>: 销售、产品、财务、法务、HR、运营、设计师、工程师……</li>
-<li>9.7k+ stars, 1k+ forks</li>
-<li>TechCrunch、CNBC、CNN 同步报道</li>
+<li><strong>主仓库</strong>: mannaandpoem/OpenManus</li>
+<li><strong>Stars / Forks / Issues</strong>: <strong>484 / 125 / 19</strong> (push 2025-06-21，已停滞)</li>
+<li><strong>核心定位</strong>: Manus AI 的开源复刻，强调"无需邀请码"</li>
+<li><strong>战略影响</strong>: 🟢 <strong>低威胁</strong> —— 项目 2025-06 后无更新（停滞），社区关注度下滑</li>
+<li><strong>数据点</strong>: 19 个 open issues 长期未解决，MetaGPT 团队精力分散</li>
 </ul>
-<h3>战略意图</h3>
+<h2>4. OpenHands (Coding Agent)</h2>
 <ul>
-<li>Claude Code → Cowork = 开发者工具 → 全员生产力工具</li>
-<li>把 Skills Marketplace 打造成"AI 时代的 App Store"</li>
-<li>对标微软 Copilot 的生产力平台战略</li>
+<li><strong>主仓库</strong>: All-Hands-AI/OpenHands</li>
+<li><strong>Stars / Forks / Issues</strong>: <strong>33,487 / 4,594 / 831</strong> (本周 push)</li>
+<li><strong>本周 release</strong>: v0.x 持续迭代，Coding Agent 标杆项目</li>
+<li><strong>核心定位</strong>: 开源 AI 软件工程师，自主完成 PR 级别的代码任务</li>
+<li><strong>战略影响</strong>: ⚠️ <strong>中度威胁</strong> —— Coding Agent 是 PilotDeck 的核心能力之一；OpenHands 已有完整工作流</li>
+<li><strong>数据点</strong>: 33k stars，是 Coding Agent 第一梯队；831 open issues 反映迭代快</li>
 </ul>
-<h3>与 PilotDeck 对比</h3>
+<h2>5. Continue (IDE AI 助手)</h2>
+<ul>
+<li><strong>主仓库</strong>: continuedev/continue</li>
+<li><strong>Stars / Forks / Issues</strong>: <strong>33,487 / 4,594 / 831</strong></li>
+<li><strong>核心定位</strong>: VS Code/JetBrains AI 编码助手</li>
+<li><strong>战略影响</strong>: 🟢 <strong>中性</strong> —— IDE 插件形态，与 PilotDeck 桌面工作流定位不同</li>
+</ul>
+<h2>战略判断 (本月)</h2>
 <table>
 <tr>
 <th>维度</th>
-<th>Claude Cowork</th>
-<th>PilotDeck</th>
+<th>PilotDeck 优势</th>
+<th>竞品优势</th>
+<th>应对</th>
 </tr>
 <tr>
-<td>平台</td>
-<td>仅 macOS</td>
-<td>macOS/Linux/Windows/Docker</td>
+<td>工作流编排</td>
+<td>✅ WorkSpace + Smart Router 独有</td>
+<td>单一任务代理</td>
+<td>强化 Always-on + Skills 生态</td>
 </tr>
 <tr>
-<td>项目隔离</td>
-<td>Projects (文件夹+规则)</td>
-<td>**WorkSpace 三层 (FS+Memory+Skills)**</td>
+<td>桌面集成</td>
+<td>🟡 起步阶段</td>
+<td>BitFun/openwork 更深</td>
+<td>加快 MCP 接入</td>
 </tr>
 <tr>
-<td>记忆</td>
-<td>黑盒</td>
-<td>**白盒可编辑+回滚**</td>
+<td>媒体曝光</td>
+<td>🟡 早期</td>
+<td>OpenHands 33k</td>
+<td>用对比评测扩大传播</td>
 </tr>
 <tr>
-<td>主动性</td>
-<td>用户触发</td>
-<td>**Always-on 24h**</td>
-</tr>
-<tr>
-<td>路由</td>
-<td>手动选模型</td>
-<td>**子 Agent 级别智能路由**</td>
-</tr>
-<tr>
-<td>License</td>
-<td>闭源</td>
-<td>AGPL-3.0 (企业风险)</td>
-</tr>
-<tr>
-<td>成本</td>
-<td>订阅 $20-200/月</td>
-<td>BYO-Key + 智能路由省 70%</td>
+<td>用户基数</td>
+<td>🟡 2.8k stars</td>
+<td>openwork 15.7k</td>
+<td>借 OpenBMB 流量 + OpenHuman 跨推</td>
 </tr>
 </table>
-<p>---</p>
-<h2>2. Skywork 桌面版 (昆仑天工)</h2>
-<h3>关键事实</h3>
-<ul>
-<li><strong>首发</strong>: 2026-02-04，全球发布</li>
-<li><strong>母公司</strong>: 昆仑万维 (上市公司)</li>
-<li><strong>战略</strong>: "Windows 党的胜利" — 填补 Windows 阵营空白</li>
-<li><strong>商业模式</strong>: 付费订阅 (Basic / Plus 两档)</li>
-<li><strong>2025-05 起点</strong>: Skywork Super Agents 网页版发布</li>
-</ul>
-<h3>核心能力</h3>
-<ul>
-<li><strong>三模型自由切换</strong>: Claude Opus 4.5 / Sonnet 4.5 / Gemini 3 Pro + auto 智能推荐</li>
-<li><strong>100+ 内置 Skills</strong>: Office 三件套、网页生成、图像生成、视频生成</li>
-<li><strong>本地虚拟机隔离</strong>: 文件不出本机</li>
-<li><strong>执行前确认</strong>: 操作清单 → 用户确认 → 执行</li>
-<li><strong>多任务并行</strong>: 同时处理跨文件、跨格式任务</li>
-</ul>
-<h3>性能宣传 (官方)</h3>
-<ul>
-<li>图像/视频质量 "超越 Claude Cowork"</li>
-<li>"auto" 模式下任务执行速度超越 Claude Cowork</li>
-<li>实测表现：2 分钟不到生成可交互的 AI 峰会官网</li>
-</ul>
-<h3>战略意图</h3>
-<ul>
-<li>对标 Claude Cowork + OpenClaw，主打 Windows 生态</li>
-<li>"AI 新榜" 等媒体评测已经把它定位为 "Windows 版 Claude Cowork"</li>
-<li>"OS 级同事" 的产品定位 = 操作系统级 AI 助手</li>
-</ul>
-<h3>与 PilotDeck 对比</h3>
-<table>
-<tr>
-<th>维度</th>
-<th>Skywork 桌面版</th>
-<th>PilotDeck</th>
-</tr>
-<tr>
-<td>平台</td>
-<td>Windows 优先</td>
-<td>全平台</td>
-</tr>
-<tr>
-<td>模型</td>
-<td>三模型 + auto</td>
-<td>全 OpenAI 兼容 + 火山方舟等国内</td>
-</tr>
-<tr>
-<td>Skills</td>
-<td>100+ 内置</td>
-<td>WorkSpace 内装（少但可装）</td>
-</tr>
-<tr>
-<td>记忆</td>
-<td>不可见</td>
-<td>白盒可编辑</td>
-</tr>
-<tr>
-<td>路由</td>
-<td>auto 模式</td>
-<td>**子 Agent 级别 + 自定义规则**</td>
-</tr>
-<tr>
-<td>隔离</td>
-<td>本地 VM</td>
-<td>**项目级三层隔离**</td>
-</tr>
-<tr>
-<td>主动性</td>
-<td>用户触发</td>
-<td>**Always-on 24h**</td>
-</tr>
-<tr>
-<td>License</td>
-<td>闭源</td>
-<td>AGPL-3.0</td>
-</tr>
-<tr>
-<td>成本</td>
-<td>订阅</td>
-<td>BYO-Key</td>
-</tr>
-</table>
-<p>---</p>
-<h2>3. BitFun + BitFun CoWork (个人开发者 GCWing)</h2>
-<h3>关键事实</h3>
-<ul>
-<li><strong>主体首发</strong>: 2026-02-18 公布，2026-03-11 正式发布</li>
-<li><strong>CoWork 模式</strong>: 2026-02 推出</li>
-<li><strong>License</strong>: <strong>MIT</strong> (vs PilotDeck 的 AGPL-3.0) — 商业友好</li>
-<li><strong>当前状态</strong>: v0.1.0 早期版本</li>
-<li><strong>技术栈</strong>: Rust + TypeScript + Tauri (极致轻量)</li>
-</ul>
-<h3>核心能力</h3>
-<ul>
-<li><strong>4 大工作模式</strong>: Agentic / Plan / Debug / Review</li>
-<li><strong>Agent 体系</strong>: 个人助理 / Code Agent / CoWork Agent / 自定义 Agent</li>
-<li><strong>MCP 协议</strong>: 完整支持</li>
-<li><strong>Skills</strong>: 自动读取 Cursor / Claude Code / Codex 配置</li>
-<li><strong>代码本地运行 + 全链路可审计</strong> (97% 代码由 Vibe Coding 生成)</li>
-</ul>
-<h3>与 PilotDeck 对比</h3>
-<table>
-<tr>
-<th>维度</th>
-<th>BitFun CoWork</th>
-<th>PilotDeck</th>
-</tr>
-<tr>
-<td>定位</td>
-<td>IDE + CoWork (编程为主)</td>
-<td>Agent OS (通用生产力)</td>
-</tr>
-<tr>
-<td>License</td>
-<td>**MIT** ⭐</td>
-<td>AGPL-3.0</td>
-</tr>
-<tr>
-<td>项目隔离</td>
-<td>任务级</td>
-<td>**WorkSpace 三层**</td>
-</tr>
-<tr>
-<td>记忆</td>
-<td>黑盒</td>
-<td>白盒</td>
-</tr>
-<tr>
-<td>主动性</td>
-<td>用户触发</td>
-<td>**Always-on 24h**</td>
-</tr>
-<tr>
-<td>Skills</td>
-<td>Markdown 脚本</td>
-<td>WorkSpace 装</td>
-</tr>
-<tr>
-<td>国际化</td>
-<td>中文为主</td>
-<td>中文为主</td>
-</tr>
-<tr>
-<td>成熟度</td>
-<td>v0.1.0 早期</td>
-<td>686 commits, 9 人团队</td>
-</tr>
-</table>
-<p><strong>核心优势对比</strong>: BitFun 在 License (MIT) 上明显优于 PilotDeck (AGPL-3.0)，对商业用户更友好。PilotDeck 在项目隔离、记忆管理、主动性上明显领先。</p>
-<p>---</p>
-<h2>4. OpenClaw (NousResearch / Peter Steinberger)</h2>
-<h3>关键事实</h3>
-<ul>
-<li><strong>首发</strong>: 2026-01-25</li>
-<li><strong>作者</strong>: Peter Steinberger (奥地利独立开发者，前 PSPDFKit 创始人)</li>
-<li><strong>Star 增长曲线</strong> (史上最快):</li>
-<li>首日: 9,000+</li>
-<li>72 小时: 60,000+</li>
-<li>1 个月内: 100,000+</li>
-<li>3 月: 250,000+</li>
-<li>5 月初: 280,000+ (超越 React)</li>
-<li><strong>代码规模</strong>: 30 万行 TypeScript (个人 + 社区)</li>
-</ul>
-<h3>关键里程碑</h3>
-<ul>
-<li>2026-01-25: 首发 (Clawdbot)</li>
-<li>商标争议: 改名 Moltbot → 最终定名 OpenClaw</li>
-<li>$CLAWD 代币骗局: 1600 万美元市值后归零</li>
-<li>2026-02: ClawJacked 漏洞 (CVE 8.8)</li>
-<li>2026-04-25: v2026.4.24 — DeepSeek V4 Flash 设为新默认模型</li>
-<li>2026-05-06: v2.18 — ContextEngine + Active Memory 重大更新</li>
-<li>2026-05-07: v2026.5.7 — 稳定版</li>
-<li>2026-05-28: 媒体已定性"凉了" (vs PilotDeck 同期爆红)</li>
-</ul>
-<h3>核心能力</h3>
-<ul>
-<li><strong>Local Gateway 架构</strong>: 本地 Node.js 服务 + 消息应用桥接</li>
-<li><strong>多平台接入</strong>: WhatsApp / Telegram / Discord / Slack / Signal / iMessage</li>
-<li><strong>心跳系统</strong>: Cron 定时主动推送</li>
-<li><strong>BYO-Key 模式</strong>: 模型无关 (OpenAI / Anthropic / Ollama 本地模型)</li>
-<li><strong>Skills 生态</strong>: AgentSkills 插件系统</li>
-<li><strong>v2.18 升级</strong>: ContextEngine 分层压缩 (62% → 89%)、Active Memory (31M 评分模型)、OTEL 全链路追踪</li>
-</ul>
-<h3>安全风险</h3>
-<ul>
-<li>ClawJacked CVE 8.8 (已修复)</li>
-<li>$CLAWD 加密骗局</li>
-<li>完整系统访问权限 = 巨大攻击面</li>
-</ul>
-<h3>与 PilotDeck 对比</h3>
-<table>
-<tr>
-<th>维度</th>
-<th>OpenClaw</th>
-<th>PilotDeck</th>
-</tr>
-<tr>
-<td>规模</td>
-<td>280k stars, 30 万行代码</td>
-<td>2.6k stars, 686 commits</td>
-</tr>
-<tr>
-<td>定位</td>
-<td>通用 Agent (聊天+执行)</td>
-<td>生产力 OS (项目级)</td>
-</tr>
-<tr>
-<td>接入</td>
-<td>消息应用 (WhatsApp 等)</td>
-<td>Web/桌面/CLI/IM (飞书/企微)</td>
-</tr>
-<tr>
-<td>项目隔离</td>
-<td>无 WorkSpace 概念</td>
-<td>**WorkSpace 三层**</td>
-</tr>
-<tr>
-<td>记忆</td>
-<td>本地 Markdown 文件</td>
-<td>**白盒 + Dream + Rollback**</td>
-</tr>
-<tr>
-<td>路由</td>
-<td>无</td>
-<td>**子 Agent 智能路由**</td>
-</tr>
-<tr>
-<td>主动性</td>
-<td>Cron 心跳</td>
-<td>**Always-on + 主动发现**</td>
-</tr>
-<tr>
-<td>Skills</td>
-<td>Skills 生态</td>
-<td>WorkSpace 装</td>
-</tr>
-<tr>
-<td>风险</td>
-<td>全系统访问、ClawJacked</td>
-<td>AGPL-3.0、商业风险</td>
-</tr>
-<tr>
-<td>现状</td>
-<td>进入"工程化稳定期"，媒体定"凉了"</td>
-<td>媒体爆红中</td>
-</tr>
-</table>
-<p><strong>PilotDeck 优势</strong>: 项目隔离、记忆白盒、智能路由 (PilotDeck 三件套独此一家)  </p>
-<p><strong>OpenClaw 优势</strong>: 规模、生态成熟度、Cron 心跳</p>
-<p>---</p>
-<h2>5. 国内其他玩家</h2>
-<h3>阿里 QoderWork</h3>
-<ul>
-<li>2026-01-30 消息</li>
-<li>桌面 Agent 工具，一句话调用授权本地应用</li>
-<li>截至 2026-06 公开信息极少</li>
-</ul>
-<h3>MiniMax Agent 桌面版</h3>
-<ul>
-<li>2026-02-03 上线</li>
-<li>接管本地环境，操作文件 + 软件 + 长期记忆</li>
-<li>网页端新增 Expert 功能 (可复用模板)</li>
-</ul>
-<h3>阶跃 AI 桌面伙伴</h3>
-<ul>
-<li>2025-09 较早发布</li>
-<li>本地化任务执行，主打"主动提供服务"</li>
-</ul>
-<h3>QClaw (腾讯包装版 OpenClaw)</h3>
-<ul>
-<li>原生支持: 微信 / QQ / MCP / Skills Store / 本地模型 / 多平台通信</li>
-<li>借助腾讯 IM 生态抢占 Agent 入口</li>
-</ul>
-<p>---</p>
-<h2>战略对比矩阵</h2>
-<table>
-<tr>
-<th>维度</th>
-<th>PilotDeck</th>
-<th>Claude Cowork</th>
-<th>Skywork</th>
-<th>BitFun CoWork</th>
-<th>OpenClaw</th>
-</tr>
-<tr>
-<td>平台覆盖</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐ (仅 macOS)</td>
-<td>⭐⭐⭐ (Windows)</td>
-<td>⭐⭐⭐</td>
-<td>⭐⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>项目隔离</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐</td>
-<td>⭐⭐</td>
-<td>⭐⭐</td>
-<td>⭐</td>
-</tr>
-<tr>
-<td>白盒记忆</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐</td>
-<td>⭐</td>
-<td>⭐</td>
-<td>⭐⭐ (本地 MD)</td>
-</tr>
-<tr>
-<td>智能路由</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐</td>
-<td>⭐⭐⭐ (auto)</td>
-<td>⭐</td>
-<td>⭐</td>
-</tr>
-<tr>
-<td>主动性</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐</td>
-<td>⭐</td>
-<td>⭐</td>
-<td>⭐⭐⭐⭐ (心跳)</td>
-</tr>
-<tr>
-<td>Skills 生态</td>
-<td>⭐⭐</td>
-<td>⭐⭐⭐⭐⭐ (18 插件)</td>
-<td>⭐⭐⭐⭐ (100+)</td>
-<td>⭐⭐</td>
-<td>⭐⭐⭐ (AgentSkills)</td>
-</tr>
-<tr>
-<td>MCP 支持</td>
-<td>⭐⭐⭐⭐</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-<td>⭐⭐⭐</td>
-</tr>
-<tr>
-<td>国际化</td>
-<td>⭐⭐</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐⭐</td>
-<td>⭐⭐</td>
-<td>⭐⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>文档完善度</td>
-<td>⭐⭐⭐</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐⭐</td>
-<td>⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>License 友好</td>
-<td>⭐⭐ (AGPL)</td>
-<td>⭐⭐⭐⭐ (闭源订阅)</td>
-<td>⭐⭐⭐ (闭源订阅)</td>
-<td>⭐⭐⭐⭐⭐ (MIT)</td>
-<td>⭐⭐⭐</td>
-</tr>
-<tr>
-<td>社区规模</td>
-<td>⭐⭐</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐⭐</td>
-<td>⭐</td>
-<td>⭐⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>商业化成熟</td>
-<td>⭐⭐</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-<td>⭐</td>
-<td>⭐⭐⭐</td>
-</tr>
-</table>
-<h2>对 PilotDeck 的启示</h2>
-<h3>优势要保持</h3>
+<p><strong>本月关键动作</strong>:</p>
 <ol>
-<li><strong>WorkSpace 三层隔离</strong> — 全行业独此一家，继续做深</li>
-<li><strong>白盒记忆 + Dream</strong> — 唯一可编辑可回滚的产品</li>
-<li><strong>子 Agent 智能路由</strong> — 有公开 benchmark 数据支撑</li>
-<li><strong>Always-on</strong> — Cron 心跳 OpenClaw 也有，但 PilotDeck 集成更深</li>
-</ol>
-<h3>短板要补</h3>
-<ol>
-<li><strong>Skills 生态</strong> — 急需 WorkSpace 级 Skills Marketplace</li>
-<li><strong>License</strong> — AGPL-3.0 限制企业采用，需提供商业 License 路径</li>
-<li><strong>国际化</strong> — 文档以中文为主，海外开发者上手门槛</li>
-<li><strong>无正式 Release</strong> — Tags = 0，企业部署缺少版本锚点</li>
-</ol>
-<h3>战略机会</h3>
-<ol>
-<li><strong>国内差异化</strong>: 火山方舟集成 + 中文文档 + 清华/面壁背书 = 护城河</li>
-<li><strong>MCP 深度</strong>: 借 Anthropic 把 MCP 推成标准的东风</li>
-<li><strong>多模型协同</strong>: 比 Skywork 三模型更灵活的子 Agent 路由</li>
-<li><strong>本地优先</strong>: 数据敏感场景下唯一 WorkSpace 级方案</li>
-</ol>
-<h3>战略威胁</h3>
-<ol>
-<li><strong>Claude Cowork 跟进</strong>: 如果 Anthropic 推出 Windows 版本 + 加上项目隔离，将是巨大威胁</li>
-<li><strong>OpenClaw 回归</strong>: 一旦 OpenClaw 解决 ClawJacked 信任问题，规模优势仍在</li>
-<li><strong>Skywork 进化</strong>: 昆仑万维资源充足，3-6 个月内可能跟进 WorkSpace 概念</li>
-<li><strong>国内大厂</strong>: 阿里 QoderWork、字节、腾讯 QClaw 一旦发力，个人/小团队项目难以抗衡</li>
+<li>跑通 WorkSpace v2 模板（让用户能 5 分钟搭一套 agent 工作流）</li>
+<li>MCP 接入文档化（降低开发者门槛）</li>
+<li>跟 OpenHuman 联动推广（同样桌面优先用户群）</li>
 </ol>
     </article>
 
@@ -1205,136 +448,75 @@ src/
     <article class="doc" id="comp-tier2-frameworks-comparison" style="display:none">
       <h1>🥊 tier2-frameworks-comparison</h1>
       <p class="meta">文件: <code>tier2-frameworks-comparison.md</code> · 大小 2KB</p>
-      <blockquote>这些是 Agent 框架/SDK，不直接对标 PilotDeck 但 PilotDeck 内部可能集成或互操作。</blockquote>
-<blockquote>**最后更新**: 2026-06-01 18:05</blockquote>
-<h2>框架总览</h2>
+      <h2>1. LangChain (138k stars, T2 龙头)</h2>
+<ul>
+<li><strong>主仓库</strong>: langchain-ai/langchain</li>
+<li><strong>Stars / Forks / Issues</strong>: <strong>138,270 / 22,917 / 606</strong> (本周 push)</li>
+<li><strong>本周 release</strong>: LangChain v0.3+ 持续，LCEL (LangChain Expression Language) 成熟</li>
+<li><strong>核心定位</strong>: LLM 应用编排框架，Python + TypeScript 双栈</li>
+<li><strong>战略影响</strong>: 🟡 <strong>中性偏威胁</strong> —— LangChain 已是事实标准，PilotDeck 不在编排赛道正面竞争</li>
+<li><strong>机会</strong>: 把 LangChain 作为 PilotDeck 的 Skill 后端（兼容 LCEL）</li>
+<li><strong>数据点</strong>: 22.9k forks，生态规模最大；606 open issues 质量高</li>
+</ul>
+<h2>2. AutoGen (Microsoft 58k stars)</h2>
+<ul>
+<li><strong>主仓库</strong>: microsoft/autogen</li>
+<li><strong>Stars / Forks / Issues</strong>: <strong>58,623 / 8,855 / 876</strong> (push 2026-04-15)</li>
+<li><strong>本周 release</strong>: AutoGen v0.4+ 推 Actor Model 架构</li>
+<li><strong>核心定位</strong>: 多 Agent 编排（微软背书）</li>
+<li><strong>战略影响</strong>: 🟡 <strong>中度威胁</strong> —— AutoGen 正在主推 v0.4 重构</li>
+<li><strong>数据点</strong>: push 时间 2026-04-15（<strong>近 1.5 个月无新 push</strong>），可能 v0.4 仍在内部打磨</li>
+</ul>
+<h2>3. CrewAI (52k stars)</h2>
+<ul>
+<li><strong>主仓库</strong>: crewAIInc/crewAI</li>
+<li><strong>Stars / Forks / Issues</strong>: <strong>52,635 / 7,340 / 383</strong> (本周 push)</li>
+<li><strong>本周 release</strong>: CrewAI v0.80+ 持续小步快跑</li>
+<li><strong>核心定位</strong>: Role-based Multi-Agent 框架，定位"团队"概念</li>
+<li><strong>战略影响</strong>: ⚠️ <strong>中度威胁</strong> —— 增长快（半年 +60%），营销强</li>
+<li><strong>机会</strong>: PilotDeck 借 Smart Router 强调"动态角色"区别于 CrewAI 静态 Role</li>
+</ul>
+<h2>4. smolagents (HuggingFace 27k stars)</h2>
+<ul>
+<li><strong>主仓库</strong>: huggingface/smolagents</li>
+<li><strong>Stars / Forks / Issues</strong>: <strong>27,657 / 2,632 / 570</strong> (push 2026-05-29)</li>
+<li><strong>核心定位</strong>: HF 出品的极简 Agent 框架</li>
+<li><strong>战略影响</strong>: 🟢 <strong>低威胁</strong> —— 学术/极客圈为主，定位轻量</li>
+</ul>
+<h2>5. Aider (45k stars, Coding Agent)</h2>
+<ul>
+<li><strong>主仓库</strong>: Aider-AI/aider</li>
+<li><strong>Stars / Forks / Issues</strong>: <strong>45,659 / 4,528 / 1,590</strong> (push 2026-05-22)</li>
+<li><strong>本周 release</strong>: 持续更新</li>
+<li><strong>核心定位</strong>: 命令行 Coding Agent，对标 Cursor / Copilot</li>
+<li><strong>战略影响</strong>: 🟡 <strong>中性</strong> —— Coding Agent 赛道细分</li>
+</ul>
+<h2>T2 战略判断</h2>
 <table>
 <tr>
-<th>框架</th>
-<th>厂商</th>
-<th>Stars</th>
-<th>架构风格</th>
-<th>多语言</th>
-<th>MCP</th>
-<th>Skills</th>
+<th>维度</th>
+<th>PilotDeck 战略</th>
+<th>建议</th>
 </tr>
 <tr>
-<td>LangGraph</td>
-<td>LangChain</td>
-<td>31k</td>
-<td>图/状态机</td>
-<td>Py + JS</td>
-<td>⚠️ 适配器</td>
-<td>⚠️ 子图</td>
+<td>不与 LangChain/AutoGen 正面竞争</td>
+<td>✅ 已在做</td>
+<td>持续</td>
 </tr>
 <tr>
-<td>CrewAI</td>
-<td>CrewAI Inc.</td>
-<td>50.4k</td>
-<td>角色组队</td>
-<td>Py</td>
-<td>✅ 原生</td>
-<td>✅ 一等公民</td>
+<td>借 CrewAI 增长推动市场教育</td>
+<td>✅ 关注中</td>
+<td>持续</td>
 </tr>
 <tr>
-<td>Claude Agent SDK</td>
-<td>Anthropic</td>
-<td>6.6k</td>
-<td>自主工具循环</td>
-<td>Py + TS</td>
-<td>✅ 最深</td>
-<td>✅ 一等公民</td>
+<td>兼容主流框架</td>
+<td>🟡 待规划</td>
+<td>**Q3 推出 LangChain Skill 桥接**</td>
 </tr>
 <tr>
-<td>OpenAI Agents SDK</td>
-<td>OpenAI</td>
-<td>25.7k</td>
-<td>轻量 Provider 无关</td>
-<td>Py + JS</td>
-<td>✅ 原生</td>
-<td>⚠️ 基础</td>
-</tr>
-<tr>
-<td>MS Agent Framework</td>
-<td>Microsoft</td>
-<td>10k</td>
-<td>图工作流 + 分层</td>
-<td>Py + .NET</td>
-<td>⚠️ 集成中</td>
-<td>⚠️ 基础</td>
-</tr>
-<tr>
-<td>Google ADK</td>
-<td>Google</td>
-<td>19.4k</td>
-<td>代码优先 + 层级</td>
-<td>Py + Java + Go</td>
-<td>✅ 原生</td>
-<td>⭐ 建设中</td>
-</tr>
-</table>
-<h2>关键观察</h2>
-<h3>2026 年框架格局已基本定型</h3>
-<ul>
-<li>早期百花齐放（AutoGPT/BabyAGI/CAMEL/MetaGPT）→ 主流 6 框架收敛</li>
-<li>MS Agent Framework 统一了 AutoGen + Semantic Kernel（AutoGen 进入维护）</li>
-<li>Google ADK 是唯一 3 语言一致的</li>
-</ul>
-<h3>Skills 系统的两极分化</h3>
-<ul>
-<li><strong>一等公民</strong>: CrewAI, Claude Agent SDK（都有专门仓库和 Marketplace）</li>
-<li><strong>建设中</strong>: Google ADK（Skill Registry 刚合并）</li>
-<li><strong>基础/无</strong>: OpenAI Agents SDK, MS Agent Framework, LangGraph</li>
-</ul>
-<h3>MCP 集成深度</h3>
-<ul>
-<li><strong>最深的</strong>: Claude Agent SDK（支持进程内 SDK MCP Server，零额外进程）</li>
-<li><strong>原生</strong>: CrewAI, OpenAI SDK, Google ADK</li>
-<li><strong>适配器</strong>: LangGraph（通过 langchain-mcp-adapters）</li>
-</ul>
-<h2>PilotDeck 的位置</h2>
-<p>PilotDeck 不是一个"框架"——它是一个<strong>面向终端用户的 Agent OS</strong>。框架是给开发者用的，OS 是给最终用户用的。</p>
-<p>但 PilotDeck 内部：</p>
-<ul>
-<li>路由层可以参考 LangGraph 的图状态机</li>
-<li>Skills 系统可以参考 CrewAI 的 Markdown + Marketplace 设计</li>
-<li>MCP 集成对标 Claude Agent SDK 的深度</li>
-</ul>
-<h2>监控建议</h2>
-<ul>
-<li><strong>每周</strong>: 只看是否有重大 release（> 1k star 增长）</li>
-<li><strong>每月</strong>: 做一次框架生态对比，输出"PilotDeck 是否落后于框架层新特性"的判断</li>
-</ul>
-<h2>新增追踪对象</h2>
-<p>考虑到 T2 框架的重要性在上升，建议月报中加入：</p>
-<table>
-<tr>
-<th>框架</th>
-<th>监控指标</th>
-</tr>
-<tr>
-<td>LangGraph</td>
-<td>stars 增长、v1.0 进展、图状态机新特性</td>
-</tr>
-<tr>
-<td>CrewAI</td>
-<td>Skills 仓库增长、v1.x 路线图</td>
-</tr>
-<tr>
-<td>Claude Agent SDK</td>
-<td>MCP 新能力、Skills Marketplace 扩张</td>
-</tr>
-<tr>
-<td>OpenAI Agents SDK</td>
-<td>Sandbox Agents 进展、多 LLM 支持</td>
-</tr>
-<tr>
-<td>MS Agent Framework</td>
-<td>.NET 生态整合、Foundry Toolboxes</td>
-</tr>
-<tr>
-<td>Google ADK</td>
-<td>Skill Registry GA 进度、三语言一致性</td>
+<td>Coding Agent 能力</td>
+<td>🟡 自研</td>
+<td>评估集成 Continue/Aider</td>
 </tr>
 </table>
     </article>
@@ -1612,7 +794,7 @@ src/
 
   </main>
 </div>
-<footer>PilotDeck 追踪项目 · Mavis 维护 · 自动生成于 2026-06-02 06:12 CST</footer>
+<footer>PilotDeck 追踪项目 · Mavis 维护 · 自动生成于 2026-06-02 06:18 CST</footer>
 <script>
   const articles = document.querySelectorAll('article.doc');
   const links = document.querySelectorAll('nav a');
