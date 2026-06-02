@@ -287,6 +287,20 @@
       "monthly_schedule": "10 9 28-31 * * (Asia/Shanghai) — 09:10",
       "tier": "T2 AI 网关",
       "stagger_offset_minutes": 10
+    },
+    {
+      "id": "hiclaw",
+      "name": "HiClaw",
+      "status": "active",
+      "tracking_since": "2026-06-02",
+      "stagger_time": "09:30",
+      "tier": "T1",
+      "github_repo": "https://github.com/agentscope-ai/HiClaw",
+      "feishu_webhook_configured": false,
+      "cron_task_ids": {
+        "weekly": "404796853654428",
+        "monthly": "404795446797145"
+      }
     }
   ],
   "competitors_shared": {
@@ -443,6 +457,11 @@
         "time": "09:20",
         "project": "picoclaw",
         "tier": "T2 Edge AI"
+      },
+      {
+        "project": "hiclaw",
+        "time": "09:30",
+        "tier": "T1 Multi-Agent OS"
       }
     ],
     "active_hours": "07:30 - 10:00",
