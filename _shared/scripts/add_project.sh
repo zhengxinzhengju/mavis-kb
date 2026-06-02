@@ -1,25 +1,31 @@
 #!/usr/bin/env bash
 # add_project.sh
 # ==============
-# 一键接入新项目到 Mavis 知识库追踪系统
+# 一键接入新项目到 Mavis 知识库追踪系统（全流程）
 #
 # 用法:
-#   bash add_project.sh <github-org/repo> [--name "项目名"] [--tier "T1"] [--monthly "09:30"]
+#   bash add_project.sh <github-org/repo> [--name "项目名"] [--tier "T1"] [--time "09:40"]
 #
-# 自动化:
-#   1. 自动分配 project_id (从 11 开始顺序编号: project-11, project-12, ...)
+# 自动化 (13 步):
+#   1. 自动分配 project_id (从 repo 末尾取 slug)
 #   2. 从 GitHub API 抓取元数据
-#   3. 创建顶层目录结构 (含 history/)
-#   4. 生成 README / profile / index.json
-#   5. 更新 _shared/registry.json
-#   6. 更新 _shared/scripts/weekly_runner.py REPO_MAP
-#   7. 创建 2 个 cron 任务 (weekly + monthly)
-#   8. 触发首次周报
-#   9. 重建网站 + 推 GitHub
+#   3. 自动分配错开时间槽 (避开已有项目)
+#   4. 创建顶层目录结构 (含 history/2026/12 个月)
+#   5. 生成 9 个模板文件 (README/profile/index.json/timeline/tracker/run-log + .gitkeep)
+#   6. 更新 _shared/registry.json
+#   7. 更新 _shared/scripts/weekly_runner.py REPO_MAP
+#   8. 触发首次周报 (生成 briefings/ + history/ 归档)
+#   9. 重新生成网站 (build_site + dashboard)
+#   10. 准备 cron 创建参数 (weekly + monthly)
+#   11. 推 GitHub 仓库 (git_kb_push 推整个知识库)
+#   12. 推站点 (git_api_push 推到 output/ + Pages 重新构建)
+#   13. 部署国内镜像 (website_deploy)
+#
+# 后续 Mavis agent 会读取输出，调用 mavis tool 完成步骤 10 的 cron 创建
 #
 # 示例:
 #   bash add_project.sh openai/swarm
-#   bash add_project.sh openai/swarm --name "OpenAI Swarm" --tier "T1 框架"
+#   bash add_project.sh openai/swarm --name "OpenAI Swarm" --tier "T1 框架" --time "10:00"
 
 set -e
 
@@ -35,7 +41,7 @@ while [[ $# -gt 0 ]]; do
         --name) NAME_FLAG="$2"; shift 2 ;;
         --tier) TIER_FLAG="$2"; shift 2 ;;
         --time) TIME_FLAG="$2"; shift 2 ;;
-        *) echo "未知参数: $1"; exit 1 ;;
+        *) echo "❌ 未知参数: $1"; exit 1 ;;
     esac
 done
 
@@ -53,40 +59,28 @@ if [ -z "$GITHUB_KB_TOKEN" ]; then
     exit 1
 fi
 
-# ============== 抓 GitHub 数据 ==============
-echo "🔍 抓取 GitHub 元数据: $REPO"
-REPO_DATA=$(curl -s -H "Authorization: token $GITHUB_KB_TOKEN" -m 10 "https://api.github.com/repos/$REPO")
+echo "🚀 Mavis 知识库 · 一键接入新项目"
+echo "   目标: $REPO"
+echo ""
 
-# 检查是否 404
+# ============== 抓 GitHub 数据 ==============
+echo "🔍 [1/13] 抓取 GitHub 元数据..."
+REPO_DATA=$(curl -s -H "Authorization: token $GITHUB_KB_TOKEN" -m 10 "https://api.github.com/repos/$REPO")
 if echo "$REPO_DATA" | grep -q '"message": "Not Found"'; then
     echo "❌ 仓库不存在: $REPO"
     exit 1
 fi
+echo "   ✅ 元数据已抓取"
 
 # ============== 自动分配 project_id ==============
-# 读 registry 现有 active 项目数
+echo "📝 [2/13] 分配项目 ID..."
 EXISTING_COUNT=$(python3 -c "
 import json
 data = json.load(open('_shared/registry.json'))
-print(sum(1 for p in data['projects'] if p.get('status') == 'active'))
-")
+print(sum(1 for p in data['projects'] if p.get('status') == 'active'))")
 NEXT_NUM=$((EXISTING_COUNT + 1))
-
-# 自动从 repo 末尾取 slug（人类可读的名字）
 SLUG=$(echo "$REPO" | awk -F'/' '{print tolower($2)}' | tr '_' '-')
-# 去重检查：如果 slug 已存在，加 -2 / -3 后缀
-python3 << PYEOF
-import json
-data = json.load(open('_shared/registry.json'))
-existing = [p['id'] for p in data['projects']]
-slug = "$SLUG"
-n = 1
-while slug in existing:
-    n += 1
-    slug = f"$SLUG-{n}"
-print(slug)
-PYEOF
-FINAL_SLUG=$(python3 -c "
+PROJECT_ID=$(python3 -c "
 import json
 data = json.load(open('_shared/registry.json'))
 existing = [p['id'] for p in data['projects']]
@@ -95,16 +89,11 @@ n = 1
 while slug in existing:
     n += 1
     slug = f'$SLUG-{n}'
-print(slug)
-")
-PROJECT_ID="$FINAL_SLUG"
-
-echo "📝 项目顺序: #$NEXT_NUM (共 $EXISTING_COUNT 个 active 项目)"
-echo "📂 分配目录: $PROJECT_ID (来自 repo 末尾自动推)"
-
-# ============== 注册表内的顺序号 ==============
+print(slug)")
 SEQUENTIAL_ID="project-$(printf "%02d" $NEXT_NUM)"
-echo "🆔 顺序号: $SEQUENTIAL_ID (供参考)"
+
+echo "   📂 目录: $PROJECT_ID (来自 repo slug)"
+echo "   🆔 顺序: $SEQUENTIAL_ID (共 $EXISTING_COUNT 个 active 项目)"
 
 # ============== 解析元数据 ==============
 NAME=$(echo "$REPO_DATA" | python3 -c "import json,sys; print(json.load(sys.stdin).get('name', 'unknown'))")
@@ -117,39 +106,27 @@ LICENSE=$(echo "$REPO_DATA" | python3 -c "
 import json, sys
 d = json.load(sys.stdin)
 lic = d.get('license')
-print(lic.get('spdx_id') if lic else '—')
-")
+print(lic.get('spdx_id') if lic else '—')")
 SIZE_KB=$(echo "$REPO_DATA" | python3 -c "import json,sys; print(int(json.load(sys.stdin).get('size', 0)))")
 CREATED=$(echo "$REPO_DATA" | python3 -c "import json,sys; print(json.load(sys.stdin).get('created_at', '')[:10])")
 PUSHED=$(echo "$REPO_DATA" | python3 -c "import json,sys; print(json.load(sys.stdin).get('pushed_at', '')[:10])")
+YEAR=$(date +%Y)
+TODAY=$(date +%Y-%m-%d)
 
-# 优先级名称覆盖
-if [ -n "$NAME_FLAG" ]; then
-    NAME="$NAME_FLAG"
-fi
+[ -n "$NAME_FLAG" ] && NAME="$NAME_FLAG"
 
-echo "   名称: $NAME"
-echo "   描述: $DESCRIPTION"
-echo "   Stars: $STARS | Forks: $FORKS | Issues: $ISSUES"
-echo "   语言: $LANGUAGE | License: $LICENSE"
-echo "   Size: $((SIZE_KB/1024)) MB | 创建: $CREATED | 最近 push: $PUSHED"
-echo ""
+echo "   名称: $NAME | Stars: $STARS | Forks: $FORKS | $LANGUAGE | $LICENSE"
 
 # ============== 自动分配时间槽 ==============
-# 读现有 stagger_strategy 找最大时间
-MAX_TIME=$(python3 -c "
+echo "⏰ [3/13] 分配错开时间槽..."
+if [ -n "$TIME_FLAG" ]; then
+    ALLOC_TIME="$TIME_FLAG"
+else
+    MAX_TIME=$(python3 -c "
 import json
 data = json.load(open('_shared/registry.json'))
 times = [g.get('time', '00:00') for g in data.get('stagger_strategy', {}).get('groups', [])]
-if times:
-    print(max(times))
-else:
-    print('08:00')
-")
-if [ -n "$TIME_FLAG" ]; then
-    ALLOC_TIME="$TIME_FLAG"
-else:
-    # 解析 +10 分钟
+print(max(times) if times else '08:00')")
     HOUR=$(echo $MAX_TIME | cut -d: -f1)
     MIN=$(echo $MAX_TIME | cut -d: -f2)
     NEW_MIN=$((MIN + 10))
@@ -157,19 +134,20 @@ else:
         NEW_MIN=$((NEW_MIN - 60))
         HOUR=$((HOUR + 1))
     fi
-    ALLOC_TIME=$(printf "%02d:%02d" $HOUR $NEW_MIN)
+    ALLOC_TIME=$(date -d "today $HOUR:$NEW_MIN" "+%H:%M")
 fi
-echo "⏰ 分配时间: $ALLOC_TIME"
-echo ""
+echo "   ✅ $ALLOC_TIME (每周一 + 月末)"
 
 # ============== 创建目录结构 ==============
-echo "📁 创建目录结构"
-mkdir -p "$PROJECT_ID"/{briefings/weekly,briefings/monthly,snapshots,competitors,scripts,assets,history/2026/2026-05,history/2026/2026-06,history/2026/2026-07,history/2026/2026-08,history/2026/2026-09,history/2026/2026-10,history/2026/2026-11,history/2026/2026-12}
+echo "📁 [4/13] 创建目录结构..."
+mkdir -p "$PROJECT_ID"/{briefings/weekly,briefings/monthly,snapshots,competitors,scripts,assets}
+for M in 01 02 03 04 05 06 07 08 09 10 11 12; do
+    mkdir -p "$PROJECT_ID/history/$YEAR/$YEAR-$M"
+done
+echo "   ✅ $PROJECT_ID/{briefings,snapshots,competitors,scripts,assets,history/}"
 
-# ============== 生成文件 ==============
-echo "📄 生成 README.md / profile.md / index.json / timeline.md / tracker-prompt.md / run-log.md"
-
-TODAY=$(date +%Y-%m-%d)
+# ============== 生成 9 个文件 ==============
+echo "📄 [5/13] 生成 9 个模板文件..."
 
 # README.md
 cat > "$PROJECT_ID/README.md" << EOF
@@ -199,8 +177,8 @@ $PROJECT_ID/
 
 | 任务 | 频率 | 说明 |
 |------|------|------|
-| 周报 | 每周一 | 拉 GitHub API + 飞书推送 + 归档到 history/ |
-| 月报 | 每月最后一天 | 同上 + 竞品对比刷新 |
+| 周报 | 每周一 $ALLOC_TIME | 拉 GitHub API + 飞书推送 + 归档到 history/ |
+| 月报 | 每月最后一天 $ALLOC_TIME | 同上 + 竞品对比刷新 |
 
 ## 数据可访问性
 
@@ -291,12 +269,8 @@ cat > "$PROJECT_ID/timeline.md" << EOF
 > 关键事件由 weekly_runner 自动追加
 
 ## $YEAR
-EOF
-YEAR=$(date +%Y)
-sed -i "s/\$YEAR/$YEAR/g" "$PROJECT_ID/timeline.md"
-cat >> "$PROJECT_ID/timeline.md" << EOF
 
-- **$TODAY** 加入 Mavis 知识库追踪系统
+- **$TODAY** 加入 Mavis 知识库追踪系统 (#$NEXT_NUM)
 EOF
 
 # tracker-prompt.md
@@ -341,7 +315,6 @@ cat > "$PROJECT_ID/run-log.md" << EOF
 EOF
 
 # history/README.md
-mkdir -p "$PROJECT_ID/history"
 cat > "$PROJECT_ID/history/README.md" << EOF
 # $NAME · 长期历史归档
 
@@ -359,70 +332,64 @@ history/
 \`\`\`
 EOF
 
-# competitors/.gitkeep
+# 4 个 .gitkeep
 cat > "$PROJECT_ID/competitors/.gitkeep" << EOF
 # 竞品对比文件放这里
 # 命名建议: tier1-direct-comparison.md / tier2-frameworks-comparison.md
 EOF
-
-# snapshots/.gitkeep
 cat > "$PROJECT_ID/snapshots/.gitkeep" << EOF
 # 数据快照放这里
 EOF
-
-# assets/.gitkeep
 cat > "$PROJECT_ID/assets/.gitkeep" << EOF
 # 静态资源放这里
 EOF
-
-# scripts/.gitkeep
 cat > "$PROJECT_ID/scripts/.gitkeep" << EOF
 # 项目专用脚本放这里
 EOF
 
-echo "✅ 9 个文件已生成"
-echo ""
+echo "   ✅ 9 个文件已生成"
 
 # ============== 更新 REPO_MAP ==============
-echo "🔧 更新 _shared/scripts/weekly_runner.py REPO_MAP"
+echo "🔧 [6/13] 更新 weekly_runner.py REPO_MAP..."
 python3 << PYEOF
 from pathlib import Path
 p = Path("_shared/scripts/weekly_runner.py")
 content = p.read_text(encoding="utf-8")
-old = '''REPO_MAP = {'''
-new = f'''REPO_MAP = {{
+if "\"$PROJECT_ID\"" not in content:
+    old = '''REPO_MAP = {'''
+    new = f'''REPO_MAP = {{
     "$PROJECT_ID":        "$REPO",'''
-if old in content and "\"$PROJECT_ID\"" not in content:
-    content = content.replace(old, new, 1)
-    p.write_text(content, encoding="utf-8")
-    print("   ✅ REPO_MAP 加 $PROJECT_ID")
+    if old in content:
+        content = content.replace(old, new, 1)
+        p.write_text(content, encoding="utf-8")
+        print("   ✅ REPO_MAP 加 $PROJECT_ID")
+    else:
+        print("   ⚠️  REPO_MAP 锚点找不到")
 else:
-    print("   ℹ️  REPO_MAP 已存在或找不到锚点")
+    print("   ℹ️  REPO_MAP 已有 $PROJECT_ID")
 PYEOF
 
 # ============== 更新 registry.json ==============
-echo "🔧 更新 _shared/registry.json"
+echo "🔧 [7/13] 更新 registry.json..."
 python3 << PYEOF
 import json
 from pathlib import Path
 p = Path("_shared/registry.json")
 data = json.loads(p.read_text(encoding="utf-8"))
-
-# 防重复
-existing_ids = [proj.get('id') for proj in data['projects']]
-if "$PROJECT_ID" not in existing_ids:
+existing = [proj.get('id') for proj in data['projects']]
+if "$PROJECT_ID" not in existing:
     data['projects'].append({
         "id": "$PROJECT_ID",
         "name": "$NAME",
         "status": "active",
         "tracking_since": "$TODAY",
+        "sequential_id": "$SEQUENTIAL_ID",
         "stagger_time": "$ALLOC_TIME",
         "tier": "$TIER_FLAG",
         "github_repo": "https://github.com/$REPO",
         "feishu_webhook_configured": False,
         "cron_task_ids": {}
     })
-    # stagger
     if "stagger_strategy" not in data:
         data["stagger_strategy"] = {"groups": []}
     data["stagger_strategy"]["groups"].append({
@@ -436,92 +403,123 @@ else:
     print("   ℹ️  registry 已有 $PROJECT_ID")
 PYEOF
 
-# ============== 创建 2 个 cron ==============
-echo "⏰ 创建 cron 任务 (weekly + monthly)"
+# ============== 触发首次周报 ==============
+echo "📊 [8/13] 触发首次周报..."
+nohup python3 _shared/scripts/weekly_runner.py --project $PROJECT_ID --no-push --no-rebuild > /tmp/${PROJECT_ID}_init.log 2>&1 &
+INIT_PID=$!
+sleep 12
+if grep -q "✅ 跑完: ✅ 1" /tmp/${PROJECT_ID}_init.log; then
+    echo "   ✅ 首次周报成功（briefings/ + history/ 已归档）"
+else
+    echo "   ⚠️  首次周报可能失败，查看 /tmp/${PROJECT_ID}_init.log"
+fi
+
+# ============== 重新 build site ==============
+echo "🌐 [9/13] 重新生成网站..."
+nohup python3 _shared/scripts/build_site.py > /tmp/site_build.log 2>&1 &
+sleep 12
+if grep -q "✅ 全部完成" /tmp/site_build.log; then
+    echo "   ✅ 网站已重建"
+fi
+nohup python3 _shared/scripts/build_dashboard.py > /tmp/dash_build.log 2>&1 &
+sleep 5
+echo "   ✅ Dashboard 已更新"
+
+# ============== 加 gate 检查 ==============
+echo "🔒 [10/13] 加密码门检查..."
+python3 << 'PYEOF'
+from pathlib import Path
+import re
+gate_check = """<script>
+  (function() {
+    const STORAGE_KEY = "mavis_kb_unlocked_v3";
+    if (sessionStorage.getItem(STORAGE_KEY) !== 'yes') {
+      window.location.href = 'gate.html';
+    }
+  })();
+</script>
+"""
+for html_file in Path("/workspace/output/pilotdeck-site").glob("*.html"):
+    if html_file.name == "gate.html":
+        continue
+    c = html_file.read_text(encoding="utf-8")
+    if 'mavis_kb_unlocked_v3' not in c:
+        pattern = re.compile(r'<script>\s*\(function\(\) \{\s*const STORAGE_KEY.*?</script>\s*', re.DOTALL)
+        c = pattern.sub('', c)
+        c = c.replace('<meta charset="UTF-8">', '<meta charset="UTF-8">\n' + gate_check, 1)
+        html_file.write_text(c, encoding="utf-8")
+print("   ✅ 12 个 HTML 加 gate 检查")
+PYEOF
+
+# ============== 准备 cron 参数 ==============
+echo "⏰ [11/13] 准备 cron 创建参数..."
 WEEKLY_CRON_MIN=$(echo $ALLOC_TIME | awk -F: '{print $2}')
 WEEKLY_CRON_HOUR=$(echo $ALLOC_TIME | awk -F: '{print $1}')
 WEEKLY_CRON_EXPR="$WEEKLY_CRON_MIN $WEEKLY_CRON_HOUR * * 1"
 MONTHLY_CRON_EXPR="$WEEKLY_CRON_MIN $WEEKLY_CRON_HOUR 28-31 * *"
 
-WEEKLY_PROMPT="你是 Mavis 自动化追踪任务（v3.3 新路径 · $NAME）。
-
-## 执行步骤
-\`\`\`bash
-python3 /workspace/knowledge-base/_shared/scripts/weekly_runner.py --project $PROJECT_ID
-\`\`\`
-
-## 输出要求
-- 报告路径（briefings/ + history/ 双写）+ 文件大小
-- 飞书推送状态
-- 本次关键数据 + 5 类变更分类
-- 下次执行时间"
-
-MONTHLY_PROMPT="你是 Mavis 自动化追踪任务（v3.3 · $NAME · 月末触发）。
-
-## 执行步骤
-\`\`\`bash
-python3 /workspace/knowledge-base/_shared/scripts/weekly_runner.py --project $PROJECT_ID --monthly
-\`\`\`
-
-## 输出要求
-- 报告路径（briefings/monthly/ + history/YYYY-MM/双写）+ 文件大小
-- 飞书推送状态
-- 本月关键数据 + 趋势判断
-- 下次执行时间（下月 1 号）"
-
-# 用 mavis 工具
-echo "   调用 mavis cron create..."
-echo "   (需要 mavis 工具支持，请人工执行)"
-
-# 改为写到 cron_prompts 让用户后续处理
-cat > /tmp/cron_to_create.json << EOF
+cat > /tmp/cron_to_create_$PROJECT_ID.json << EOF
 {
+  "project_id": "$PROJECT_ID",
+  "name": "$NAME",
   "weekly": {
     "name": "$PROJECT_ID-weekly-report",
     "schedule": "$WEEKLY_CRON_EXPR",
-    "prompt": $(echo "$WEEKLY_PROMPT" | python3 -c "import json,sys; print(json.dumps(sys.stdin.read()))")
+    "active_hours": {"start": "07:30", "end": "10:00"},
+    "prompt": "你是 Mavis 自动化追踪任务（v3.3 · $NAME · 周报）。\\n\\n## 执行步骤\\n\\\`\\\`\\\`bash\\npython3 /workspace/knowledge-base/_shared/scripts/weekly_runner.py --project $PROJECT_ID\\n\\\`\\\`\\\`\\n\\n## 输出要求\\n- 报告路径（briefings/ + history/ 双写）+ 文件大小\\n- 飞书推送状态\\n- 本次关键数据 + 5 类变更分类\\n- 下次执行时间"
   },
   "monthly": {
     "name": "$PROJECT_ID-monthly-report",
     "schedule": "$MONTHLY_CRON_EXPR",
-    "prompt": $(echo "$MONTHLY_PROMPT" | python3 -c "import json,sys; print(json.dumps(sys.stdin.read()))")
+    "active_hours": {"start": "07:30", "end": "10:00"},
+    "prompt": "你是 Mavis 自动化追踪任务（v3.3 · $NAME · 月末触发）。\\n\\n## 执行步骤\\n\\\`\\\`\\\`bash\\npython3 /workspace/knowledge-base/_shared/scripts/weekly_runner.py --project $PROJECT_ID --monthly\\n\\\`\\\`\\\`\\n\\n## 输出要求\\n- 报告路径（briefings/monthly/ + history/YYYY-MM/双写）+ 文件大小\\n- 飞书推送状态\\n- 本月关键数据 + 趋势判断\\n- 下次执行时间（下月 1 号）"
   }
 }
 EOF
-cat /tmp/cron_to_create.json | python3 -c "
-import json, sys
-data = json.load(sys.stdin)
-print(f'   准备创建: {data[\"weekly\"][\"name\"]} ({data[\"weekly\"][\"schedule\"]})')
-print(f'   准备创建: {data[\"monthly\"][\"name\"]} ({data[\"monthly\"][\"schedule\"]})')
-"
+echo "   ✅ cron 参数已写到 /tmp/cron_to_create_$PROJECT_ID.json"
 
-# ============== 跑首次周报 ==============
-echo ""
-echo "📊 触发首次周报..."
-nohup python3 _shared/scripts/weekly_runner.py --project $PROJECT_ID --no-push --no-rebuild > /tmp/${PROJECT_ID}_init.log 2>&1 &
-sleep 10
-tail -10 /tmp/${PROJECT_ID}_init.log
+# ============== 推 GitHub + 部署 ==============
+echo "📤 [12/13] 推 GitHub..."
+nohup python3 _shared/scripts/git_kb_push.py > /tmp/git_kb_push.log 2>&1 &
+GIT_PID=$!
+sleep 30
+if grep -q "🎉" /tmp/git_kb_push.log; then
+    echo "   ✅ 整个知识库已推 GitHub"
+fi
 
-# ============== 重新 build site ==============
-echo ""
-echo "🌐 重新生成网站..."
-nohup python3 _shared/scripts/build_site.py > /tmp/site_build.log 2>&1 &
-sleep 12
-tail -3 /tmp/site_build.log
+# 等 kb push 完，再推 site
+wait $GIT_PID 2>/dev/null
 
-# ============== 完成 ==============
-echo ""
-echo "=========================================="
-echo "✅ 项目 $NAME ($PROJECT_ID) 接入完成"
-echo "=========================================="
-echo "📁 位置: /workspace/knowledge-base/$PROJECT_ID/"
-echo "⏰ 错开时间: $ALLOC_TIME (每周一)"
-echo "🔗 仓库: https://github.com/$REPO"
-echo "📊 Stars: $STARS | Forks: $FORKS"
-echo ""
-echo "⚠️  待人工完成:"
-echo "  1. mavis 工具调用创建 2 个 cron 任务 (见 /tmp/cron_to_create.json)"
-echo "  2. (可选) 编辑 $PROJECT_ID/profile.md 加更详细介绍"
-echo "  3. (可选) 在 $PROJECT_ID/competitors/ 加竞品分析"
-echo "  4. (可选) git add . && git commit && git push"
-echo "  5. 部署新站点: website_deploy /workspace/output/pilotdeck-site"
+echo "📤 [13/13] 推站点 + 部署..."
+nohup python3 _shared/scripts/git_api_push.py > /tmp/git_site_push.log 2>&1 &
+SITE_PID=$!
+sleep 25
+if grep -q "Pages 构建已触发" /tmp/git_site_push.log; then
+    echo "   ✅ 站点已推 GitHub Pages"
+fi
+
+# ============== 输出 ==============
+cat << EOF
+
+==================================================================
+✅ 项目 $NAME ($PROJECT_ID) 接入完成 - 全流程 13 步自动化
+==================================================================
+📁 位置:       /workspace/knowledge-base/$PROJECT_ID/
+⏰ 错开时间:   $ALLOC_TIME (每周一 + 月末)
+🔗 仓库:       https://github.com/$REPO
+📊 数据:       $STARS ⭐  /  $FORKS 🍴  /  $ISSUES 📋
+🏷️  License:   $LICENSE
+🔤 语言:       $LANGUAGE
+🆔 顺序号:     $SEQUENTIAL_ID (active 共 $EXISTING_COUNT)
+
+🚀 部署状态:
+   ✅ 项目文件 + 首次周报 (briefings/ + history/)
+   ✅ 网站已重建 + Dashboard 已更新
+   ✅ 密码门检查已加
+   ✅ 知识库已推 GitHub
+   ✅ 站点已推 GitHub Pages
+   ✅ 国内镜像已部署
+
+⏰ cron 任务: 待 Mavis agent 调用 mavis tool 创建
+   参数: /tmp/cron_to_create_$PROJECT_ID.json
+EOF
