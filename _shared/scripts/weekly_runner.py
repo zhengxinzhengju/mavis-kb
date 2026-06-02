@@ -37,6 +37,7 @@ REPO_MAP = {
     "openhuman":     "tinyhumansai/openhuman",
     "picoclaw":      "sipeed/picoclaw",
     "higress":       "higress-group/higress",
+    "hiclaw":        "agentscope-ai/HiClaw",
 }
 
 # GitHub token 从环境变量读
