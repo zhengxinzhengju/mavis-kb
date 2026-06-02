@@ -1,0 +1,62 @@
+{
+  "project": {
+    "id": "hiclaw",
+    "name": "HiClaw",
+    "tagline": "协作多 Agent 操作系统 — 基于 Matrix 协议的透明人机协作",
+    "github_repo": "https://github.com/agentscope-ai/HiClaw",
+    "category": "T1",
+    "license": "Apache-2.0",
+    "language": "Go"
+  },
+  "key_features": [
+    "基于 Matrix 协议的多 Agent 协作",
+    "人机协作（Human-in-the-loop）",
+    "透明的任务协调",
+    "开源 Multi-Agent OS",
+    "AgentScope 团队出品（阿里）",
+    "Go 编写 + Apache-2.0"
+  ],
+  "tracking": {
+    "weekly_report": {
+      "enabled": true,
+      "cron_expr": "0 8 * * 1"
+    },
+    "monthly_report": {
+      "enabled": true,
+      "cron_expr": "0 8 28-31 * *"
+    },
+    "feishu": {
+      "webhook_url": "",
+      "secret": ""
+    }
+  },
+  "last_github_data": {
+    "stargazers_count": 4716,
+    "forks_count": 567,
+    "open_issues_count": 255,
+    "watchers_count": 4716,
+    "language": "Go",
+    "size": 15373,
+    "pushed_at": "2026-06-02T05:25:30Z",
+    "updated_at": "2026-06-02T08:04:25Z",
+    "license": "Apache-2.0"
+  },
+  "last_snapshot_at": "2026-06-02",
+  "deployment": {
+    "kb_website": "https://zhengxinzhengju.github.io/mavis-kb/",
+    "kb_website_alt": "https://xxxx.space.minimaxi.com",
+    "project_page": "https://zhengxinzhengju.github.io/mavis-kb/project-{project_id}.html"
+  },
+  "history_structure": {
+    "history_root": "history/",
+    "yearly_pattern": "history/YYYY/",
+    "monthly_pattern": "history/YYYY/YYYY-MM/",
+    "file_patterns": {
+      "weekly": "YYYY-Wnn-weekly.md",
+      "monthly": "YYYY-MM-monthly.md",
+      "snapshot": "YYYY-MM-DD-snapshot.md",
+      "feishu": "YYYY-Wnn-feishu.txt"
+    }
+  },
+  "last_weekly_report": "2026-W23"
+}
