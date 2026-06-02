@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenClaw · 项目详情</title>
+<style>
+  :root { --bg: #0f1419; --panel: #1a1f29; --panel-2: #232a36; --border: #2d3543; --text: #e6e9ef; --text-dim: #8b95a7; --accent: #4f9eff; --accent-2: #6ee7b7; --warning: #f59e0b; --danger: #ef4444; --code-bg: #0a0d12; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+  header { background: var(--panel); border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  header h1 { font-size: 16px; display: flex; align-items: center; gap: 10px; }
+  header h1 a { color: var(--accent); text-decoration: none; }
+  header h1 a:hover { text-decoration: underline; }
+  header .meta { font-size: 12px; color: var(--text-dim); }
+  header .meta a { color: var(--accent); text-decoration: none; margin-left: 12px; }
+  .layout { display: flex; flex: 1; }
+  nav { width: 280px; background: var(--panel); border-right: 1px solid var(--border); padding: 20px 0; overflow-y: auto; flex-shrink: 0; max-height: calc(100vh - 70px); }
+  nav .group { margin-bottom: 18px; }
+  nav .group-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-dim); padding: 0 20px 8px; letter-spacing: 0.5px; }
+  nav a { display: block; padding: 8px 20px; color: var(--text); text-decoration: none; font-size: 13px; border-left: 3px solid transparent; word-break: break-all; }
+  nav a:hover { background: var(--panel-2); border-left-color: var(--accent); }
+  nav a.active { background: var(--panel-2); border-left-color: var(--accent); color: var(--accent); }
+  nav .file-hint { font-size: 10px; color: var(--text-dim); margin-left: 4px; }
+  main { flex: 1; padding: 32px 40px; overflow-y: auto; max-height: calc(100vh - 70px); }
+  article.doc { max-width: 1000px; margin: 0 auto; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 28px 36px; }
+  article.doc h1 { font-size: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  article.doc h2 { font-size: 18px; margin: 28px 0 12px; color: var(--accent); }
+  article.doc h3 { font-size: 15px; margin: 20px 0 10px; color: var(--accent-2); }
+  article.doc h4 { font-size: 13px; margin: 16px 0 8px; color: var(--text); font-weight: 600; }
+  article.doc p, article.doc li { font-size: 14px; line-height: 1.7; margin-bottom: 8px; }
+  article.doc ul, article.doc ol { margin: 8px 0 8px 24px; }
+  article.doc table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  article.doc th, article.doc td { padding: 8px 12px; border: 1px solid var(--border); text-align: left; }
+  article.doc th { background: var(--panel-2); color: var(--text-dim); font-weight: 600; }
+  article.doc pre { background: var(--code-bg); padding: 14px; border-radius: 6px; overflow-x: auto; margin: 12px 0; font-size: 12px; line-height: 1.5; }
+  article.doc code { background: var(--code-bg); padding: 2px 6px; border-radius: 3px; font-size: 12px; color: var(--accent-2); }
+  article.doc pre code { background: transparent; padding: 0; }
+  article.doc .meta { font-size: 12px; color: var(--text-dim); margin-bottom: 20px; }
+  article.doc a { color: var(--accent); text-decoration: none; }
+  article.doc a:hover { text-decoration: underline; }
+  article.doc blockquote { border-left: 3px solid var(--accent); padding: 8px 16px; background: var(--panel-2); margin: 12px 0; color: var(--text-dim); }
+  article.doc strong { color: var(--accent-2); }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-right: 6px; }
+  .badge-ok { background: rgba(110, 231, 183, 0.15); color: var(--accent-2); }
+  .badge-warn { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+  .empty { padding: 60px 20px; text-align: center; color: var(--text-dim); }
+  .empty h2 { color: var(--text); margin-bottom: 12px; font-size: 18px; }
+  .empty p { font-size: 13px; margin-bottom: 16px; }
+  .empty code { background: var(--code-bg); padding: 4px 8px; border-radius: 3px; color: var(--accent-2); font-size: 12px; display: inline-block; margin: 4px 0; }
+  footer { background: var(--panel); border-top: 1px solid var(--border); padding: 12px; text-align: center; font-size: 11px; color: var(--text-dim); }
+</style>
+</head>
+<body>
+<header>
+  <h1>🚀 OpenClaw · <a href="index.html">← 返回知识库</a></h1>
+  <div class="meta">
+    Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞
+    <a href="https://github.com/openclaw/openclaw" target="_blank">GitHub ↗</a>
+  </div>
+</header>
+<div class="layout">
+  <nav id="nav">
+    <div class="group"><div class="group-title">概览</div>
+      <a href="#welcome">欢迎页</a>
+      </div>
+      <div class="group"><div class="group-title">档案</div>
+      <a href="#profile">档案 (4KB)</a>
+      </div>
+      <div class="group"><div class="group-title">事件</div>
+      <a href="#timeline">时间线 (2KB)</a>
+      </div>
+      <div class="group"><div class="group-title">简报</div>
+      <a href="#weekly-latest">最新周报 (2026-W23)</a>
+      </div>
+      <div class="group"><div class="group-title">快照</div>
+      <a href="#snap-2026-06-02">2026-06-02</a>
+      </div>
+  </nav>
+  <main>
+    
+    <article class="doc" id="welcome">
+      <h1>🚀 OpenClaw</h1>
+      <p class="meta">Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞</p>
+      <p><strong>追踪起始:</strong> 2026-06-02</p>
+      <p><strong>主仓库:</strong> <a href="https://github.com/openclaw/openclaw">https://github.com/openclaw/openclaw</a></p>
+      <h2>关键数据 (GitHub API 实时)</h2>
+      <table><tr><td>GitHub Stars</td><td>376.1k</td></tr><tr><td>Forks</td><td>78.6k</td></tr><tr><td>Watchers</td><td>376.1k</td></tr><tr><td>Open Issues</td><td>7060</td></tr><tr><td>License</td><td>Other (NOASSERTION, custom)</td></tr><tr><td>主语言</td><td>TypeScript</td></tr><tr><td>Size</td><td>1460.4 MB</td></tr><tr><td>最近 push</td><td>2026-06-02</td></tr></table>
+      <h2>运行状态</h2>
+      <p><span class="badge badge-ok">周报 cron</span> <code>0 8 * * 1</code></p><p><span class="badge badge-ok">月报 cron</span> <code>0 8 28-31 * *</code></p><p><span class="badge badge-ok">飞书推送</span> 已配置</p>
+      <h2>核心能力</h2>
+      <ul></ul>
+    </article>
+
+
+    <article class="doc" id="profile" style="display:none">
+      <h1>📋 项目档案</h1>
+      <p class="meta">文件: <code>profile.md</code></p>
+      <blockquote>最后更新：2026-06-02 09:50 (Asia/Shanghai)</blockquote>
+<blockquote>追踪者：Mavis (root session 404453968618295)</blockquote>
+<blockquote>数据源：GitHub REST API (api.github.com/repos/openclaw/openclaw)</blockquote>
+<h2>一句话定位</h2>
+<p><strong>Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞</strong> — 本地优先的通用 AI 助手，可通过 WhatsApp/Telegram/Discord/Slack/Signal/iMessage 等多平台接入。</p>
+<h2>关键数据（2026-06-02 GitHub API 实时）</h2>
+<table>
+<tr>
+<th>指标</th>
+<th>数值</th>
+<th>备注</th>
+</tr>
+<tr>
+<td>**GitHub Stars**</td>
+<td>**376,079**</td>
+<td>⭐ 史上最高 Star 软件项目（超越 React）</td>
+</tr>
+<tr>
+<td>Forks</td>
+<td>78,544</td>
+<td></td>
+</tr>
+<tr>
+<td>Watchers</td>
+<td>376,079</td>
+<td></td>
+</tr>
+<tr>
+<td>Open Issues</td>
+<td>7,059</td>
+<td>社区高度活跃</td>
+</tr>
+<tr>
+<td>Contributors</td>
+<td>50+ (Top 3 占 95%+)</td>
+<td></td>
+</tr>
+<tr>
+<td>最近 push</td>
+<td>2026-06-02 01:48 UTC</td>
+<td>2 小时前</td>
+</tr>
+<tr>
+<td>仓库创建</td>
+<td>2025-11-24</td>
+<td>6 个多月</td>
+</tr>
+<tr>
+<td>主语言</td>
+<td>TypeScript</td>
+<td></td>
+</tr>
+<tr>
+<td>Size</td>
+<td>1.49 GB</td>
+<td>大型 monorepo</td>
+</tr>
+<tr>
+<td>License</td>
+<td>Other (NOASSERTION)</td>
+<td>自定义许可</td>
+</tr>
+<tr>
+<td>主页</td>
+<td>https://openclaw.ai</td>
+<td></td>
+</tr>
+<tr>
+<td>Discussions</td>
+<td>❌ 未启用</td>
+<td></td>
+</tr>
+<tr>
+<td>Wiki</td>
+<td>❌ 未启用</td>
+<td></td>
+</tr>
+</table>
+<h2>贡献者排行（Top 5）</h2>
+<table>
+<tr>
+<th>排名</th>
+<th>用户</th>
+<th>Commits</th>
+<th>占比</th>
+</tr>
+<tr>
+<td>1</td>
+<td>steipete (Peter Steinberger)</td>
+<td>31,495</td>
+<td>**70.0%**</td>
+</tr>
+<tr>
+<td>2</td>
+<td>vincentkoc</td>
+<td>6,830</td>
+<td>15.2%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>shakkernerd</td>
+<td>3,236</td>
+<td>7.2%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>obviyus</td>
+<td>1,474</td>
+<td>3.3%</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Takhoffman</td>
+<td>834</td>
+<td>1.9%</td>
+</tr>
+</table>
+<p>⚠️ <strong>极度单点风险</strong>: Top 1 占 70% — 项目命运几乎完全依赖 Peter Steinberger 一人</p>
+<h2>Release 节奏（极快）</h2>
+<p>2026-06-01 单日发布：</p>
+<ul>
+<li><code>v2026.6.1-beta.2</code></li>
+<li><code>v2026.6.1-beta.1</code></li>
+<li><code>v2026.5.31-beta.4</code></li>
+</ul>
+<p><strong>每天 4-5 个 release</strong> — 工程化极度活跃，但也是"快速但不稳"的信号</p>
+<h2>最近 PR（最近 24h）</h2>
+<table>
+<tr>
+<th>PR #</th>
+<th>标题</th>
+<th>作者</th>
+<th>日期</th>
+</tr>
+<tr>
+<td>#89246</td>
+<td>Revert "fix(memory): warn on gateway watcher FD risk"</td>
+<td>steipete</td>
+<td>2026-06-01</td>
+</tr>
+<tr>
+<td>#89220</td>
+<td>fix(agents): avoid duplicate generated media fallback</td>
+<td>steipete</td>
+<td>2026-06-01</td>
+</tr>
+<tr>
+<td>#89212</td>
+<td>test: reset gateway timers at test boundaries</td>
+<td>steipete</td>
+<td>2026-06-01</td>
+</tr>
+<tr>
+<td>#89188</td>
+<td>fix(memory-core): reduce Linux watcher fan-out</td>
+<td>steipete</td>
+<td>2026-06-01</td>
+</tr>
+<tr>
+<td>#89185</td>
+<td>fix(memory): warn on gateway watcher FD risk</td>
+<td>steipete</td>
+<td>2026-06-01</td>
+</tr>
+<tr>
+<td>#89181</td>
+<td>fix(agents): dispatch auth failures by type</td>
+<td>steipete</td>
+<td>2026-06-01</td>
+</tr>
+</table>
+<h2>核心架构</h2>
+<ul>
+<li><strong>Local Gateway</strong>: 本地 Node.js 服务 + 消息应用桥接</li>
+<li><strong>多平台接入</strong>: WhatsApp / Telegram / Discord / Slack / Signal / iMessage</li>
+<li><strong>心跳系统</strong>: Cron 定时主动推送</li>
+<li><strong>BYO-Key 模式</strong>: 模型无关 (OpenAI / Anthropic / Ollama / DeepSeek)</li>
+<li><strong>Skills 生态</strong>: AgentSkills 插件系统</li>
+<li><strong>v2.18</strong> (2026-05-06) 重大更新：ContextEngine + Active Memory + OTEL</li>
+</ul>
+<h2>历史里程碑</h2>
+<ul>
+<li>2025-11-24: 仓库创建</li>
+<li>2026-01-25: 公开首发 (Clawdbot)</li>
+<li>商标争议: 改名 Clawdbot → Moltbot → 最终定名 OpenClaw</li>
+<li>2026-01-25: 24h 达成 9k stars (史上最快首发)</li>
+<li>2026-01-28: 72h 60k stars</li>
+<li>2026-02-XX: 100k stars (1 个月内)</li>
+<li>2026-03-XX: 250k+ stars (超越 React)</li>
+<li>2026-04-25: v2026.4.24 — DeepSeek V4 Flash 设为新默认模型</li>
+<li>2026-05-06: v2.18 — ContextEngine + Active Memory + OTEL</li>
+<li>2026-06-01: 单日 3+ releases</li>
+<li>2026-06-02: <strong>376,079 stars</strong> （持续增长中）</li>
+</ul>
+<h2>安全风险</h2>
+<ul>
+<li>⚠️ <strong>ClawJacked CVE 8.8</strong> (已修复，但暴露了完整系统访问的攻击面)</li>
+<li>⚠️ $CLAWD 加密骗局 (1600 万美元市值归零)</li>
+<li>⚠️ 完整 root 访问 = 巨大安全责任</li>
+</ul>
+<h2>衍生版本</h2>
+<ul>
+<li><strong>QClaw</strong> (腾讯): 原生支持微信/QQ + IM 生态接入</li>
+</ul>
+<h2>与 PilotDeck 对比</h2>
+<table>
+<tr>
+<th>维度</th>
+<th>OpenClaw</th>
+<th>PilotDeck</th>
+</tr>
+<tr>
+<td>规模</td>
+<td>**376k stars, 70k+ forks**</td>
+<td>2.6k stars, 246 forks</td>
+</tr>
+<tr>
+<td>定位</td>
+<td>通用 Agent (聊天+执行)</td>
+<td>生产力 OS (项目级)</td>
+</tr>
+<tr>
+<td>接入</td>
+<td>消息应用 (WhatsApp 等)</td>
+<td>Web/桌面/CLI/IM (飞书/企微)</td>
+</tr>
+<tr>
+<td>项目隔离</td>
+<td>无 WorkSpace 概念</td>
+<td>**WorkSpace 三层**</td>
+</tr>
+<tr>
+<td>记忆</td>
+<td>本地 Markdown 文件</td>
+<td>**白盒 + Dream + Rollback**</td>
+</tr>
+<tr>
+<td>路由</td>
+<td>无</td>
+<td>**子 Agent 智能路由**</td>
+</tr>
+<tr>
+<td>主动性</td>
+<td>Cron 心跳</td>
+<td>**Always-on + 主动发现**</td>
+</tr>
+<tr>
+<td>Skills</td>
+<td>AgentSkills 生态</td>
+<td>WorkSpace 装</td>
+</tr>
+<tr>
+<td>风险</td>
+<td>全系统访问、ClawJacked</td>
+<td>AGPL-3.0、商业风险</td>
+</tr>
+<tr>
+<td>现状</td>
+<td>**工程化极度活跃，每天 4-5 release**</td>
+<td>媒体爆红期</td>
+</tr>
+</table>
+<p><strong>核心定位差异</strong>:</p>
+<ul>
+<li>OpenClaw: 通用 Agent 平台，"做事的 AI"</li>
+<li>PilotDeck: 项目级生产力 OS，"管项目的 AI"</li>
+</ul>
+<h2>监控优先级</h2>
+<table>
+<tr>
+<th>优先级</th>
+<th>监控项</th>
+</tr>
+<tr>
+<td>🔴 高</td>
+<td>安全漏洞 (CVE/ClawJacked 系列)</td>
+</tr>
+<tr>
+<td>🔴 高</td>
+<td>Release 节奏 (日均 4+)</td>
+</tr>
+<tr>
+<td>🔴 高</td>
+<td>核心 maintainer 动态 (steipete)</td>
+</tr>
+<tr>
+<td>🟡 中</td>
+<td>Skills 生态扩张</td>
+</tr>
+<tr>
+<td>🟡 中</td>
+<td>新模型集成 (默认模型切换)</td>
+</tr>
+<tr>
+<td>🟡 中</td>
+<td>国内衍生版本 (QClaw)</td>
+</tr>
+<tr>
+<td>🟢 低</td>
+<td>Issues 关闭率</td>
+</tr>
+<tr>
+<td>🟢 低</td>
+<td>新 contributors 增长</td>
+</tr>
+</table>
+<h2>更新规则</h2>
+<ul>
+<li>每周一: 拉取 GitHub 数据、PR、release 节奏，写周报</li>
+<li>每月最后一日: 重点关注安全事件、社区健康度，写月报</li>
+<li>重大事件: 立即追加 timeline（如 CVE、steipete 重大决策）</li>
+</ul>
+    </article>
+
+
+    <article class="doc" id="timeline" style="display:none">
+      <h1>📅 重大事件时间线</h1>
+      <p class="meta">文件: <code>timeline.md</code></p>
+      <blockquote>按时间倒序。最后更新：2026-06-02</blockquote>
+<p>---</p>
+<h3>2026-06-02 | 数据快照</h3>
+<p><strong>摘要</strong>: Stars 突破 <strong>376,079</strong>，单日 3+ release</p>
+<p><strong>影响</strong>: 关键</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>GitHub API 实时数据</li>
+<li>接近 4 倍 PilotDeck 规模</li>
+<li>工程化极度活跃</li>
+</ul>
+<p><strong>来源</strong>: GitHub API</p>
+<h3>2026-06-01 | 多次 release</h3>
+<p><strong>摘要</strong>: 单日发布 v2026.6.1-beta.2, v2026.6.1-beta.1, v2026.5.31-beta.4</p>
+<p><strong>影响</strong>: 中</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>工程化进入"每天多次发版"节奏</li>
+<li>修复 gateway watcher FD risk 等稳定性问题</li>
+</ul>
+<p><strong>来源</strong>: GitHub Releases</p>
+<h3>2026-05-28 | 媒体定调"凉了"</h3>
+<p><strong>摘要</strong>: 新智元/华尔街见闻等媒体在对标 PilotDeck 时定调"OpenClaw 凉了"</p>
+<p><strong>影响</strong>: 关键</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>媒体从传播主角降为对比对象</li>
+<li>PilotDeck 抢占"Agent OS"心智</li>
+<li>但 GitHub star 仍持续增长</li>
+</ul>
+<p><strong>来源</strong>: 华尔街见闻、新智元</p>
+<h3>2026-05-06 | v2.18 重大版本</h3>
+<p><strong>摘要</strong>: ContextEngine + Active Memory + OTEL 全链路追踪</p>
+<p><strong>影响</strong>: 关键</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>ContextEngine 分层压缩: 62% → 89% 上下文利用率</li>
+<li>Active Memory: 31M 评分模型，延迟 450ms → 82ms</li>
+<li>OTEL 集成: 调用链追踪</li>
+<li>13 个 TTS 提供商</li>
+<li>默认模型切换到 DeepSeek V4 Flash</li>
+</ul>
+<p><strong>来源</strong>: OpenClaw v2.18 Release Notes</p>
+<h3>2026-04-25 | v2026.4.24</h3>
+<p><strong>摘要</strong>: DeepSeek V4 Flash 设为新默认模型</p>
+<p><strong>影响</strong>: 中</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>V4 Flash $0.14/M 输入，比 Claude Sonnet 4.6 便宜 21 倍</li>
+<li>1M 原生上下文</li>
+<li>DeepSeek thinking 回放 Bug 修复</li>
+<li>Google Meet 内置插件</li>
+</ul>
+<p><strong>来源</strong>: OpenClaw Release Notes</p>
+<h3>2026-02-XX | 100k stars</h3>
+<p><strong>摘要</strong>: 1 个月内达到 100k stars</p>
+<p><strong>影响</strong>: 关键</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>史上最快达到 10 万星</li>
+<li>比 React 当年还快</li>
+</ul>
+<p><strong>来源</strong>: Star History</p>
+<h3>2026-01-28 | 72 小时 60k</h3>
+<p><strong>摘要</strong>: 3 天 60k stars，1 周内多次改名</p>
+<p><strong>影响</strong>: 关键</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>Clawdbot → Moltbot → OpenClaw 三次改名</li>
+<li>Anthropic 律师函要求改名</li>
+<li>$CLAWD 代币骗局（1600 万美元市值归零）</li>
+</ul>
+<p><strong>来源</strong>: 36kr, Powerdrill, Medium</p>
+<h3>2025-11-24 | 仓库创建</h3>
+<p><strong>摘要</strong>: Peter Steinberger 创建 openclaw/openclaw</p>
+<p><strong>影响</strong>: 关键</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>Peter Steinberger: 前 PSPDFKit 创始人（PSPDFKit 安装量超 10 亿）</li>
+<li>30 万行 TypeScript</li>
+<li>一个人主导</li>
+</ul>
+<p><strong>来源</strong>: GitHub</p>
+    </article>
+
+
+    <article class="doc" id="weekly-latest" style="display:none">
+      <h1>📊 最新周报</h1>
+      <p class="meta">文件: <code>2026-W23.md</code> · 大小 2KB</p>
+      <blockquote>生成时间: 2026-06-02 | （多项目框架 v3.0 · 周度追踪）</blockquote>
+<h2>1. 仓库概览</h2>
+<ul>
+<li><strong>Stars</strong>: 376.1k</li>
+<li><strong>Forks</strong>: 78.6k</li>
+<li><strong>Open Issues</strong>: 7.1k</li>
+<li><strong>主语言</strong>: TypeScript</li>
+<li><strong>License</strong>: NOASSERTION</li>
+<li><strong>大小</strong>: 1460.4 MB</li>
+<li><strong>最近 push</strong>: 2026-06-02</li>
+<li><strong>创建于</strong>: 2025-11-24</li>
+</ul>
+<h2>2. 本周 release</h2>
+<ul>
+<li><strong>openclaw 2026.6.1-beta.2</strong> (<code>v2026.6.1-beta.2</code>) — 2026-06-01</li>
+<li><strong>openclaw 2026.6.1-beta.1</strong> (<code>v2026.6.1-beta.1</code>) — 2026-06-01</li>
+<li><strong>openclaw 2026.5.31-beta.4</strong> (<code>v2026.5.31-beta.4</code>) — 2026-06-01</li>
+<li><strong>openclaw 2026.5.31-beta.3</strong> (<code>v2026.5.31-beta.3</code>) — 2026-05-31</li>
+<li><strong>openclaw 2026.5.31-beta.2</strong> (<code>v2026.5.31-beta.2</code>) — 2026-05-31</li>
+</ul>
+<h2>3. 最近 8 次 commit</h2>
+<ul>
+<li><code>2026-06-02</code> <strong>Vincent Koc</strong> — refactor(gateway): share realtime tool result broadcast</li>
+<li><code>2026-06-02</code> <strong>Vincent Koc</strong> — refactor(gateway): share hook dispatch session policy</li>
+<li><code>2026-06-02</code> <strong>Vincent Koc</strong> — fix(llm): normalize streaming json args</li>
+<li><code>2026-06-02</code> <strong>Vincent Koc</strong> — test(gateway): share node catalog fixtures</li>
+<li><code>2026-06-02</code> <strong>Vincent Koc</strong> — fix(e2e): detect same-size log rotation</li>
+<li><code>2026-06-02</code> <strong>Vincent Koc</strong> — fix(talk): preserve null lifecycle payloads</li>
+<li><code>2026-06-02</code> <strong>Vincent Koc</strong> — test(gateway): share deferred test helper</li>
+<li><code>2026-06-02</code> <strong>Vincent Koc</strong> — refactor: share mcp loopback scope params</li>
+</ul>
+<h2>4. 近期 closed PR (10 条)</h2>
+<ul>
+<li><code>2026-06-02</code> [closed] fix(feishu): retry rate-limited message sends</li>
+<li><code>2026-06-02</code> [merged] fix: honor channel model overrides in agent ingress</li>
+<li><code>2026-06-02</code> [merged] fix(auto-reply): guard missing dispatcher getFailedCoun</li>
+<li><code>2026-06-02</code> [closed] fix(doctor): exclude platform-incompatible skills from </li>
+<li><code>2026-06-02</code> [merged] fix(agents): bypass stale auth for plugin harnesses</li>
+<li><code>2026-06-02</code> [merged] docs: add ClawHub CLI page</li>
+<li><code>2026-06-02</code> [closed] fix: lazily resolve workspace fs roots for host tools</li>
+<li><code>2026-06-02</code> [closed] merge</li>
+</ul>
+<h2>5. Open Issues 数量</h2>
+<ul>
+<li>当前 open issues: <strong>7060</strong> 个（API 实时）</li>
+</ul>
+<h2>6. 关键判断</h2>
+<ul>
+<li>本周核心信号: OpenClaw 376.1k stars（NousResearch）· 7.1k open issues · 本周 release 节奏。Skills 框架 v2.x + 沙箱执行是核心护城河。</li>
+<li>数据源: GitHub API（已认证 token 拉取 · 376.1k stars 验证）</li>
+<li>下次自动更新: 下周一</li>
+</ul>
+<h2>7. 附录</h2>
+<ul>
+<li>仓库主页: https://github.com/openclaw/openclaw</li>
+<li>数据快照: <code>snapshots/2026-06-02.json</code></li>
+<li>报告生成器: <code>_index/scripts/weekly_runner.py</code></li>
+</ul>
+    </article>
+
+
+    <article class="doc" id="snap-2026-06-02" style="display:none">
+      <h1>📸 数据快照 2026-06-02</h1>
+      <p class="meta">文件: <code>2026-06-02.md</code></p>
+      <ul>
+<li><strong>Stars</strong>: 376.1k</li>
+<li><strong>Forks</strong>: 78.6k</li>
+<li><strong>Open Issues</strong>: 7.1k</li>
+<li><strong>主语言</strong>: TypeScript</li>
+<li><strong>最近 push</strong>: 2026-06-02</li>
+<li><strong>仓库</strong>: https://github.com/openclaw/openclaw</li>
+</ul>
+<p>_由 weekly_runner.py v3.0 自动生成_</p>
+    </article>
+
+  </main>
+</div>
+<footer>OpenClaw 追踪项目 · Mavis 维护 · 自动生成于 2026-06-02 05:49 CST</footer>
+<script>
+  const articles = document.querySelectorAll('article.doc');
+  const links = document.querySelectorAll('nav a');
+  function show(id) {
+    articles.forEach(a => a.style.display = (a.id === id) ? 'block' : 'none');
+    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    document.querySelector('main').scrollTop = 0;
+  }
+  function handleHash() {
+    const id = (location.hash || '#welcome').slice(1);
+    show(Array.from(articles).some(a => a.id === id) ? id : 'welcome');
+  }
+  links.forEach(l => l.addEventListener('click', e => {
+    const href = l.getAttribute('href');
+    if (href && href.startsWith('#')) { e.preventDefault(); history.pushState(null, '', href); handleHash(); }
+  }));
+  window.addEventListener('popstate', handleHash);
+  handleHash();
+</script>
+</body>
+</html>
