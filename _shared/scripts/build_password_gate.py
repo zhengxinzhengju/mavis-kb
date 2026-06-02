@@ -1,0 +1,261 @@
+#!/usr/bin/env python3
+"""
+静态密码保护页 v3.2
+====================
+方案 C: 客户端 JS 验证（修复版）
+- 首次访问要求密码
+- 验证后存到 sessionStorage（关 tab 失效）
+- 密码哈希后存在 JS 里（防止明文泄露）
+- v3.2 修复: 用**纯 JS 同步 SHA256 实现**（不依赖 crypto.subtle，避免兼容性问题）
+"""
+import json
+import hashlib
+from pathlib import Path
+from datetime import datetime
+
+SITE = Path("/workspace/output/pilotdeck-site")
+PASSWORD_CONFIG = Path("/workspace/knowledge-base/_shared/password.json")
+
+
+def get_config():
+    if PASSWORD_CONFIG.exists():
+        return json.loads(PASSWORD_CONFIG.read_text(encoding="utf-8"))
+    return {"enabled": True, "password": "chinaunicom10010", "hint": ""}
+
+
+def make_password_hash(pw: str) -> str:
+    """SHA256 + salt 哈希（与前端 JS 一致）"""
+    salt = "mavis-kb-2026-salt"
+    return hashlib.sha256((salt + pw).encode()).hexdigest()[:24]
+
+
+def build_gate_html(config: dict) -> str:
+    pw_hash = make_password_hash(config["password"])
+    enabled = "true" if config.get("enabled", True) else "false"
+    hint = config.get("hint", "")
+    return f"""<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mavis 知识库 · 访问验证</title>
+<style>
+  * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+  html, body {{ min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #0f1419; color: #e6e9ef; display: flex; align-items: center; justify-content: center; }}
+  .gate {{ background: #1a1f29; border: 1px solid #2d3543; border-radius: 12px; padding: 40px 50px; max-width: 420px; width: 90%; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }}
+  .logo {{ font-size: 36px; margin-bottom: 8px; }}
+  h1 {{ font-size: 22px; margin-bottom: 6px; font-weight: 600; }}
+  .sub {{ font-size: 13px; color: #8b95a7; margin-bottom: 28px; }}
+  .form {{ display: flex; flex-direction: column; gap: 14px; }}
+  input {{ background: #0a0d12; border: 1px solid #2d3543; border-radius: 6px; padding: 12px 16px; color: #e6e9ef; font-size: 15px; outline: none; transition: border 0.15s; }}
+  input:focus {{ border-color: #4f9eff; }}
+  input.error {{ border-color: #ef4444; }}
+  button {{ background: #4f9eff; border: none; border-radius: 6px; padding: 12px; color: white; font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.15s; }}
+  button:hover {{ background: #3a8aef; }}
+  button:disabled {{ background: #2d3543; cursor: not-allowed; }}
+  .msg {{ font-size: 13px; min-height: 18px; margin-top: 4px; }}
+  .msg.err {{ color: #ef4444; }}
+  .msg.hint {{ color: #8b95a7; margin-top: 12px; font-size: 12px; }}
+</style>
+</head>
+<body>
+  <div class="gate">
+    <div class="logo">🔒</div>
+    <h1>Mavis 知识库</h1>
+    <p class="sub">请输入访问密码</p>
+    <form class="form" id="form">
+      <input type="password" id="pw" placeholder="密码" autofocus required>
+      <button type="submit" id="submit">验证访问</button>
+      <div class="msg" id="msg"></div>
+    </form>
+    {f'<p class="msg hint" style="display:none">{hint}</p>' if False else ''}
+  </div>
+<script>
+// v3.2: 纯 JS 同步 SHA256 实现 - 不依赖 crypto.subtle
+// 修复: 之前用 SubtleCrypto 在某些环境不可用导致密码永远错误
+const CONFIG = {{
+  enabled: {enabled},
+  // SHA256('mavis-kb-2026-salt' + password).slice(0, 24)
+  validHashes: ["{pw_hash}"],
+  storageKey: "mavis_kb_unlocked_v3"
+}};
+
+// SHA-256 同步实现（基于 FIPS 180-4）
+function sha256Sync(s) {{
+  // UTF-8 编码
+  function utf8Encode(str) {{
+    const bytes = [];
+    for (let i = 0; i < str.length; i++) {{
+      let c = str.charCodeAt(i);
+      if (c < 0x80) {{
+        bytes.push(c);
+      }} else if (c < 0x800) {{
+        bytes.push(0xc0 | (c >> 6));
+        bytes.push(0x80 | (c & 0x3f));
+      }} else if (c < 0xd800 || c >= 0xe000) {{
+        bytes.push(0xe0 | (c >> 12));
+        bytes.push(0x80 | ((c >> 6) & 0x3f));
+        bytes.push(0x80 | (c & 0x3f));
+      }} else {{
+        i++;
+        c = 0x10000 + (((c & 0x3ff) << 10) | (str.charCodeAt(i) & 0x3ff));
+        bytes.push(0xf0 | (c >> 18));
+        bytes.push(0x80 | ((c >> 12) & 0x3f));
+        bytes.push(0x80 | ((c >> 6) & 0x3f));
+        bytes.push(0x80 | (c & 0x3f));
+      }}
+    }}
+    return bytes;
+  }}
+
+  // SHA-256 常量
+  const K = [
+    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+    0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+    0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+    0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+    0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+    0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+  ];
+
+  // 初始哈希值
+  let H = [
+    0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
+    0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
+  ];
+
+  // 位运算辅助
+  function rotr(n, x) {{ return (x >>> n) | (x << (32 - n)); }}
+
+  // 预处理：填充
+  const bytes = utf8Encode(s);
+  const bitLen = bytes.length * 8;
+  bytes.push(0x80);
+  while (bytes.length % 64 !== 56) bytes.push(0);
+  // 追加长度（64-bit big-endian）
+  for (let i = 7; i >= 0; i--) {{
+    bytes.push(Math.floor(bitLen / Math.pow(2, i * 8)) & 0xff);
+  }}
+
+  // 处理每个 512-bit 块
+  for (let i = 0; i < bytes.length; i += 64) {{
+    const W = new Array(64);
+    for (let t = 0; t < 16; t++) {{
+      W[t] = (bytes[i + t * 4] << 24) | (bytes[i + t * 4 + 1] << 16) |
+             (bytes[i + t * 4 + 2] << 8) | bytes[i + t * 4 + 3];
+      W[t] = W[t] >>> 0;
+    }}
+    for (let t = 16; t < 64; t++) {{
+      const s0 = rotr(7, W[t-15]) ^ rotr(18, W[t-15]) ^ (W[t-15] >>> 3);
+      const s1 = rotr(17, W[t-2]) ^ rotr(19, W[t-2]) ^ (W[t-2] >>> 10);
+      W[t] = (W[t-16] + s0 + W[t-7] + s1) >>> 0;
+    }}
+
+    let [a,b,c,d,e,f,g,h] = H;
+
+    for (let t = 0; t < 64; t++) {{
+      const S1 = rotr(6, e) ^ rotr(11, e) ^ rotr(25, e);
+      const ch = (e & f) ^ (~e & g);
+      const temp1 = (h + S1 + ch + K[t] + W[t]) >>> 0;
+      const S0 = rotr(2, a) ^ rotr(13, a) ^ rotr(22, a);
+      const maj = (a & b) ^ (a & c) ^ (b & c);
+      const temp2 = (S0 + maj) >>> 0;
+      h = g;
+      g = f;
+      f = e;
+      e = (d + temp1) >>> 0;
+      d = c;
+      c = b;
+      b = a;
+      a = (temp1 + temp2) >>> 0;
+    }}
+
+    H[0] = (H[0] + a) >>> 0;
+    H[1] = (H[1] + b) >>> 0;
+    H[2] = (H[2] + c) >>> 0;
+    H[3] = (H[3] + d) >>> 0;
+    H[4] = (H[4] + e) >>> 0;
+    H[5] = (H[5] + f) >>> 0;
+    H[6] = (H[6] + g) >>> 0;
+    H[7] = (H[7] + h) >>> 0;
+  }}
+
+  // 转为 hex
+  return H.map(x => x.toString(16).padStart(8, '0')).join('').slice(0, 24);
+}}
+
+// 调试用：暴露到 window 让用户在 console 验证
+window._mavisSha256 = sha256Sync;
+window._mavisExpectedHash = CONFIG.validHashes[0];
+window._mavisVerify = function(pw) {{
+  return sha256Sync('mavis-kb-2026-salt' + pw);
+}};
+
+// 检查已解锁
+if (sessionStorage.getItem(CONFIG.storageKey) === 'yes') {{
+  window.location.href = 'index.html';
+}}
+
+document.getElementById('form').addEventListener('submit', function(e) {{
+  e.preventDefault();
+  const pw = document.getElementById('pw').value;
+  const submit = document.getElementById('submit');
+  const msg = document.getElementById('msg');
+  const input = document.getElementById('pw');
+
+  submit.disabled = true;
+  submit.textContent = '验证中...';
+  msg.textContent = '';
+  msg.className = 'msg';
+
+  try {{
+    // 同步计算 hash（不依赖 SubtleCrypto）
+    const hash = sha256Sync('mavis-kb-2026-salt' + pw);
+    console.log('[Mavis Gate] 密码 hash:', hash);
+    console.log('[Mavis Gate] 期望 hash:', CONFIG.validHashes[0]);
+    console.log('[Mavis Gate] 匹配:', CONFIG.validHashes.includes(hash));
+
+    if (CONFIG.validHashes.includes(hash)) {{
+      sessionStorage.setItem(CONFIG.storageKey, 'yes');
+      msg.style.color = '#6ee7b7';
+      msg.textContent = '✅ 验证通过，正在跳转...';
+      setTimeout(function() {{ window.location.href = 'index.html'; }}, 500);
+    }} else {{
+      msg.className = 'msg err';
+      msg.textContent = '❌ 密码错误';
+      input.classList.add('error');
+      input.value = '';
+      input.focus();
+      submit.disabled = false;
+      submit.textContent = '验证访问';
+    }}
+  }} catch (err) {{
+    msg.className = 'msg err';
+    msg.textContent = '验证失败: ' + err.message;
+    submit.disabled = false;
+    submit.textContent = '验证访问';
+  }}
+}});
+</script>
+</body>
+</html>"""
+
+
+def main():
+    config = get_config()
+    SITE.mkdir(parents=True, exist_ok=True)
+    gate = build_gate_html(config)
+    (SITE / "gate.html").write_text(gate, encoding="utf-8")
+    print(f"✅ gate.html 已生成 ({len(gate)//1024} KB)")
+    print(f"   密码: {config['password']}")
+    print(f"   哈希: {make_password_hash(config['password'])}")
+    print(f"   启用: {config.get('enabled', True)}")
+    print(f"   修复: v3.2 纯 JS 同步 SHA256（不依赖 crypto.subtle）")
+    return 0
+
+
+if __name__ == "__main__":
+    import sys
+    sys.exit(main())
