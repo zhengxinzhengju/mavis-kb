@@ -1,0 +1,9 @@
+📊 **harness** 周报 2026-W23
+
+> （多项目框架 v3.0 · 周度追踪）
+
+**Stars**: 36.3k · **Open Issues**: 95 · **最近 push**: 2026-06-01
+
+📄 完整报告: knowledge-base/harness/briefings/weekly/2026-W23.md
+
+— Mavis 自动追踪
