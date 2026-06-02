@@ -1,0 +1,4 @@
+{
+  "weekly_prompt_template": "你是 Mavis 自动化追踪任务。\n\n## 1. 跑 tracker\npython3 /workspace/knowledge-base/_index/scripts/weekly_runner.py --project <PROJECT_ID>\n\n## 2. 输出\n- 报告路径、文件大小\n- 飞书推送状态（成功/失败/未配置）\n- 本次关键数据（stars/commits/releases 摘要）\n- 下次执行时间（cron schedule）\n\n## 3. 异常处理\n- token 缺失：报告失败\n- GitHub API 拉取失败：报告失败并提示用户\n- 飞书推送失败：本地报告仍写入，下次重试",
+  "monthly_prompt_template": "你是 Mavis 自动化追踪任务。\n\n## 1. 跑 tracker (月报模式)\npython3 /workspace/knowledge-base/_index/scripts/weekly_runner.py --project <PROJECT_ID> --monthly\n\n## 2. 额外：竞品对比刷新（如有 competitors/ 目录）\n如有竞品对比文件可读，无需主动重写，除非有重大变化。\n\n## 3. 输出\n- 报告路径、文件大小\n- 飞书推送状态\n- 本月关键数据 + 趋势判断\n- 下次执行时间（下月 1 号）"
+}
