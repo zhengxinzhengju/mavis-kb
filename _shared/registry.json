@@ -296,7 +296,7 @@
       "stagger_time": "09:30",
       "tier": "T1",
       "github_repo": "https://github.com/agentscope-ai/HiClaw",
-      "feishu_webhook_configured": false,
+      "feishu_webhook_configured": true,
       "cron_task_ids": {
         "weekly": "404796853654428",
         "monthly": "404795446797145"
@@ -311,7 +311,7 @@
       "stagger_time": "09:40",
       "tier": "T1",
       "github_repo": "https://github.com/zeroclaw-labs/zeroclaw",
-      "feishu_webhook_configured": false,
+      "feishu_webhook_configured": true,
       "cron_task_ids": {
         "weekly": "404802222621087",
         "monthly": "404795691287324"
@@ -326,7 +326,7 @@
       "stagger_time": "09:50",
       "tier": "T1",
       "github_repo": "https://github.com/nanocoai/nanoclaw",
-      "feishu_webhook_configured": false,
+      "feishu_webhook_configured": true,
       "cron_task_ids": {
         "weekly": "404802222621088",
         "monthly": "404795691287325"
