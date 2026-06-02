@@ -301,6 +301,30 @@
         "weekly": "404796853654428",
         "monthly": "404795446797145"
       }
+    },
+    {
+      "id": "zeroclaw",
+      "name": "ZeroClaw",
+      "status": "active",
+      "tracking_since": "2026-06-02",
+      "sequential_id": "project-11",
+      "stagger_time": "09:40",
+      "tier": "T1",
+      "github_repo": "https://github.com/zeroclaw-labs/zeroclaw",
+      "feishu_webhook_configured": false,
+      "cron_task_ids": {}
+    },
+    {
+      "id": "nanoclaw",
+      "name": "NanoClaw",
+      "status": "active",
+      "tracking_since": "2026-06-02",
+      "sequential_id": "project-11",
+      "stagger_time": "09:50",
+      "tier": "T1",
+      "github_repo": "https://github.com/nanocoai/nanoclaw",
+      "feishu_webhook_configured": false,
+      "cron_task_ids": {}
     }
   ],
   "competitors_shared": {
@@ -462,6 +486,16 @@
         "project": "hiclaw",
         "time": "09:30",
         "tier": "T1 Multi-Agent OS"
+      },
+      {
+        "project": "zeroclaw",
+        "time": "09:40",
+        "tier": "T1"
+      },
+      {
+        "project": "nanoclaw",
+        "time": "09:50",
+        "tier": "T1"
       }
     ],
     "active_hours": "07:30 - 10:00",
