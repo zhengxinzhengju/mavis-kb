@@ -90,6 +90,4 @@ python3 _shared/scripts/weekly_runner.py --project my-new-product
 
 ## 访问
 
-- 🔗 **GitHub Pages**: https://zhengxinzhengju.github.io/mavis-kb/（密码保护）
-- 🔗 **国内镜像**: https://xxxx.space.minimaxi.com（密码保护）
-- 🔗 **GitHub 仓库**: https://github.com/zhengxinzhengju/mavis-kb
+链接与密码仅供授权访问者使用，请勿外传。
