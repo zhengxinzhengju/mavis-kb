@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harness · 项目详情</title>
+<style>
+  :root { --bg: #0f1419; --panel: #1a1f29; --panel-2: #232a36; --border: #2d3543; --text: #e6e9ef; --text-dim: #8b95a7; --accent: #4f9eff; --accent-2: #6ee7b7; --warning: #f59e0b; --danger: #ef4444; --code-bg: #0a0d12; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+  header { background: var(--panel); border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  header h1 { font-size: 16px; display: flex; align-items: center; gap: 10px; }
+  header h1 a { color: var(--accent); text-decoration: none; }
+  header h1 a:hover { text-decoration: underline; }
+  header .meta { font-size: 12px; color: var(--text-dim); }
+  header .meta a { color: var(--accent); text-decoration: none; margin-left: 12px; }
+  .layout { display: flex; flex: 1; }
+  nav { width: 280px; background: var(--panel); border-right: 1px solid var(--border); padding: 20px 0; overflow-y: auto; flex-shrink: 0; max-height: calc(100vh - 70px); }
+  nav .group { margin-bottom: 18px; }
+  nav .group-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-dim); padding: 0 20px 8px; letter-spacing: 0.5px; }
+  nav a { display: block; padding: 8px 20px; color: var(--text); text-decoration: none; font-size: 13px; border-left: 3px solid transparent; word-break: break-all; }
+  nav a:hover { background: var(--panel-2); border-left-color: var(--accent); }
+  nav a.active { background: var(--panel-2); border-left-color: var(--accent); color: var(--accent); }
+  nav .file-hint { font-size: 10px; color: var(--text-dim); margin-left: 4px; }
+  main { flex: 1; padding: 32px 40px; overflow-y: auto; max-height: calc(100vh - 70px); }
+  article.doc { max-width: 1000px; margin: 0 auto; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 28px 36px; }
+  article.doc h1 { font-size: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  article.doc h2 { font-size: 18px; margin: 28px 0 12px; color: var(--accent); }
+  article.doc h3 { font-size: 15px; margin: 20px 0 10px; color: var(--accent-2); }
+  article.doc h4 { font-size: 13px; margin: 16px 0 8px; color: var(--text); font-weight: 600; }
+  article.doc p, article.doc li { font-size: 14px; line-height: 1.7; margin-bottom: 8px; }
+  article.doc ul, article.doc ol { margin: 8px 0 8px 24px; }
+  article.doc table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  article.doc th, article.doc td { padding: 8px 12px; border: 1px solid var(--border); text-align: left; }
+  article.doc th { background: var(--panel-2); color: var(--text-dim); font-weight: 600; }
+  article.doc pre { background: var(--code-bg); padding: 14px; border-radius: 6px; overflow-x: auto; margin: 12px 0; font-size: 12px; line-height: 1.5; }
+  article.doc code { background: var(--code-bg); padding: 2px 6px; border-radius: 3px; font-size: 12px; color: var(--accent-2); }
+  article.doc pre code { background: transparent; padding: 0; }
+  article.doc .meta { font-size: 12px; color: var(--text-dim); margin-bottom: 20px; }
+  article.doc a { color: var(--accent); text-decoration: none; }
+  article.doc a:hover { text-decoration: underline; }
+  article.doc blockquote { border-left: 3px solid var(--accent); padding: 8px 16px; background: var(--panel-2); margin: 12px 0; color: var(--text-dim); }
+  article.doc strong { color: var(--accent-2); }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-right: 6px; }
+  .badge-ok { background: rgba(110, 231, 183, 0.15); color: var(--accent-2); }
+  .badge-warn { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+  .empty { padding: 60px 20px; text-align: center; color: var(--text-dim); }
+  .empty h2 { color: var(--text); margin-bottom: 12px; font-size: 18px; }
+  .empty p { font-size: 13px; margin-bottom: 16px; }
+  .empty code { background: var(--code-bg); padding: 4px 8px; border-radius: 3px; color: var(--accent-2); font-size: 12px; display: inline-block; margin: 4px 0; }
+  footer { background: var(--panel); border-top: 1px solid var(--border); padding: 12px; text-align: center; font-size: 11px; color: var(--text-dim); }
+</style>
+</head>
+<body>
+<header>
+  <h1>🚀 Harness · <a href="index.html">← 返回知识库</a></h1>
+  <div class="meta">
+    Open Source DevOps Platform (原 Gitness) - Drone 团队打造的 All-in-One 平台
+    <a href="https://github.com/harness/harness" target="_blank">GitHub ↗</a>
+  </div>
+</header>
+<div class="layout">
+  <nav id="nav">
+    <div class="group"><div class="group-title">概览</div>
+      <a href="#welcome">欢迎页</a>
+      </div>
+      <div class="group"><div class="group-title">档案</div>
+      <a href="#profile">档案 (1KB)</a>
+      </div>
+      <div class="group"><div class="group-title">事件</div>
+      <a href="#timeline">时间线 (0KB)</a>
+      </div>
+      <div class="group"><div class="group-title">简报</div>
+      <a href="#weekly-latest">最新周报 (2026-W23)</a>
+      </div>
+      <div class="group"><div class="group-title">快照</div>
+      <a href="#snap-2026-06-02">2026-06-02</a>
+      </div>
+  </nav>
+  <main>
+    
+    <article class="doc" id="welcome">
+      <h1>🚀 Harness</h1>
+      <p class="meta">Open Source DevOps Platform (原 Gitness) - Drone 团队打造的 All-in-One 平台</p>
+      <p><strong>追踪起始:</strong> 2026-06-02</p>
+      <p><strong>主仓库:</strong> <a href="https://github.com/harness/harness">https://github.com/harness/harness</a></p>
+      <h2>关键数据 (GitHub API 实时)</h2>
+      <table><tr><td>GitHub Stars</td><td>36.3k</td></tr><tr><td>Forks</td><td>3.2k</td></tr><tr><td>Watchers</td><td>36.3k</td></tr><tr><td>Open Issues</td><td>95</td></tr><tr><td>License</td><td>Apache-2.0</td></tr><tr><td>主语言</td><td>Go</td></tr><tr><td>Size</td><td>57.8 MB</td></tr><tr><td>最近 push</td><td>2026-06-01</td></tr></table>
+      <h2>运行状态</h2>
+      <p><span class="badge badge-ok">周报 cron</span> <code>0 8 * * 1</code></p><p><span class="badge badge-ok">月报 cron</span> <code>0 8 28-31 * *</code></p><p><span class="badge badge-ok">飞书推送</span> 已配置</p>
+      <h2>核心能力</h2>
+      <ul><li>源码托管 (Git SCM)</li><li>CI/CD 流水线</li><li>Gitspaces (托管开发环境, 类 Vercel 预览)</li><li>Artifact Registry (制品注册表)</li><li>API + CLI 驱动</li><li>Docker 一键启动</li><li>Drone 的超级进化版</li></ul>
+    </article>
+
+
+    <article class="doc" id="profile" style="display:none">
+      <h1>📋 项目档案</h1>
+      <p class="meta">文件: <code>profile.md</code></p>
+      <blockquote>最后更新：2026-06-02 10:10 (Asia/Shanghai)</blockquote>
+<blockquote>追踪者：Mavis</blockquote>
+<blockquote>数据源：GitHub REST API + 媒体资料</blockquote>
+<h2>一句话定位</h2>
+<p>Open Source DevOps Platform (原 Gitness) - Drone 团队打造的 All-in-One 平台</p>
+<h2>项目元数据</h2>
+<table>
+<tr>
+<th>字段</th>
+<th>值</th>
+</tr>
+<tr>
+<td>项目 ID</td>
+<td>`harness`</td>
+</tr>
+<tr>
+<td>名称</td>
+<td>Harness</td>
+</tr>
+<tr>
+<td>厂商</td>
+<td>Harness Inc. (Jyoti Bansal)</td>
+</tr>
+<tr>
+<td>类别</td>
+<td>DevOps Platform</td>
+</tr>
+<tr>
+<td>License</td>
+<td>Apache-2.0</td>
+</tr>
+<tr>
+<td>主语言</td>
+<td>Go</td>
+</tr>
+<tr>
+<td>官网</td>
+<td>https://harness.io (商业) / https://github.com/harness/harness (开源)</td>
+</tr>
+<tr>
+<td>仓库</td>
+<td>[https://github.com/harness/harness](https://github.com/harness/harness)</td>
+</tr>
+</table>
+<h2>关键数据（2026-06-02 实时）</h2>
+<table>
+<tr>
+<th>Stars</th>
+<th>**36,297**</th>
+</tr>
+<tr>
+<td>Forks</td>
+<td>3,180</td>
+</tr>
+<tr>
+<td>Watchers</td>
+<td>36,297</td>
+</tr>
+<tr>
+<td>Open Issues</td>
+<td>95</td>
+</tr>
+<tr>
+<td>License</td>
+<td>Apache-2.0</td>
+</tr>
+<tr>
+<td>主语言</td>
+<td>Go</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>57.8 MB</td>
+</tr>
+<tr>
+<td>仓库创建</td>
+<td>2014-02-07</td>
+</tr>
+<tr>
+<td>最近 push</td>
+<td>2026-06-01</td>
+</tr>
+<tr>
+<td>Homepage</td>
+<td>https://www.harness.io/open-source</td>
+</tr>
+</table>
+<h2>核心能力</h2>
+<ul>
+<li><strong>源码托管</strong> - 源码托管 (Git SCM)</li>
+<li><strong>CI/CD 流水线</strong> - CI/CD 流水线</li>
+<li><strong>Gitspaces</strong> - Gitspaces (托管开发环境, 类 Vercel 预览)</li>
+<li><strong>Artifact Registry</strong> - Artifact Registry (制品注册表)</li>
+<li><strong>API + CLI 驱动</strong> - API + CLI 驱动</li>
+<li><strong>Docker 一键启动</strong> - Docker 一键启动</li>
+<li><strong>Drone 的超级进化版</strong> - Drone 的超级进化版</li>
+</ul>
+<h2>监控优先级</h2>
+<h3>高优先级</h3>
+<ul>
+<li>社区采纳度</li>
+<li>Harness 商业版与开源版功能差异</li>
+</ul>
+<h3>中优先级</h3>
+<ul>
+<li>CI/CD 性能</li>
+<li>Gitspaces 体验</li>
+<li>Artifact Registry 兼容性</li>
+</ul>
+<h3>低优先级</h3>
+<ul>
+<li>Git 性能</li>
+<li>Web UI 体验</li>
+</ul>
+<h2>T1 竞品（参考）</h2>
+<p>(无直接对标，T2 框架相关)</p>
+<h2>更新规则</h2>
+<ul>
+<li>每周一 (周报触发时): 拉取 GitHub 指标、commit、PR 数据，刷新本文件</li>
+<li>每月最后一日 (月报触发时): 重点章节做版本对比，输出演进路线</li>
+<li>重大事件: 立即追加到 <code>timeline.md</code></li>
+</ul>
+    </article>
+
+
+    <article class="doc" id="timeline" style="display:none">
+      <h1>📅 重大事件时间线</h1>
+      <p class="meta">文件: <code>timeline.md</code></p>
+      <blockquote>按时间倒序。最后更新：2026-06-02</blockquote>
+<blockquote>初次入库：Mavis bulk_init</blockquote>
+<p>---</p>
+<h3>2026-06-02 | 首次入库</h3>
+<p><strong>摘要</strong>: 项目加入多项目追踪框架</p>
+<p><strong>影响</strong>: 关键</p>
+<p><strong>详情</strong>:</p>
+<ul>
+<li>由用户手动添加</li>
+<li>创建 index.json + profile.md + timeline.md + tracker-prompt.md</li>
+<li>实时拉取 GitHub API 数据</li>
+<li>已注册到 _index/projects.json</li>
+<li>飞书推送配置完毕（复用 PilotDeck 的 webhook）</li>
+<li>创建 2 个 cron 任务（周报 + 月报）</li>
+</ul>
+<p><strong>来源</strong>: Mavis + GitHub API</p>
+<p>（更多事件由后续 cron 任务自动追加）</p>
+    </article>
+
+
+    <article class="doc" id="weekly-latest" style="display:none">
+      <h1>📊 最新周报</h1>
+      <p class="meta">文件: <code>2026-W23.md</code> · 大小 2KB</p>
+      <blockquote>生成时间: 2026-06-02 | （多项目框架 v3.0 · 周度追踪）</blockquote>
+<h2>1. 仓库概览</h2>
+<ul>
+<li><strong>Stars</strong>: 36.3k</li>
+<li><strong>Forks</strong>: 3.2k</li>
+<li><strong>Open Issues</strong>: 95</li>
+<li><strong>主语言</strong>: Go</li>
+<li><strong>License</strong>: Apache-2.0</li>
+<li><strong>大小</strong>: 57.8 MB</li>
+<li><strong>最近 push</strong>: 2026-06-01</li>
+<li><strong>创建于</strong>: 2014-02-07</li>
+</ul>
+<h2>2. 本周 release</h2>
+<ul>
+<li><strong>v2.28.2</strong> (<code>v2.28.2</code>) — 2026-04-20</li>
+<li><strong>v2.28.1</strong> (<code>v2.28.1</code>) — 2026-03-30</li>
+<li><strong>v2.28.0</strong> (<code>v2.28.0</code>) — 2026-03-27</li>
+<li><strong>v2.27.2</strong> (<code>v2.27.2</code>) — 2026-03-11</li>
+<li><strong>v2.27.1</strong> (<code>v2.27.1</code>) — 2026-02-25</li>
+</ul>
+<h2>3. 最近 8 次 commit</h2>
+<ul>
+<li><code>2026-06-01</code> <strong>Marko Gaćeša</strong> — feat: [CODE-5464]: new rule: require target is ancestor (#52</li>
+<li><code>2026-06-01</code> <strong>Abhinav Singh</strong> — feat: [CODE-5459]: add emoji reactions to PR comments UI (#5</li>
+<li><code>2026-05-27</code> <strong>Atefeh Mohseni Ejiyeh</strong> — fix: [CODE-5524] return import repos error properly (#5229)</li>
+<li><code>2026-05-22</code> <strong>Abhishek Choudhary</strong> — feat: [CODE-5430]: support account-level connectors for link</li>
+<li><code>2026-05-21</code> <strong>Anurag Madnawat</strong> — feat: [CODE-5478]: persist provider type on linked_repositor</li>
+<li><code>2026-05-21</code> <strong>Darko Draskovic</strong> — fix: [CODE-5340]: Fix repo activity type missing from respon</li>
+<li><code>2026-05-21</code> <strong>Darko Draskovic</strong> — fix: [CODE-5363]: Fix unable to assign a label with value (#</li>
+<li><code>2026-05-20</code> <strong>Anurag Madnawat</strong> — feat: [CODE-5470]: persist provider stable repo id on linked</li>
+</ul>
+<h2>4. 近期 closed PR (10 条)</h2>
+<ul>
+<li><code>2026-05-18</code> [closed] 更新readme，使用ai</li>
+<li><code>2026-03-31</code> [closed] fix: [CI-21754] Upgrading go scm version for bitbucket </li>
+<li><code>2026-03-31</code> [closed] fix: [CI-21565]: Fix drone stages stuck in pending stat</li>
+<li><code>2026-03-11</code> [merged] fix: [CI-20783] updating docker distribution version to</li>
+<li><code>2026-04-03</code> [closed] fix: add missing '/-/' path segment to UI URL generatio</li>
+<li><code>2026-02-24</code> [closed] Use case-insensitive matching for Git error "Not a vali</li>
+<li><code>2026-02-25</code> [merged] fix: [CI-20742] Downgrade go-units to revert breaking c</li>
+<li><code>2026-02-12</code> [closed] Downgrade go-units to revert breaking change</li>
+</ul>
+<h2>5. Open Issues 数量</h2>
+<ul>
+<li>当前 open issues: <strong>95</strong> 个（API 实时）</li>
+</ul>
+<h2>6. 关键判断</h2>
+<ul>
+<li>本周核心信号: Harness 36.3k stars（harness Inc.）· 定位开发者平台 · 关注 CI/CD 集成 + AI 编码代理。</li>
+<li>数据源: GitHub API（已认证 token 拉取 · 36.3k stars 验证）</li>
+<li>下次自动更新: 下周一</li>
+</ul>
+<h2>7. 附录</h2>
+<ul>
+<li>仓库主页: https://github.com/harness/harness</li>
+<li>数据快照: <code>snapshots/2026-06-02.json</code></li>
+<li>报告生成器: <code>_index/scripts/weekly_runner.py</code></li>
+</ul>
+    </article>
+
+
+    <article class="doc" id="snap-2026-06-02" style="display:none">
+      <h1>📸 数据快照 2026-06-02</h1>
+      <p class="meta">文件: <code>2026-06-02.md</code></p>
+      <ul>
+<li><strong>Stars</strong>: 36.3k</li>
+<li><strong>Forks</strong>: 3.2k</li>
+<li><strong>Open Issues</strong>: 95</li>
+<li><strong>主语言</strong>: Go</li>
+<li><strong>最近 push</strong>: 2026-06-01</li>
+<li><strong>仓库</strong>: https://github.com/harness/harness</li>
+</ul>
+<p>_由 weekly_runner.py v3.0 自动生成_</p>
+    </article>
+
+  </main>
+</div>
+<footer>Harness 追踪项目 · Mavis 维护 · 自动生成于 2026-06-02 05:49 CST</footer>
+<script>
+  const articles = document.querySelectorAll('article.doc');
+  const links = document.querySelectorAll('nav a');
+  function show(id) {
+    articles.forEach(a => a.style.display = (a.id === id) ? 'block' : 'none');
+    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    document.querySelector('main').scrollTop = 0;
+  }
+  function handleHash() {
+    const id = (location.hash || '#welcome').slice(1);
+    show(Array.from(articles).some(a => a.id === id) ? id : 'welcome');
+  }
+  links.forEach(l => l.addEventListener('click', e => {
+    const href = l.getAttribute('href');
+    if (href && href.startsWith('#')) { e.preventDefault(); history.pushState(null, '', href); handleHash(); }
+  }));
+  window.addEventListener('popstate', handleHash);
+  handleHash();
+</script>
+</body>
+</html>
