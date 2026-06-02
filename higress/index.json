@@ -1,0 +1,99 @@
+{
+  "$schema": "Mavis project schema v1.0",
+  "project": {
+    "id": "higress",
+    "name": "Higress",
+    "tagline": "Next-generation Cloud Native Gateway - 阿里开源的三合一网关",
+    "category": "Cloud Native API Gateway",
+    "vendor": "Alibaba (阿里云)",
+    "co_developers": [
+      "阿里云原生团队",
+      "Tengine/Istio 团队"
+    ],
+    "license": "Apache-2.0",
+    "official_site": "https://higress.io",
+    "github_repo": "https://github.com/higress-group/higress",
+    "tracked_since": "2026-06-02"
+  },
+  "tracking": {
+    "weekly_report": {
+      "cadence": "every Monday 08:00 (Asia/Shanghai)",
+      "cron_expr": "0 8 * * 1",
+      "deliver_to": "feishu-webhook",
+      "enabled": true,
+      "feishu_configured": true,
+      "cron_task_id": "404738977693772"
+    },
+    "monthly_report": {
+      "cadence": "last day of each month 08:00 (Asia/Shanghai)",
+      "cron_expr": "0 8 28-31 * *",
+      "focus": "Cloud Native API Gateway 项目动态",
+      "deliver_to": "feishu-webhook",
+      "enabled": true,
+      "feishu_configured": true,
+      "cron_task_id": "404740690903360"
+    },
+    "feishu": {
+      "webhook_url": "https://open.feishu.cn/open-apis/bot/v2/hook/aa69fc60-7444-4815-8d96-a47a73771491",
+      "secret": "isedQudmIN5YqGyeasvoud",
+      "signed": true
+    }
+  },
+  "competitors": {
+    "tier1_ids": [],
+    "tier2_ids": [
+      "envoy",
+      "traefik",
+      "kong"
+    ]
+  },
+  "monitoring_priorities": {
+    "high": [
+      "云原生采用率",
+      "AI 网关场景渗透",
+      "插件生态"
+    ],
+    "medium": [
+      "性能 vs Envoy/Traefik",
+      "Wasm 生态"
+    ],
+    "low": [
+      "Issues 关闭率"
+    ]
+  },
+  "key_features": [
+    "基于 Istio + Envoy",
+    "Ingress / Gateway API 标准",
+    "毫秒级配置热更新 (无 reload)",
+    "Wasm/Lua/进程外插件",
+    "Nginx Ingress 注解平滑迁移",
+    "HTTP 转 Dubbo 协议",
+    "深度集成 Nacos + Sentinel",
+    "Dify 插件 (AI 网关能力)",
+    "多 K8s 集群支持"
+  ],
+  "framework_v1_compliance": {
+    "version": "1.0",
+    "created_at": "2026-06-02T02:17:22+08:00",
+    "bulk_init": true
+  },
+  "last_data_refresh": "2026-06-02T02:17:22+08:00",
+  "last_github_data": {
+    "stargazers_count": 8538,
+    "forks_count": 1139,
+    "open_issues_count": 778,
+    "watchers_count": 8538,
+    "language": "Go",
+    "size": 41796,
+    "pushed_at": "2026-06-02T04:11:00Z",
+    "updated_at": "2026-06-02T05:42:05Z",
+    "license": "Apache-2.0"
+  },
+  "last_snapshot_at": "2026-06-02",
+  "last_weekly_report": "2026-W23",
+  "deployment": {
+    "kb_website": "https://zhengxinzhengju.github.io/mavis-kb/",
+    "kb_website_alt": "https://9islasxosjex.space.minimaxi.com",
+    "project_page": "https://zhengxinzhengju.github.io/mavis-kb/project-higress.html"
+  }
+}
