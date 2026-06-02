@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  (function() {
+    const STORAGE_KEY = "mavis_kb_unlocked_" + new Date().toISOString().slice(0,10).replace(/-/g, '');
+    if (sessionStorage.getItem(STORAGE_KEY) !== 'yes') {
+      window.location.href = 'gate.html';
+    }
+  })();
+</script>
 <title>Mavis 知识库 Dashboard</title>
 <style>
   :root { --bg: #0f1419; --panel: #1a1f29; --panel-2: #232a36; --border: #2d3543; --text: #e6e9ef; --text-dim: #8b95a7; --accent: #4f9eff; --accent-2: #6ee7b7; --warning: #f59e0b; --code-bg: #0a0d12; }
